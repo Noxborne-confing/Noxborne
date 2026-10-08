@@ -9,14 +9,14 @@
 :root{
   --bg:#07070d;--card:#11111c;--card2:#191926;--border:#242436;
   --accent:#8b5cf6;--accent2:#06b6d4;--text:#e5e7eb;--muted:#6b7280;
-  --success:#10b981;--danger:#ef4444;--warn:#f59e0b;
+  --success:#10b981;--danger:#ef4444;--warn:#f59e0b;--info:#3b82f6;
 }
 *{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif}
 body{background:var(--bg);color:var(--text);min-height:100vh;direction:rtl;
   background-image:radial-gradient(circle at 20% 20%,rgba(139,92,246,.13),transparent 45%),
   radial-gradient(circle at 80% 80%,rgba(6,182,212,.09),transparent 45%);
   background-attachment:fixed;padding:14px;font-size:14px;line-height:1.5}
-.container{max-width:1100px;margin:0 auto}
+.container{max-width:1200px;margin:0 auto}
 #login{display:flex;align-items:center;justify-content:center;min-height:95vh}
 .lbox{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:42px 30px;
   width:100%;max-width:400px;text-align:center;box-shadow:0 25px 70px rgba(139,92,246,.2)}
@@ -47,8 +47,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;direction:rtl;
   border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--muted);transition:.2s;white-space:nowrap}
 .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
 .tab:hover:not(.active){border-color:var(--accent);color:var(--text)}
-.panel{display:none;animation:fi .3s}
-.panel.active{display:block}
+.panel{display:none;animation:fi .3s}.panel.active{display:block}
 @keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px}
 .card h3{font-size:13px;margin-bottom:11px;display:flex;align-items:center;gap:7px;font-weight:800}
@@ -66,12 +65,14 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
 .btn-success{background:var(--success);color:#fff}
 .btn-danger{background:var(--danger);color:#fff}
 .btn-warn{background:var(--warn);color:#fff}
+.btn-info{background:var(--info);color:#fff}
 .btn-ghost{background:var(--card2);color:var(--text);border:1px solid var(--border)}
 .btn-sm{padding:6px 10px;font-size:11px}
 .btn-xs{padding:4px 8px;font-size:10px}
 .btn-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
-@media(max-width:600px){.form-row{grid-template-columns:1fr}}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:9px}
+@media(max-width:600px){.form-row,.form-row-3{grid-template-columns:1fr}}
 .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:9px;margin-bottom:12px}
 .stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;transition:.2s}
 .stat:hover{transform:translateY(-2px);border-color:var(--accent)}
@@ -85,9 +86,11 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
 .citem{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:11px;margin-bottom:7px;transition:.2s}
 .citem:hover{border-color:var(--accent)}
 .citem .top{display:flex;align-items:center;gap:7px;margin-bottom:9px;flex-wrap:wrap}
+.citem .chk{width:18px;height:18px;cursor:pointer;accent-color:var(--accent)}
 .citem .flag{font-size:19px}
 .citem .type{font-size:10px;padding:2px 7px;background:rgba(139,92,246,.2);color:var(--accent2);border-radius:5px;
   font-weight:800;text-transform:uppercase}
+.citem .grp{font-size:10px;padding:2px 7px;background:rgba(16,185,129,.2);color:var(--success);border-radius:5px;font-weight:700}
 .citem .server{font-size:10.5px;color:var(--muted);font-family:monospace;flex:1;overflow:hidden;
   text-overflow:ellipsis;white-space:nowrap;direction:ltr}
 .citem .row{display:flex;gap:6px;flex-wrap:wrap}
@@ -109,18 +112,30 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
   align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}
 .modal.show{display:flex}
 .mbox{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;
-  width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+  width:100%;max-width:520px;max-height:90vh;overflow-y:auto}
 .sub-box{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(6,182,212,.1));
   border:1px solid var(--accent);border-radius:14px;padding:14px;margin-top:11px}
 .sub-url{background:var(--bg);padding:11px;border-radius:9px;font-family:monospace;font-size:11.5px;
   direction:ltr;word-break:break-all;color:var(--accent2);border:1px dashed var(--border);margin-top:8px;line-height:1.6}
 .searchbar{display:flex;gap:7px;margin-bottom:11px;flex-wrap:wrap}
 .searchbar input,.searchbar select{flex:1;min-width:110px}
+.group-card{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(6,182,212,.05));
+  border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:9px;transition:.2s}
+.group-card:hover{border-color:var(--accent)}
+.group-card .ghead{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.group-card .gname{font-weight:800;font-size:14px;display:flex;align-items:center;gap:6px}
+.group-card .gcount{font-size:11px;color:var(--muted)}
+.group-card .gacts{display:flex;gap:5px;flex-wrap:wrap}
+.sub-item{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:12px;margin-bottom:9px}
+.sub-item .shead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+.sub-item .sname{font-weight:800;font-size:13px}
+.badge-grp{font-size:10px;padding:2px 7px;background:rgba(139,92,246,.2);color:var(--accent2);border-radius:5px;font-weight:700}
+.chk-all-wrap{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
 
-<!-- ============= LOGIN ============= -->
+<!-- ============ LOGIN ============ -->
 <div id="login">
   <div class="lbox">
     <div class="logo">🚀</div>
@@ -132,12 +147,11 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
   </div>
 </div>
 
-<!-- ============= APP ============= -->
+<!-- ============ APP ============ -->
 <div id="app" class="container">
   <div class="header">
-    <div class="title"><span>🚀</span> <span>Noxborne Panel</span></div>
+    <div class="title"><span>🚀</span><span>Noxborne Panel</span></div>
     <div style="display:flex;gap:6px">
-      <button class="icobtn" onclick="showModal('shortcutsModal')" title="میانبر">⌨️</button>
       <button class="icobtn" onclick="doLogout()" title="خروج">🚪</button>
     </div>
   </div>
@@ -146,7 +160,9 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
     <div class="tab active" data-tab="t-home">🏠 خانه</div>
     <div class="tab" data-tab="t-add">➕ افزودن</div>
     <div class="tab" data-tab="t-list">📋 کانفینگ‌ها</div>
-    <div class="tab" data-tab="t-sub">🔗 لینک ساب</div>
+    <div class="tab" data-tab="t-groups">📁 گروه‌ها</div>
+    <div class="tab" data-tab="t-subs">🔗 لینک‌های ساب</div>
+    <div class="tab" data-tab="t-cf">☁️ کلادفلر</div>
     <div class="tab" data-tab="t-settings">⚙️ تنظیمات</div>
   </div>
 
@@ -155,19 +171,12 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
     <div class="stats">
       <div class="stat"><div class="num" id="sTotal">0</div><div class="lbl">کل کانفینگ</div></div>
       <div class="stat"><div class="num" id="sCountry">0</div><div class="lbl">کشور</div></div>
-      <div class="stat"><div class="num" id="sSub">0</div><div class="lbl">لینک ساب</div></div>
-      <div class="stat"><div class="num" id="sGist">-</div><div class="lbl">وضعیت Gist</div></div>
+      <div class="stat"><div class="num" id="sGroups">0</div><div class="lbl">گروه‌ها</div></div>
+      <div class="stat"><div class="num" id="sSubs">0</div><div class="lbl">لینک‌های ساب</div></div>
     </div>
     <div class="card">
-      <h3>📊 پرتکرارترین کشورها</h3>
-      <div id="topCountries" class="hint">هنوز کانفینگی نداری</div>
-    </div>
-    <div class="card">
-      <h3>🚀 شروع سریع</h3>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="document.querySelector('[data-tab=\'t-add\']').click()">➕ افزودن کانفینگ</button>
-        <button class="btn btn-success" onclick="document.querySelector('[data-tab=\'t-sub\']').click()">🔗 ساخت لینک ساب</button>
-      </div>
+      <h3>📁 گروه‌های من</h3>
+      <div id="homeGroups"><div class="hint">هنوز گروهی نساختی</div></div>
     </div>
   </div>
 
@@ -175,26 +184,56 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
   <div id="t-add" class="panel">
     <div class="card">
       <h3>📥 دریافت از کانال تلگرام</h3>
-      <label>نام کانال (هر خط یکی)</label>
+      <label>نام کانال‌ها (هر خط یکی)</label>
       <textarea id="tgChannels" style="min-height:70px" placeholder="Noxborne&#10;channel2">Noxborne</textarea>
+      <div class="form-row">
+        <div>
+          <label>🔢 تعداد پیام آخر</label>
+          <select id="msgCount">
+            <option value="30">۳۰ پیام</option>
+            <option value="50">۵۰ پیام</option>
+            <option value="70" selected>۷۰ پیام (پیشنهادی)</option>
+            <option value="100">۱۰۰ پیام</option>
+            <option value="200">۲۰۰ پیام</option>
+          </select>
+        </div>
+        <div>
+          <label>📁 اضافه به گروه</label>
+          <select id="tgGroup"><option value="">بدون گروه</option></select>
+        </div>
+      </div>
       <div class="btn-row">
         <button class="btn btn-primary" onclick="fetchTelegram()">🚀 دریافت</button>
+        <button class="btn btn-ghost" onclick="createGroupFromTg()">📁 گروه جدید برای این دریافت</button>
       </div>
-      <div class="loader" id="tgLoad"><span class="spinner"></span> در حال دریافت...</div>
+      <div class="loader" id="tgLoad"><span class="spinner"></span> در حال دریافت... <span id="tgProgress"></span></div>
     </div>
+
     <div class="card">
       <h3>🔗 دریافت از URL ساب</h3>
       <label>لینک ساب یا فایل</label>
       <input type="text" id="fetchUrl" placeholder="https://example.com/sub.txt">
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="fetchUrl()">📥 دریافت از URL</button>
+        <button class="btn btn-primary" onclick="fetchUrl()">📥 دریافت</button>
         <button class="btn btn-ghost" onclick="document.getElementById('fileIn').click()">📁 Import فایل</button>
         <input type="file" id="fileIn" accept=".txt,.json" style="display:none" onchange="importFile(event)">
       </div>
     </div>
+
     <div class="card">
       <h3>✍️ افزودن دستی</h3>
+      <label>کانفینگ‌ها (هر خط یکی)</label>
       <textarea id="manual" placeholder="vless://...&#10;vmess://...&#10;trojan://..."></textarea>
+      <div class="form-row">
+        <div>
+          <label>📁 گروه</label>
+          <select id="manualGroup"><option value="">بدون گروه</option></select>
+        </div>
+        <div>
+          <label>⏰ انقضا (اختیاری)</label>
+          <input type="date" id="manualExpire">
+        </div>
+      </div>
       <div class="btn-row">
         <button class="btn btn-primary" onclick="addManual()">➕ افزودن</button>
         <button class="btn btn-ghost" onclick="document.getElementById('manual').value=''">🧹 پاک</button>
@@ -207,7 +246,7 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
     <div class="card">
       <div class="searchbar">
         <input type="text" id="searchIn" placeholder="🔍 جستجو..." oninput="renderList()">
-        <select id="fCountry" onchange="renderList()"><option value="">همه کشورها</option></select>
+        <select id="fGroup" onchange="renderList()"><option value="">همه گروه‌ها</option></select>
         <select id="fType" onchange="renderList()">
           <option value="">همه انواع</option>
           <option value="vless">VLESS</option>
@@ -216,83 +255,110 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
           <option value="ss">SS</option>
         </select>
       </div>
+
+      <div class="chk-all-wrap">
+        <input type="checkbox" class="chk" id="selectAll" onchange="toggleSelectAll(this.checked)">
+        <label for="selectAll" style="margin:0;cursor:pointer">انتخاب همه</label>
+        <span id="selectedCount" style="color:var(--accent2);font-weight:700"></span>
+      </div>
+
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="autoRename()">🌍 تغییر نام خودکار</button>
+        <button class="btn btn-primary" onclick="bulkRenameSelected()">✏️ تغییر نام گروهی</button>
+        <button class="btn btn-success" onclick="assignSelectedToGroup()">📁 انتقال به گروه</button>
+        <button class="btn btn-info" onclick="autoRename()">🌍 تغییر نام خودکار</button>
         <button class="btn btn-warn" onclick="dedupe()">♻️ حذف تکراری</button>
-        <button class="btn btn-danger" onclick="clearAll()">🗑 پاک همه</button>
+        <button class="btn btn-danger" onclick="deleteSelected()">🗑 حذف انتخاب شده</button>
+        <button class="btn btn-ghost" onclick="clearAll()">🧨 پاک همه</button>
       </div>
     </div>
     <div id="list"></div>
   </div>
 
-  <!-- SUB -->
-  <div id="t-sub" class="panel">
+  <!-- GROUPS -->
+  <div id="t-groups" class="panel">
     <div class="card">
-      <h3>🔗 ساخت لینک ساب (GitHub Gist)</h3>
-      <p class="hint">
-        این روش لینک ساب <b>واقعی و قابل استفاده در همه کلاینت‌ها</b> می‌سازه.<br>
-        توکن GitHub رو یه بار وارد کن، از این به بعد لینک ثابت می‌مونه.
-      </p>
-      <div class="form-row" style="margin-top:12px">
+      <h3>➕ ساخت گروه جدید</h3>
+      <div class="form-row">
+        <div><label>نام گروه</label><input type="text" id="newGroupName" placeholder="مثلاً: پرسرعت"></div>
+        <div><label>ایموجی</label><input type="text" id="newGroupIcon" placeholder="🚀" maxlength="4" value="📁"></div>
+      </div>
+      <button class="btn btn-success" onclick="createGroup()">➕ ساخت</button>
+    </div>
+
+    <div class="card">
+      <h3>📁 گروه‌های موجود</h3>
+      <div id="groupsList"><div class="empty"><div class="ic">📁</div>هنوز گروهی نساختی</div></div>
+    </div>
+  </div>
+
+  <!-- SUB LINKS -->
+  <div id="t-subs" class="panel">
+    <div class="card">
+      <h3>➕ ساخت لینک ساب جدید</h3>
+      <div class="form-row">
         <div>
-          <label>GitHub Token (scope: gist)</label>
-          <input type="password" id="gistToken" placeholder="ghp_...">
+          <label>نام لینک</label>
+          <input type="text" id="subName" placeholder="مثلاً: پرسرعت">
         </div>
         <div>
-          <label>فایل خروجی</label>
-          <input type="text" id="fileName" value="sub.txt">
+          <label>📁 انتخاب گروه</label>
+          <select id="subGroup"><option value="">بدون گروه (همه)</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div>
+          <label>⏰ انقضا لینک (اختیاری)</label>
+          <input type="date" id="subExpire">
+        </div>
+        <div>
+          <label>🔑 توکن اختصاصی (اختیاری)</label>
+          <input type="text" id="subTokenCustom" placeholder="خودکار">
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-success" onclick="publishSub()">📤 ساخت/به‌روزرسانی لینک ساب</button>
+        <button class="btn btn-success" onclick="createSubLink()">🚀 ساخت لینک ساب</button>
+        <button class="btn btn-ghost" onclick="downloadLocal()">⬇️ دانلود محلی</button>
       </div>
-      <div class="loader" id="pubLoad"><span class="spinner"></span> در حال انتشار...</div>
       <div class="hint">
-        💡 توکن رو از <code>github.com/settings/tokens</code> بساز و فقط دسترسی <code>gist</code> بده.
+        💡 برای اینکه لینک روی **دامنه‌ی خودت** کار کنه، اول از تب **☁️ کلادفلر** اطلاعات رو وارد کن.
       </div>
     </div>
 
-    <div id="subResult" style="display:none">
-      <div class="card">
-        <h3>✅ لینک ساب شما آماده‌ست</h3>
-        <div class="sub-box">
-          <div style="font-size:11.5px;color:var(--muted);margin-bottom:5px">🔗 لینک ساب نهایی:</div>
-          <div class="sub-url" id="subUrl">-</div>
-          <div class="btn-row">
-            <button class="btn btn-success btn-sm" onclick="copySub()">📋 کپی</button>
-            <button class="btn btn-primary btn-sm" onclick="showSubQR()">📱 QR کد</button>
-            <button class="btn btn-ghost btn-sm" onclick="window.open(document.getElementById('subUrl').textContent)">🌐 باز کردن</button>
-          </div>
-        </div>
-        <div class="hint" style="margin-top:12px">
-          ⚠️ <b>مهم:</b> هر بار کانفینگ اضافه/کم کنی، دوباره روی «ساخت/به‌روزرسانی» بزن تا لینک آپدیت بشه (لینک ثابت می‌مونه).
-        </div>
-      </div>
+    <div class="card">
+      <h3>🔗 لینک‌های من</h3>
+      <div id="subsList"><div class="empty"><div class="ic">🔗</div>هنوز لینکی نساختی</div></div>
+    </div>
+  </div>
 
-      <div class="card">
-        <h3>📱 اضافه کردن در کلاینت‌ها</h3>
-        <div class="hint" style="line-height:2">
-          <b>v2rayNG:</b> منو → Subscription → + → لینک رو پیست کن<br>
-          <b>Shadowrocket:</b> + → Subscribe → لینک<br>
-          <b>Streisand:</b> Subscriptions → + → لینک<br>
-          <b>NapsternetV:</b> Subscription → +
-        </div>
+  <!-- CLOUDFLARE -->
+  <div id="t-cf" class="panel">
+    <div class="card">
+      <h3>☁️ اتصال به Cloudflare Worker</h3>
+      <p class="hint">
+        با تنظیم این بخش، لینک ساب روی **دامنه‌ی خودت** کار می‌کنه و همه کلاینت‌ها می‌تونن استفاده کنن.
+      </p>
+      <label style="margin-top:12px">🌐 آدرس Worker</label>
+      <input type="text" id="cfWorkerUrl" placeholder="https://noxborne.workers.dev">
+      <label style="margin-top:9px">🔑 ADMIN_KEY</label>
+      <input type="password" id="cfAdminKey" placeholder="کلید ادمین Worker">
+      <div class="btn-row">
+        <button class="btn btn-success" onclick="testCf()">🧪 تست اتصال</button>
+        <button class="btn btn-primary" onclick="saveCf()">💾 ذخیره</button>
+        <button class="btn btn-info" onclick="showWorkerCode()">📄 نمایش کد Worker</button>
       </div>
+      <div class="loader" id="cfLoad"><span class="spinner"></span> در حال تست...</div>
     </div>
   </div>
 
   <!-- SETTINGS -->
   <div id="t-settings" class="panel">
     <div class="card">
-      <h3>🔐 تغییر رمز عبور پنل</h3>
+      <h3>🔐 تغییر رمز عبور</h3>
       <div class="form-row">
         <div><label>رمز فعلی</label><input type="password" id="oldPass"></div>
         <div><label>رمز جدید</label><input type="password" id="newPass"></div>
       </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="changePass()">🔑 تغییر رمز</button>
-      </div>
-      <div class="hint">💡 رمز فقط توی مرورگر خودت ذخیره میشه و هیچ‌جا ارسال نمیشه.</div>
+      <button class="btn btn-primary" onclick="changePass()">🔑 تغییر</button>
     </div>
     <div class="card">
       <h3>💾 پشتیبان‌گیری</h3>
@@ -323,16 +389,40 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
   </div>
 </div>
 
-<div class="modal" id="shortcutsModal">
+<div class="modal" id="bulkModal">
   <div class="mbox">
-    <h3 style="margin-bottom:12px">⌨️ میانبرهای کیبورد</h3>
-    <div class="hint" style="line-height:2.2">
-      <b>Ctrl + S</b> → ذخیره<br>
-      <b>Ctrl + F</b> → جستجو<br>
-      <b>Esc</b> → بستن
+    <h3 style="margin-bottom:12px">✏️ تغییر نام گروهی</h3>
+    <label>الگوی نام‌گذاری</label>
+    <select id="bulkPattern" style="margin-bottom:10px" onchange="updateBulkPreview()">
+      <option value="flag-country-num">{پرچم} {کشور} {شماره}</option>
+      <option value="flag-country">{پرچم} {کشور}</option>
+      <option value="country-num">{کشور} {شماره}</option>
+      <option value="flag-num">{پرچم} {شماره}</option>
+      <option value="custom">دلخواه...</option>
+    </select>
+    <div id="customPatternWrap" style="display:none">
+      <label>الگوی دلخواه (از {پرچم} {کشور} {شماره} {نوع} استفاده کن)</label>
+      <input type="text" id="customPattern" value="{پرچم} {کشور} {شماره}">
     </div>
-    <div class="btn-row" style="justify-content:center;margin-top:12px">
-      <button class="btn btn-ghost" onclick="closeModal('shortcutsModal')">بستن</button>
+    <label style="margin-top:10px">پیش‌نمایش</label>
+    <div class="hint" id="bulkPreview" style="background:var(--card2);padding:10px;border-radius:10px"></div>
+    <div class="btn-row" style="justify-content:flex-end;margin-top:12px">
+      <button class="btn btn-ghost" onclick="closeModal('bulkModal')">انصراف</button>
+      <button class="btn btn-primary" onclick="applyBulkRename()">✅ اعمال</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="workerModal">
+  <div class="mbox" style="max-width:700px">
+    <h3 style="margin-bottom:12px">📄 کد Cloudflare Worker</h3>
+    <p class="hint" style="margin-bottom:10px">
+      این کد رو توی <b>dash.cloudflare.com → Workers</b> پیست کن و Deploy بزن.
+    </p>
+    <textarea id="workerCode" style="min-height:400px;font-size:11px" readonly></textarea>
+    <div class="btn-row" style="justify-content:flex-end;margin-top:12px">
+      <button class="btn btn-success" onclick="copyWorkerCode()">📋 کپی کد</button>
+      <button class="btn btn-ghost" onclick="closeModal('workerModal')">بستن</button>
     </div>
   </div>
 </div>
@@ -340,9 +430,9 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
 <div class="toast" id="toast"></div>
 
 <script>
-/* ========== CONSTANTS ========== */
+/* ============ CONSTANTS ============ */
 const DEFAULT_PASS = 'mahan183836';
-const KEY = 'noxborne_v2';
+const KEY = 'noxborne_v3';
 const COUNTRIES = {
   IR:{fa:'ایران',en:'Iran',flag:'🇮🇷'},US:{fa:'آمریکا',en:'United States',flag:'🇺🇸'},
   DE:{fa:'آلمان',en:'Germany',flag:'🇩🇪'},NL:{fa:'هلند',en:'Netherlands',flag:'🇳🇱'},
@@ -370,36 +460,32 @@ const COUNTRIES = {
   TH:{fa:'تایلند',en:'Thailand',flag:'🇹🇭'},VN:{fa:'ویتنام',en:'Vietnam',flag:'🇻🇳'},
   ID:{fa:'اندونزی',en:'Indonesia',flag:'🇮🇩'},PH:{fa:'فیلیپین',en:'Philippines',flag:'🇵🇭'},
   KZ:{fa:'قزاقستان',en:'Kazakhstan',flag:'🇰🇿'},AM:{fa:'ارمنستان',en:'Armenia',flag:'🇦🇲'},
-  GE:{fa:'گرجستان',en:'Georgia',flag:'🇬🇪'},AZ:{fa:'آذربایجان',en:'Azerbaijan',flag:'🇦🇿'},
-  QA2:{fa:'قطر',en:'Qatar',flag:'🇶🇦'}
+  GE:{fa:'گرجستان',en:'Georgia',flag:'🇬🇪'},AZ:{fa:'آذربایجان',en:'Azerbaijan',flag:'🇦🇿'}
 };
 
-/* ========== STATE ========== */
+/* ============ STATE ============ */
 let state = {
-  configs:[],
-  pass:null,
-  gistToken:'',
-  gistId:null,
-  gistUrl:'',
-  fileName:'sub.txt'
+  configs: [],           // {raw, name, country, type, server, groupId, expireAt}
+  groups: [],            // {id, name, icon, createdAt}
+  subs: [],              // {id, name, groupId, token, url, expireAt, createdAt, hits}
+  cf: {workerUrl:'', adminKey:''},
+  pass: null,
+  selected: new Set()
 };
-let toastT;
+let toastT, bulkSelectedIds = [];
 
-/* ========== INIT ========== */
+/* ============ INIT ============ */
 (function init(){
   try{
     const s = localStorage.getItem(KEY);
-    if(s){ const p = JSON.parse(s); state = {...state, ...p}; }
+    if(s){ const p = JSON.parse(s); state = {...state, ...p}; state.selected = new Set(); }
   }catch(e){}
   if(!state.pass){ state.pass = DEFAULT_PASS; save(); }
-  if(sessionStorage.getItem('nox_logged') === '1'){
-    showApp();
-  }
+  if(sessionStorage.getItem('nox_logged') === '1') showApp();
 })();
-
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 
-/* ========== LOGIN ========== */
+/* ============ LOGIN ============ */
 function doLogin(){
   const v = document.getElementById('passInput').value;
   if(v === state.pass){
@@ -411,22 +497,19 @@ function doLogin(){
     document.getElementById('passInput').value='';
   }
 }
-document.getElementById('passInput').addEventListener('keypress', e => { if(e.key === 'Enter') doLogin(); });
+document.getElementById('passInput').addEventListener('keypress', e => { if(e.key==='Enter') doLogin(); });
+function doLogout(){ sessionStorage.removeItem('nox_logged'); location.reload(); }
 
-function doLogout(){
-  sessionStorage.removeItem('nox_logged');
-  location.reload();
-}
 function showApp(){
   document.getElementById('login').style.display='none';
   document.getElementById('app').style.display='block';
-  if(state.gistToken) document.getElementById('gistToken').value = state.gistToken;
-  document.getElementById('fileName').value = state.fileName;
-  if(state.gistUrl){ document.getElementById('subUrl').textContent = state.gistUrl; document.getElementById('subResult').style.display='block'; }
+  // Load CF settings
+  if(state.cf.workerUrl) document.getElementById('cfWorkerUrl').value = state.cf.workerUrl;
+  if(state.cf.adminKey) document.getElementById('cfAdminKey').value = state.cf.adminKey;
   renderAll();
 }
 
-/* ========== TABS ========== */
+/* ============ TABS ============ */
 document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', ()=>{
   document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
@@ -434,9 +517,11 @@ document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', ()=>{
   document.getElementById(t.dataset.tab).classList.add('active');
   if(t.dataset.tab === 't-home') renderHome();
   if(t.dataset.tab === 't-list') renderList();
+  if(t.dataset.tab === 't-groups') renderGroups();
+  if(t.dataset.tab === 't-subs') renderSubs();
 }));
 
-/* ========== TOAST ========== */
+/* ============ TOAST / MODAL ============ */
 function toast(m, ty='ok'){
   const t = document.getElementById('toast');
   t.textContent = m;
@@ -448,11 +533,9 @@ function showModal(id){ document.getElementById(id).classList.add('show'); }
 function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape') document.querySelectorAll('.modal').forEach(m => m.classList.remove('show'));
-  if(e.ctrlKey && e.key === 's'){ e.preventDefault(); save(); toast('💾 ذخیره شد'); }
-  if(e.ctrlKey && e.key === 'f'){ e.preventDefault(); document.getElementById('searchIn')?.focus(); }
 });
 
-/* ========== PARSE ========== */
+/* ============ PARSE ============ */
 function parseConfig(c){
   c = c.trim();
   const type = c.split('://')[0].toLowerCase();
@@ -491,7 +574,7 @@ function setConfigName(c, n){
   return base + '#' + encodeURIComponent(n);
 }
 
-/* ========== COUNTRY ========== */
+/* ============ COUNTRY ============ */
 function detectCountry(name){
   if(!name) return null;
   for(const [k,v] of Object.entries(COUNTRIES)) if(name.includes(v.flag)) return k;
@@ -508,8 +591,8 @@ function detectCountry(name){
   return null;
 }
 
-/* ========== ADD CONFIGS ========== */
-function parseAndAdd(content){
+/* ============ ADD CONFIGS ============ */
+function parseAndAdd(content, groupId='', expireAt=null){
   const re = /(?:vless|vmess|trojan|ss|ssr|hysteria2?|hy2|tuic|wireguard|warp):\/\/[^\s<>"'&`]+/gi;
   const matches = content.match(re) || [];
   const existing = new Set(state.configs.map(c => c.raw));
@@ -520,22 +603,98 @@ function parseAndAdd(content){
     const p = parseConfig(raw);
     if(!p.type) continue;
     const cc = detectCountry(p.name);
-    state.configs.push({raw, name:p.name||'Config', country:cc||'', type:p.type, server:p.server, tags:[]});
+    state.configs.push({
+      raw, name:p.name||'Config', country:cc||'', type:p.type,
+      server:p.server, groupId, expireAt
+    });
     existing.add(raw); added++;
   }
   if(added > 0){ save(); renderAll(); }
   return added;
 }
 
-function addManual(){
-  const txt = document.getElementById('manual').value;
-  const n = parseAndAdd(txt);
-  if(n === 0){ toast('❌ کانفینگی پیدا نشد','err'); return; }
-  document.getElementById('manual').value = '';
-  toast(`✅ ${n} کانفینگ اضافه شد`);
-  document.querySelector('[data-tab="t-list"]').click();
+/* ============ TELEGRAM (LAST N MESSAGES) ============ */
+async function fetchTelegram(){
+  const raw = document.getElementById('tgChannels').value.trim();
+  const limit = parseInt(document.getElementById('msgCount').value) || 70;
+  const groupId = document.getElementById('tgGroup').value;
+  if(!raw){ toast('نام کانال رو وارد کن','err'); return; }
+
+  const channels = raw.split('\n').map(c => c.trim()).filter(Boolean)
+    .map(c => c.replace('@','').replace('https://t.me/','').replace('t.me/','').replace('/',''));
+
+  document.getElementById('tgLoad').classList.add('show');
+  let total = 0;
+
+  for(const ch of channels){
+    document.getElementById('tgProgress').textContent = `(${ch})`;
+    const html = await fetchChannelMessages(ch, limit);
+    if(html){
+      const n = parseAndAdd(html, groupId, null);
+      total += n;
+    }
+  }
+
+  document.getElementById('tgLoad').classList.remove('show');
+  document.getElementById('tgProgress').textContent = '';
+  if(total > 0){
+    toast(`✅ ${total} کانفینگ اضافه شد`);
+    document.querySelector('[data-tab="t-list"]').click();
+  } else {
+    toast('⚠️ کانفینگی پیدا نشد','warn');
+  }
 }
 
+async function fetchChannelMessages(ch, limit){
+  // Telegram web preview shows latest ~20 messages by default.
+  // For more, we use ?before= pagination trick via multiple requests.
+  // Simpler approach: use the ?before= parameter with decreasing IDs.
+  const proxies = [
+    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`
+  ];
+
+  let allHtml = '';
+  let beforeId = null;
+  const perPage = 20;
+  const maxPages = Math.ceil(limit / perPage);
+
+  for(let page = 0; page < maxPages; page++){
+    const url = beforeId
+      ? `https://t.me/s/${ch}?before=${beforeId}`
+      : `https://t.me/s/${ch}`;
+
+    let html = '';
+    for(const p of proxies){
+      try{
+        const r = await fetch(p(url));
+        if(r.ok){
+          const t = await r.text();
+          if(t.includes('tgme_widget_message')){ html = t; break; }
+        }
+      }catch(e){}
+    }
+
+    if(!html) break;
+    allHtml += html;
+
+    // Find the smallest message ID in this page for next pagination
+    const idMatches = [...html.matchAll(/data-post="[^/]+\/(\d+)"/g)];
+    if(idMatches.length === 0) break;
+    const ids = idMatches.map(m => parseInt(m[1]));
+    const minId = Math.min(...ids);
+    if(minId === beforeId) break;
+    beforeId = minId;
+
+    // Small delay to avoid rate limits
+    if(page < maxPages - 1) await new Promise(r => setTimeout(r, 300));
+  }
+
+  return allHtml;
+}
+
+/* ============ FETCH URL ============ */
 function fetchUrl(){
   const u = document.getElementById('fetchUrl').value.trim();
   if(!u){ toast('لینک رو وارد کن','err'); return; }
@@ -565,94 +724,177 @@ function importFile(e){
   e.target.value = '';
 }
 
-async function fetchTelegram(){
-  const raw = document.getElementById('tgChannels').value.trim();
-  if(!raw){ toast('نام کانال رو وارد کن','err'); return; }
-  const channels = raw.split('\n').map(c => c.trim()).filter(Boolean)
-    .map(c => c.replace('@','').replace('https://t.me/','').replace('t.me/','').replace('/',''));
-  document.getElementById('tgLoad').classList.add('show');
-  let total = 0;
-  for(const ch of channels){
-    const html = await fetchChannel(ch);
-    if(html){
-      const n = parseAndAdd(html);
-      total += n;
+/* ============ MANUAL ADD ============ */
+function addManual(){
+  const txt = document.getElementById('manual').value;
+  const groupId = document.getElementById('manualGroup').value;
+  const exp = document.getElementById('manualExpire').value;
+  const expireAt = exp ? new Date(exp).getTime() : null;
+  const n = parseAndAdd(txt, groupId, expireAt);
+  if(n === 0){ toast('❌ کانفینگی پیدا نشد','err'); return; }
+  document.getElementById('manual').value = '';
+  toast(`✅ ${n} کانفینگ اضافه شد`);
+  document.querySelector('[data-tab="t-list"]').click();
+}
+
+function createGroupFromTg(){
+  const name = prompt('اسم گروه جدید:');
+  if(!name) return;
+  createGroup(name, '📥');
+  // Auto-select in dropdown
+  setTimeout(() => {
+    const sel = document.getElementById('tgGroup');
+    if(sel && sel.options.length > 0){
+      sel.value = state.groups[state.groups.length-1].id;
     }
-  }
-  document.getElementById('tgLoad').classList.remove('show');
-  if(total > 0){ toast(`✅ ${total} کانفینگ اضافه شد`); document.querySelector('[data-tab="t-list"]').click(); }
-  else toast('⚠️ کانفینگی پیدا نشد','warn');
+  }, 100);
 }
 
-async function fetchChannel(ch){
-  const url = `https://t.me/s/${ch}`;
-  const proxies = [
-    u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
-    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-    u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`
-  ];
-  for(const p of proxies){
-    try{
-      const r = await fetch(p(url));
-      if(r.ok){
-        const t = await r.text();
-        if(t.includes('tgme_widget_message')) return t;
-      }
-    }catch(e){}
-  }
-  return '';
+/* ============ GROUPS ============ */
+function createGroup(name, icon){
+  name = name || document.getElementById('newGroupName')?.value.trim();
+  icon = icon || document.getElementById('newGroupIcon')?.value.trim() || '📁';
+  if(!name){ toast('اسم گروه رو وارد کن','err'); return; }
+  const g = {
+    id: 'g_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
+    name, icon, createdAt: Date.now()
+  };
+  state.groups.push(g);
+  save();
+  renderAll();
+  toast(`📁 گروه «${name}» ساخته شد`);
+  if(document.getElementById('newGroupName')) document.getElementById('newGroupName').value = '';
+  return g;
 }
 
-/* ========== RENDER ========== */
-function renderAll(){ renderHome(); renderList(); renderCountries(); }
+function deleteGroup(id){
+  if(!confirm('گروه و همه‌ی کانفینگ‌هاش پاک بشن؟')) return;
+  state.groups = state.groups.filter(g => g.id !== id);
+  state.configs = state.configs.filter(c => c.groupId !== id);
+  state.subs = state.subs.filter(s => s.groupId !== id);
+  save(); renderAll();
+  toast('🗑 گروه حذف شد');
+}
 
-function renderHome(){
-  document.getElementById('sTotal').textContent = state.configs.length;
-  const cs = new Set(state.configs.map(c => c.country).filter(Boolean));
-  document.getElementById('sCountry').textContent = cs.size;
-  document.getElementById('sSub').textContent = state.gistUrl ? 1 : 0;
-  document.getElementById('sGist').textContent = state.gistId ? '✅' : '-';
-  const counts = {};
-  state.configs.forEach(c => { if(c.country) counts[c.country] = (counts[c.country]||0)+1; });
-  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6);
-  const div = document.getElementById('topCountries');
-  if(sorted.length === 0){ div.innerHTML = 'هنوز کانفینگی نداری'; }
-  else div.innerHTML = sorted.map(([k,v]) => {
-    const i = COUNTRIES[k] || {flag:'🏴',fa:k};
-    const pct = Math.round(v/state.configs.length*100);
-    return `<div style="margin-bottom:8px">
-      <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px">
-        <span>${i.flag} ${i.fa}</span><span style="color:var(--muted)">${v} (${pct}%)</span>
+function renameGroup(id){
+  const g = state.groups.find(x => x.id === id);
+  if(!g) return;
+  const n = prompt('اسم جدید:', g.name);
+  if(!n) return;
+  g.name = n;
+  save(); renderAll();
+  toast('✅ تغییر کرد');
+}
+
+function renderGroups(){
+  const div = document.getElementById('groupsList');
+  if(!div) return;
+  if(state.groups.length === 0){
+    div.innerHTML = '<div class="empty"><div class="ic">📁</div>هنوز گروهی نساختی</div>';
+    return;
+  }
+  div.innerHTML = state.groups.map(g => {
+    const count = state.configs.filter(c => c.groupId === g.id).length;
+    const subCount = state.subs.filter(s => s.groupId === g.id).length;
+    return `<div class="group-card">
+      <div class="ghead">
+        <div class="gname">${g.icon} ${g.name}</div>
+        <div class="gcount">📦 ${count} کانفینگ • 🔗 ${subCount} ساب</div>
       </div>
-      <div style="height:5px;background:var(--card2);border-radius:3px;overflow:hidden">
-        <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+      <div class="gacts">
+        <button class="btn btn-xs btn-primary" onclick="renameGroup('${g.id}')">✏️ تغییر نام</button>
+        <button class="btn btn-xs btn-info" onclick="makeSubFromGroup('${g.id}')">🔗 ساخت ساب</button>
+        <button class="btn btn-xs btn-warn" onclick="bulkRenameGroup('${g.id}')">🌍 نام‌گذاری گروهی</button>
+        <button class="btn btn-xs btn-ghost" onclick="viewGroupConfigs('${g.id}')">📋 مشاهده</button>
+        <button class="btn btn-xs btn-danger" onclick="deleteGroup('${g.id}')">🗑 حذف</button>
       </div>
     </div>`;
   }).join('');
 }
 
-function renderCountries(){
-  const sel = document.getElementById('fCountry');
-  if(!sel) return;
-  const used = [...new Set(state.configs.map(c => c.country).filter(Boolean))];
-  sel.innerHTML = '<option value="">همه کشورها</option>' +
-    used.map(c => `<option value="${c}">${COUNTRIES[c]?.flag||''} ${COUNTRIES[c]?.fa||c}</option>`).join('');
+function makeSubFromGroup(groupId){
+  document.querySelector('[data-tab="t-subs"]').click();
+  setTimeout(() => {
+    document.getElementById('subGroup').value = groupId;
+    const g = state.groups.find(x => x.id === groupId);
+    if(g) document.getElementById('subName').value = g.name;
+  }, 100);
+}
+
+function bulkRenameGroup(groupId){
+  const ids = state.configs.filter(c => c.groupId === groupId).map(c => state.configs.indexOf(c));
+  if(ids.length === 0){ toast('گروه خالیه','warn'); return; }
+  bulkSelectedIds = ids;
+  updateBulkPreview();
+  showModal('bulkModal');
+}
+
+function viewGroupConfigs(groupId){
+  document.querySelector('[data-tab="t-list"]').click();
+  setTimeout(() => {
+    document.getElementById('fGroup').value = groupId;
+    renderList();
+  }, 100);
+}
+
+/* ============ RENDER LIST ============ */
+function renderAll(){
+  renderHome();
+  renderList();
+  renderGroups();
+  renderSubs();
+  renderGroupSelectors();
+}
+
+function renderGroupSelectors(){
+  const selectors = ['tgGroup', 'manualGroup', 'subGroup', 'fGroup'];
+  selectors.forEach(id => {
+    const sel = document.getElementById(id);
+    if(!sel) return;
+    const current = sel.value;
+    let html = id === 'fGroup' ? '<option value="">همه گروه‌ها</option>' :
+               id === 'subGroup' ? '<option value="">همه کانفینگ‌ها</option>' :
+               '<option value="">بدون گروه</option>';
+    state.groups.forEach(g => {
+      html += `<option value="${g.id}">${g.icon} ${g.name}</option>`;
+    });
+    sel.innerHTML = html;
+    if(current) sel.value = current;
+  });
+}
+
+function renderHome(){
+  document.getElementById('sTotal').textContent = state.configs.length;
+  const cs = new Set(state.configs.map(c => c.country).filter(Boolean));
+  document.getElementById('sCountry').textContent = cs.size;
+  document.getElementById('sGroups').textContent = state.groups.length;
+  document.getElementById('sSubs').textContent = state.subs.length;
+  const div = document.getElementById('homeGroups');
+  if(state.groups.length === 0){
+    div.innerHTML = '<div class="hint">هنوز گروهی نساختی. از تب 📁 گروه‌ها بساز.</div>';
+  } else {
+    div.innerHTML = state.groups.slice(0, 5).map(g => {
+      const count = state.configs.filter(c => c.groupId === g.id).length;
+      return `<div class="hint">${g.icon} <b>${g.name}</b> — ${count} کانفینگ</div>`;
+    }).join('');
+  }
 }
 
 function renderList(){
   const div = document.getElementById('list');
   if(!div) return;
   const q = (document.getElementById('searchIn')?.value||'').toLowerCase();
-  const fc = document.getElementById('fCountry')?.value||'';
+  const fg = document.getElementById('fGroup')?.value||'';
   const ft = document.getElementById('fType')?.value||'';
   const items = state.configs.map((c,i)=>({...c,_i:i})).filter(c => {
     if(q && !(c.name.toLowerCase().includes(q) || c.server.toLowerCase().includes(q))) return false;
-    if(fc && c.country !== fc) return false;
+    if(fg && c.groupId !== fg) return false;
     if(ft && c.type !== ft) return false;
     return true;
   });
   if(items.length === 0){
     div.innerHTML = '<div class="empty"><div class="ic">📭</div>کانفینگی نیست</div>';
+    updateSelectedCount();
     return;
   }
   div.innerHTML = items.map(c => {
@@ -660,30 +902,64 @@ function renderList(){
     const flag = c.country && COUNTRIES[c.country] ? COUNTRIES[c.country].flag : '🏴';
     const opts = Object.entries(COUNTRIES).map(([k,v]) =>
       `<option value="${k}" ${c.country===k?'selected':''}>${v.flag} ${v.fa}</option>`).join('');
-    const tags = (c.tags||[]).map(t=>`<span class="type" style="background:rgba(245,158,11,.2);color:var(--warn)">${t}</span>`).join('');
+    const grpOpts = state.groups.map(g =>
+      `<option value="${g.id}" ${c.groupId===g.id?'selected':''}>${g.icon} ${g.name}</option>`).join('');
+    const grp = c.groupId ? state.groups.find(g => g.id === c.groupId) : null;
+    const grpBadge = grp ? `<span class="grp">${grp.icon} ${grp.name}</span>` : '';
+    const isChecked = state.selected.has(i);
     return `<div class="citem">
       <div class="top">
+        <input type="checkbox" class="chk" ${isChecked?'checked':''} onchange="toggleSelect(${i},this.checked)">
         <span class="flag">${flag}</span>
         <span class="type">${c.type}</span>
-        ${tags}
+        ${grpBadge}
         <span class="server">${c.server||'—'}</span>
         <button class="delbtn" onclick="removeConfig(${i})">🗑</button>
       </div>
       <div class="row">
         <select onchange="changeCountry(${i},this.value)"><option value="">— نامشخص —</option>${opts}</select>
+        <select onchange="changeGroup(${i},this.value)"><option value="">بدون گروه</option>${grpOpts}</select>
+      </div>
+      <div class="row" style="margin-top:6px">
         <input type="text" value="${(c.name||'').replace(/"/g,'&quot;')}" onchange="changeName(${i},this.value)" placeholder="نام">
       </div>
       <div class="acts">
-        <button class="btn btn-xs btn-ghost" onclick="editTags(${i})">🏷 Tag</button>
         <button class="btn btn-xs btn-primary" onclick="showConfigQR(${i})">📱 QR</button>
         <button class="btn btn-xs btn-ghost" onclick="copyConfig(${i})">📋 کپی</button>
       </div>
     </div>`;
   }).join('');
+  updateSelectedCount();
 }
 
-/* ========== CONFIG ACTIONS ========== */
-function removeConfig(i){ state.configs.splice(i,1); save(); renderAll(); toast('🗑 حذف شد'); }
+/* ============ SELECTION ============ */
+function toggleSelect(i, checked){
+  if(checked) state.selected.add(i);
+  else state.selected.delete(i);
+  updateSelectedCount();
+}
+function toggleSelectAll(checked){
+  const q = (document.getElementById('searchIn')?.value||'').toLowerCase();
+  const fg = document.getElementById('fGroup')?.value||'';
+  const ft = document.getElementById('fType')?.value||'';
+  state.selected.clear();
+  if(checked){
+    state.configs.forEach((c,i) => {
+      if(q && !(c.name.toLowerCase().includes(q) || c.server.toLowerCase().includes(q))) return;
+      if(fg && c.groupId !== fg) return;
+      if(ft && c.type !== ft) return;
+      state.selected.add(i);
+    });
+  }
+  renderList();
+}
+function updateSelectedCount(){
+  const el = document.getElementById('selectedCount');
+  if(el) el.textContent = state.selected.size > 0 ? `(${state.selected.size} انتخاب شده)` : '';
+}
+
+/* ============ CONFIG ACTIONS ============ */
+function removeConfig(i){ state.configs.splice(i,1); state.selected.clear(); save(); renderAll(); toast('🗑 حذف شد'); }
 function changeName(i,v){
   if(!state.configs[i]) return;
   let n = v.trim();
@@ -707,23 +983,106 @@ function changeCountry(i,c){
   }
   save(); renderList();
 }
-function copyConfig(i){ navigator.clipboard.writeText(state.configs[i].raw); toast('📋 کپی شد'); }
-function editTags(i){
-  const cur = (state.configs[i].tags||[]).join(',');
-  const v = prompt('Tag ها (با کاما جدا کن):', cur);
-  if(v === null) return;
-  state.configs[i].tags = v.split(',').map(x=>x.trim()).filter(Boolean);
-  save(); renderList(); toast('🏷 ذخیره شد');
+function changeGroup(i, gid){
+  if(!state.configs[i]) return;
+  state.configs[i].groupId = gid;
+  save(); renderList(); renderGroups();
+  toast('📁 منتقل شد');
 }
+function copyConfig(i){ navigator.clipboard.writeText(state.configs[i].raw); toast('📋 کپی شد'); }
 function showConfigQR(i){
   const div = document.getElementById('qrcode');
   div.innerHTML = '';
   new QRCode(div, {text: state.configs[i].raw, width: 220, height: 220});
   showModal('qrModal');
 }
+function deleteSelected(){
+  if(state.selected.size === 0){ toast('چیزی انتخاب نشده','warn'); return; }
+  if(!confirm(`${state.selected.size} کانفینگ پاک بشن؟`)) return;
+  const idxs = [...state.selected].sort((a,b)=>b-a);
+  idxs.forEach(i => state.configs.splice(i,1));
+  state.selected.clear();
+  save(); renderAll();
+  toast(`🗑 ${idxs.length} حذف شد`);
+}
+
+function assignSelectedToGroup(){
+  if(state.selected.size === 0){ toast('چیزی انتخاب نشده','warn'); return; }
+  const opts = state.groups.map(g => `${g.icon} ${g.name}`).join('\n');
+  const choice = prompt('کدوم گروه؟ (شماره رو بزن)\n\n' + state.groups.map((g,i) => `${i+1}. ${g.icon} ${g.name}`).join('\n') + '\n0. بدون گروه');
+  if(choice === null) return;
+  const n = parseInt(choice);
+  let gid = '';
+  if(n > 0 && n <= state.groups.length) gid = state.groups[n-1].id;
+  state.selected.forEach(i => { if(state.configs[i]) state.configs[i].groupId = gid; });
+  save(); renderAll();
+  toast('📁 منتقل شد');
+}
+
+/* ============ BULK RENAME ============ */
+function bulkRenameSelected(){
+  if(state.selected.size === 0){ toast('چیزی انتخاب نشده','warn'); return; }
+  bulkSelectedIds = [...state.selected];
+  updateBulkPreview();
+  showModal('bulkModal');
+}
+
+function updateBulkPreview(){
+  const patternSel = document.getElementById('bulkPattern').value;
+  document.getElementById('customPatternWrap').style.display = patternSel === 'custom' ? 'block' : 'none';
+  let pattern = '';
+  if(patternSel === 'flag-country-num') pattern = '{پرچم} {کشور} {شماره}';
+  else if(patternSel === 'flag-country') pattern = '{پرچم} {کشور}';
+  else if(patternSel === 'country-num') pattern = '{کشور} {شماره}';
+  else if(patternSel === 'flag-num') pattern = '{پرچم} {شماره}';
+  else pattern = document.getElementById('customPattern').value || '{پرچم} {کشور} {شماره}';
+
+  const preview = document.getElementById('bulkPreview');
+  const examples = bulkSelectedIds.slice(0, 3).map(i => {
+    const c = state.configs[i];
+    if(!c) return '';
+    const cc = c.country && COUNTRIES[c.country] ? COUNTRIES[c.country] : {flag:'🏴', fa:'نامشخص'};
+    return pattern
+      .replace(/{پرچم}/g, cc.flag)
+      .replace(/{کشور}/g, cc.fa)
+      .replace(/{شماره}/g, '01')
+      .replace(/{نوع}/g, c.type.toUpperCase());
+  }).filter(Boolean);
+  preview.innerHTML = examples.map(e => `• ${e}`).join('<br>') || 'پیش‌نمایشی نیست';
+}
+
+function applyBulkRename(){
+  const patternSel = document.getElementById('bulkPattern').value;
+  let pattern = '';
+  if(patternSel === 'flag-country-num') pattern = '{پرچم} {کشور} {شماره}';
+  else if(patternSel === 'flag-country') pattern = '{پرچم} {کشور}';
+  else if(patternSel === 'country-num') pattern = '{کشور} {شماره}';
+  else if(patternSel === 'flag-num') pattern = '{پرچم} {شماره}';
+  else pattern = document.getElementById('customPattern').value || '{پرچم} {کشور} {شماره}';
+
+  const counts = {};
+  bulkSelectedIds.forEach(i => {
+    const c = state.configs[i];
+    if(!c) return;
+    if(!c.country) c.country = detectCountry(c.name) || detectCountry(c.server) || '';
+    const cc = c.country && COUNTRIES[c.country] ? COUNTRIES[c.country] : {flag:'🏴', fa:'Unknown'};
+    const key = c.country || 'XX';
+    counts[key] = (counts[key] || 0) + 1;
+    const newName = pattern
+      .replace(/{پرچم}/g, cc.flag)
+      .replace(/{کشور}/g, cc.fa)
+      .replace(/{شماره}/g, String(counts[key]).padStart(2, '0'))
+      .replace(/{نوع}/g, c.type.toUpperCase());
+    c.name = newName;
+    c.raw = setConfigName(c.raw, newName);
+  });
+  save(); renderAll();
+  closeModal('bulkModal');
+  toast(`✅ ${bulkSelectedIds.length} کانفینگ تغییر نام یافت`);
+}
 
 function autoRename(){
-  if(!state.configs.length){ toast('لیست خالیه','warn'); return; }
+  if(state.configs.length === 0){ toast('لیست خالیه','warn'); return; }
   const counts = {};
   state.configs.forEach(c => {
     if(!c.country) c.country = detectCountry(c.name) || detectCountry(c.server) || '';
@@ -753,103 +1112,270 @@ function dedupe(){
 }
 function clearAll(){
   if(!confirm('همه کانفینگ‌ها پاک بشن؟')) return;
-  state.configs = []; save(); renderAll();
+  state.configs = []; state.selected.clear();
+  save(); renderAll();
   toast('🗑 پاک شد');
 }
 
-/* ========== SUB (GIST) ========== */
-async function publishSub(){
-  const token = document.getElementById('gistToken').value.trim();
-  const fname = document.getElementById('fileName').value.trim() || 'sub.txt';
-  if(!token){ toast('توکن GitHub رو وارد کن','err'); return; }
-  if(!state.configs.length){ toast('اول کانفینگ اضافه کن','warn'); return; }
+/* ============ SUB LINKS ============ */
+function createSubLink(){
+  const name = document.getElementById('subName').value.trim() || 'ساب';
+  const groupId = document.getElementById('subGroup').value;
+  const exp = document.getElementById('subExpire').value;
+  const customToken = document.getElementById('subTokenCustom').value.trim();
 
-  state.gistToken = token;
-  state.fileName = fname;
-  save();
+  const list = groupId
+    ? state.configs.filter(c => c.groupId === groupId)
+    : state.configs;
 
-  const text = state.configs.map(c => c.raw).join('\n');
+  if(list.length === 0){ toast('هیچ کانفینگی وجود نداره','warn'); return; }
+
+  const token = customToken || (name.replace(/[^a-zA-Z0-9]/g,'').slice(0,8) || 'sub') + '_' + Math.random().toString(36).slice(2,8);
+
+  const text = list.map(c => c.raw).join('\n');
   const content = btoa(unescape(encodeURIComponent(text)));
 
-  document.getElementById('pubLoad').classList.add('show');
+  const sub = {
+    id: 's_' + Date.now(),
+    name,
+    groupId,
+    token,
+    content,
+    expireAt: exp ? new Date(exp).getTime() : null,
+    createdAt: Date.now(),
+    url: '',
+    hits: 0
+  };
 
-  try{
-    let url, method, body;
-    if(state.gistId){
-      url = `https://api.github.com/gists/${state.gistId}`;
-      method = 'PATCH';
-      body = { files: { [fname]: { content } } };
-    } else {
-      url = 'https://api.github.com/gists';
-      method = 'POST';
-      body = {
-        description: 'Noxborne Subscription',
-        public: false,
-        files: { [fname]: { content } }
-      };
-    }
-
-    const res = await fetch(url, {
-      method,
-      headers: {
-        'Authorization': `token ${token}`,
-        'Accept': 'application/vnd.github+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
+  // If Cloudflare configured, sync
+  if(state.cf.workerUrl && state.cf.adminKey){
+    syncSubToCf(sub).then(url => {
+      if(url){
+        sub.url = url;
+        state.subs.push(sub);
+        save(); renderAll();
+        toast('✅ لینک ساب روی دامنه ساخته شد');
+        prompt('لینک ساب شما:\n(برای QR دکمه QR رو بزن)', sub.url);
+      }
     });
-
-    document.getElementById('pubLoad').classList.remove('show');
-
-    if(!res.ok){
-      const err = await res.json().catch(()=>({}));
-      toast('❌ ' + (err.message || 'خطا در GitHub'),'err');
-      return;
-    }
-
-    const data = await res.json();
-    state.gistId = data.id;
-    const fileData = data.files[fname];
-    const rawUrl = fileData.raw_url.replace(/\/raw\/[^/]+\//, '/raw/');
-
-    state.gistUrl = rawUrl;
-    save();
-
-    document.getElementById('subUrl').textContent = rawUrl;
-    document.getElementById('subResult').style.display = 'block';
-    toast('✅ لینک ساب ساخته شد');
-    renderHome();
-
-    // Scroll to result
-    document.getElementById('subResult').scrollIntoView({behavior:'smooth'});
-
-  }catch(e){
-    document.getElementById('pubLoad').classList.remove('show');
-    toast('❌ خطا: ' + e.message,'err');
+  } else {
+    // Local only
+    sub.url = 'local://' + token;
+    state.subs.push(sub);
+    save(); renderAll();
+    toast('⚠️ فقط محلی ذخیره شد (کلادفلر رو تنظیم کن)','warn');
   }
 }
-function copySub(){
-  const u = document.getElementById('subUrl').textContent;
-  navigator.clipboard.writeText(u);
-  toast('📋 کپی شد');
-}
-function showSubQR(){
-  const u = document.getElementById('subUrl').textContent;
-  if(!u.startsWith('http')){ toast('اول لینک بساز','warn'); return; }
-  const div = document.getElementById('qrcode');
-  div.innerHTML = '';
-  new QRCode(div, {text: u, width: 220, height: 220});
-  showModal('qrModal');
+
+async function syncSubToCf(sub){
+  const base = state.cf.workerUrl.replace(/\/+$/, '');
+  try{
+    const res = await fetch(base + '/api/sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: sub.token,
+        content: sub.content,
+        key: state.cf.adminKey,
+        expireAt: sub.expireAt
+      })
+    });
+    const data = await res.json();
+    if(data.ok) return data.url;
+    toast('❌ ' + (data.error || 'خطا در آپلود'),'err');
+    return null;
+  }catch(e){
+    toast('❌ اتصال به Worker ناموفق','err');
+    return null;
+  }
 }
 
-/* ========== SETTINGS ========== */
+function renderSubs(){
+  const div = document.getElementById('subsList');
+  if(!div) return;
+  if(state.subs.length === 0){
+    div.innerHTML = '<div class="empty"><div class="ic">🔗</div>هنوز لینکی نساختی</div>';
+    return;
+  }
+  div.innerHTML = state.subs.slice().reverse().map(s => {
+    const g = s.groupId ? state.groups.find(x => x.id === s.groupId) : null;
+    const grpBadge = g ? `<span class="badge-grp">${g.icon} ${g.name}</span>` : '<span class="badge-grp">همه</span>';
+    const expTxt = s.expireAt ? new Date(s.expireAt).toLocaleDateString('fa-IR') : 'بدون انقضا';
+    return `<div class="sub-item">
+      <div class="shead">
+        <div class="sname">🔗 ${s.name}</div>
+        <div>${grpBadge}</div>
+      </div>
+      <div class="hint">⏰ انقضا: ${expTxt} • 👁 ${s.hits || 0} بازدید</div>
+      <div class="sub-url" style="margin-top:8px">${s.url || 'آپلود نشده'}</div>
+      <div class="btn-row">
+        <button class="btn btn-xs btn-success" onclick="copyText('${s.url}')">📋 کپی</button>
+        <button class="btn btn-xs btn-primary" onclick="showQR('${s.url}')">📱 QR</button>
+        <button class="btn btn-xs btn-info" onclick="updateSub('${s.id}')">🔄 آپدیت</button>
+        <button class="btn btn-xs btn-danger" onclick="deleteSub('${s.id}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function updateSub(id){
+  const s = state.subs.find(x => x.id === id);
+  if(!s) return;
+  const list = s.groupId
+    ? state.configs.filter(c => c.groupId === s.groupId)
+    : state.configs;
+  const text = list.map(c => c.raw).join('\n');
+  s.content = btoa(unescape(encodeURIComponent(text)));
+
+  if(state.cf.workerUrl && state.cf.adminKey){
+    const url = await syncSubToCf(s);
+    if(url){ toast('✅ آپدیت شد'); }
+  } else {
+    toast('⚠️ کلادفلر تنظیم نشده','warn');
+  }
+  save(); renderSubs();
+}
+
+function deleteSub(id){
+  if(!confirm('لینک حذف بشه؟')) return;
+  state.subs = state.subs.filter(s => s.id !== id);
+  save(); renderSubs();
+  toast('🗑 حذف شد');
+}
+
+function copyText(t){ navigator.clipboard.writeText(t); toast('📋 کپی شد'); }
+function showQR(url){
+  if(!url || url.startsWith('local://')){ toast('لینک معتبر نیست','warn'); return; }
+  const div = document.getElementById('qrcode');
+  div.innerHTML = '';
+  new QRCode(div, {text: url, width: 220, height: 220});
+  showModal('qrModal');
+}
+function downloadLocal(){
+  const groupId = document.getElementById('subGroup').value;
+  const list = groupId ? state.configs.filter(c => c.groupId === groupId) : state.configs;
+  if(list.length === 0){ toast('لیست خالیه','warn'); return; }
+  const text = list.map(c => c.raw).join('\n');
+  const content = btoa(unescape(encodeURIComponent(text)));
+  const blob = new Blob([content], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'sub.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('⬇️ دانلود شد');
+}
+
+/* ============ CLOUDFLARE ============ */
+function saveCf(){
+  state.cf.workerUrl = document.getElementById('cfWorkerUrl').value.trim();
+  state.cf.adminKey = document.getElementById('cfAdminKey').value.trim();
+  save();
+  toast('💾 ذخیره شد');
+}
+async function testCf(){
+  const url = document.getElementById('cfWorkerUrl').value.trim();
+  const key = document.getElementById('cfAdminKey').value.trim();
+  if(!url || !key){ toast('آدرس و کلید رو وارد کن','err'); return; }
+  document.getElementById('cfLoad').classList.add('show');
+  try{
+    const res = await fetch(url.replace(/\/+$/,'') + '/', { method: 'GET' });
+    const t = await res.text();
+    if(t.includes('Noxborne')){ toast('✅ اتصال برقراره'); }
+    else { toast('⚠️ پاسخ غیرمنتظره','warn'); }
+  }catch(e){
+    toast('❌ اتصال ناموفق','err');
+  }
+  document.getElementById('cfLoad').classList.remove('show');
+}
+function showWorkerCode(){
+  const code = `// Cloudflare Worker - Noxborne Sub Server
+// Bind KV namespace as: NOX_KV
+// Bind secret as: ADMIN_KEY
+
+const CORS = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type',
+};
+function json(data, status = 200) {
+  return new Response(JSON.stringify(data), {
+    status, headers: { ...CORS, 'Content-Type': 'application/json' },
+  });
+}
+export default {
+  async fetch(req, env) {
+    const url = new URL(req.url);
+    const path = url.pathname;
+    if (req.method === 'OPTIONS') return new Response(null, { headers: CORS });
+
+    if (path.startsWith('/sub/')) {
+      const token = path.slice(5).replace(/\\.txt$/, '');
+      if (!token) return new Response('Missing token', { status: 400, headers: CORS });
+      const raw = await env.NOX_KV.get('sub:' + token);
+      if (!raw) return new Response('Not found', { status: 404, headers: CORS });
+      const data = JSON.parse(raw);
+      if (data.expireAt && Date.now() > data.expireAt) {
+        return new Response('Subscription expired', { status: 403, headers: CORS });
+      }
+      const stats = JSON.parse((await env.NOX_KV.get('stats:' + token)) || '{"hits":0}');
+      stats.hits++; stats.lastHit = Date.now();
+      await env.NOX_KV.put('stats:' + token, JSON.stringify(stats));
+      const expire = data.expireAt ? Math.floor(data.expireAt / 1000) : 0;
+      return new Response(data.content || '', {
+        headers: {
+          ...CORS,
+          'Content-Type': 'text/plain; charset=utf-8',
+          'Cache-Control': 'no-store',
+          'Profile-Update-Interval': '6',
+          'Profile-Title': 'Noxborne',
+          'Subscription-Userinfo': 'upload=0; download=0; total=0; expire=' + expire,
+        },
+      });
+    }
+
+    if (path === '/api/sync' && req.method === 'POST') {
+      try {
+        const { token, content, key, expireAt } = await req.json();
+        if (!token || !content) return json({ error: 'bad_request' }, 400);
+        if (key !== env.ADMIN_KEY) return json({ error: 'forbidden' }, 403);
+        await env.NOX_KV.put('sub:' + token, JSON.stringify({
+          content, expireAt: expireAt || null, updatedAt: Date.now(),
+        }));
+        return json({ ok: true, url: url.origin + '/sub/' + token });
+      } catch (e) { return json({ error: e.message }, 500); }
+    }
+
+    if (path === '/api/stats') {
+      const token = url.searchParams.get('token');
+      const key = url.searchParams.get('key');
+      if (key !== env.ADMIN_KEY) return json({ error: 'forbidden' }, 403);
+      const stats = JSON.parse((await env.NOX_KV.get('stats:' + token)) || '{"hits":0}');
+      return json(stats);
+    }
+
+    if (path === '/') {
+      return new Response('🚀 Noxborne Sub Server', { headers: CORS });
+    }
+    return new Response('Not found', { status: 404, headers: CORS });
+  },
+};`;
+  document.getElementById('workerCode').value = code;
+  showModal('workerModal');
+}
+function copyWorkerCode(){
+  const t = document.getElementById('workerCode').value;
+  navigator.clipboard.writeText(t);
+  toast('📋 کپی شد');
+}
+
+/* ============ SETTINGS ============ */
 function changePass(){
   const o = document.getElementById('oldPass').value;
   const n = document.getElementById('newPass').value;
   if(o !== state.pass){ toast('❌ رمز فعلی اشتباه','err'); return; }
   if(!n || n.length < 6){ toast('رمز جدید حداقل ۶ حرف','err'); return; }
-  state.pass = n;
-  save();
+  state.pass = n; save();
   document.getElementById('oldPass').value = '';
   document.getElementById('newPass').value = '';
   toast('🔑 رمز تغییر کرد');
@@ -872,6 +1398,7 @@ function importJson(e){
       const d = JSON.parse(ev.target.result);
       if(confirm('جایگزین بشه؟')){
         state = {...state, ...d};
+        state.selected = new Set();
         save(); location.reload();
       }
     }catch(err){ toast('فایل نامعتبر','err'); }
