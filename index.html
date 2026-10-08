@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Noxborne Panel</title>
+<title>Noxborne Panel - CF Edition</title>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
 <style>
 :root{
@@ -41,8 +41,7 @@ body{background:var(--bg);color:var(--text);min-height:100vh;direction:rtl;
   border-radius:10px;cursor:pointer;font-size:15px;transition:.2s;display:inline-flex;align-items:center;justify-content:center}
 .icobtn:hover{border-color:var(--accent);transform:translateY(-1px)}
 .tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
-.tabs::-webkit-scrollbar{height:3px}
-.tabs::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.tabs::-webkit-scrollbar{height:3px}.tabs::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
 .tab{flex:0 0 auto;padding:10px 14px;background:var(--card);border:1px solid var(--border);
   border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--muted);transition:.2s;white-space:nowrap}
 .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
@@ -69,6 +68,7 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
 .btn-ghost{background:var(--card2);color:var(--text);border:1px solid var(--border)}
 .btn-sm{padding:6px 10px;font-size:11px}
 .btn-xs{padding:4px 8px;font-size:10px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
 .btn-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
 .form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:9px}
@@ -131,23 +131,34 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
 .sub-item .sname{font-weight:800;font-size:13px}
 .badge-grp{font-size:10px;padding:2px 7px;background:rgba(139,92,246,.2);color:var(--accent2);border-radius:5px;font-weight:700}
 .chk-all-wrap{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:12px;color:var(--muted)}
+.usage-bar{height:8px;background:var(--card2);border-radius:4px;overflow:hidden;margin-top:6px}
+.usage-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:.3s}
+.usage-fill.warn{background:linear-gradient(90deg,var(--warn),var(--danger))}
+.step{display:flex;align-items:center;gap:10px;padding:12px;background:var(--card2);border-radius:10px;margin-bottom:8px}
+.step .num{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;width:28px;height:28px;
+  border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:13px;flex-shrink:0}
+.step .txt{font-size:12px;flex:1}
+.step .txt b{color:var(--accent2)}
+.status-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:6px}
+.status-dot.on{background:var(--success);box-shadow:0 0 8px var(--success)}
+.status-dot.off{background:var(--danger);box-shadow:0 0 8px var(--danger)}
 </style>
 </head>
 <body>
 
-<!-- ============ LOGIN ============ -->
+<!-- LOGIN -->
 <div id="login">
   <div class="lbox">
     <div class="logo">🚀</div>
     <h1>Noxborne Panel</h1>
-    <div class="sub">پنل شخصی مدیریت کانفینگ</div>
+    <div class="sub">پنل حرفه‌ای مدیریت کانفینگ</div>
     <input type="password" id="passInput" placeholder="••••••••" autocomplete="off">
     <button onclick="doLogin()">ورود</button>
     <div class="err" id="loginError">❌ رمز اشتباه</div>
   </div>
 </div>
 
-<!-- ============ APP ============ -->
+<!-- APP -->
 <div id="app" class="container">
   <div class="header">
     <div class="title"><span>🚀</span><span>Noxborne Panel</span></div>
@@ -162,21 +173,21 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
     <div class="tab" data-tab="t-list">📋 کانفینگ‌ها</div>
     <div class="tab" data-tab="t-groups">📁 گروه‌ها</div>
     <div class="tab" data-tab="t-subs">🔗 لینک‌های ساب</div>
-    <div class="tab" data-tab="t-cf">☁️ کلادفلر</div>
+    <div class="tab" data-tab="t-cloudflare">☁️ کلادفلر</div>
     <div class="tab" data-tab="t-settings">⚙️ تنظیمات</div>
   </div>
 
   <!-- HOME -->
   <div id="t-home" class="panel active">
     <div class="stats">
-      <div class="stat"><div class="num" id="sTotal">0</div><div class="lbl">کل کانفینگ</div></div>
+      <div class="stat"><div class="num" id="sTotal">0</div><div class="lbl">کانفینگ</div></div>
       <div class="stat"><div class="num" id="sCountry">0</div><div class="lbl">کشور</div></div>
-      <div class="stat"><div class="num" id="sGroups">0</div><div class="lbl">گروه‌ها</div></div>
-      <div class="stat"><div class="num" id="sSubs">0</div><div class="lbl">لینک‌های ساب</div></div>
+      <div class="stat"><div class="num" id="sGroups">0</div><div class="lbl">گروه</div></div>
+      <div class="stat"><div class="num" id="sSubs">0</div><div class="lbl">لینک ساب</div></div>
     </div>
     <div class="card">
-      <h3>📁 گروه‌های من</h3>
-      <div id="homeGroups"><div class="hint">هنوز گروهی نساختی</div></div>
+      <h3>☁️ وضعیت کلادفلر</h3>
+      <div id="cfStatus"><div class="hint">تنظیم نشده</div></div>
     </div>
   </div>
 
@@ -185,14 +196,14 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
     <div class="card">
       <h3>📥 دریافت از کانال تلگرام</h3>
       <label>نام کانال‌ها (هر خط یکی)</label>
-      <textarea id="tgChannels" style="min-height:70px" placeholder="Noxborne&#10;channel2">Noxborne</textarea>
+      <textarea id="tgChannels" style="min-height:70px" placeholder="Noxborne">Noxborne</textarea>
       <div class="form-row">
         <div>
           <label>🔢 تعداد پیام آخر</label>
           <select id="msgCount">
             <option value="30">۳۰ پیام</option>
             <option value="50">۵۰ پیام</option>
-            <option value="70" selected>۷۰ پیام (پیشنهادی)</option>
+            <option value="70" selected>۷۰ پیام</option>
             <option value="100">۱۰۰ پیام</option>
             <option value="200">۲۰۰ پیام</option>
           </select>
@@ -204,14 +215,12 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" onclick="fetchTelegram()">🚀 دریافت</button>
-        <button class="btn btn-ghost" onclick="createGroupFromTg()">📁 گروه جدید برای این دریافت</button>
       </div>
-      <div class="loader" id="tgLoad"><span class="spinner"></span> در حال دریافت... <span id="tgProgress"></span></div>
+      <div class="loader" id="tgLoad"><span class="spinner"></span> <span id="tgProgress">در حال دریافت...</span></div>
     </div>
 
     <div class="card">
       <h3>🔗 دریافت از URL ساب</h3>
-      <label>لینک ساب یا فایل</label>
       <input type="text" id="fetchUrl" placeholder="https://example.com/sub.txt">
       <div class="btn-row">
         <button class="btn btn-primary" onclick="fetchUrl()">📥 دریافت</button>
@@ -222,7 +231,6 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
 
     <div class="card">
       <h3>✍️ افزودن دستی</h3>
-      <label>کانفینگ‌ها (هر خط یکی)</label>
       <textarea id="manual" placeholder="vless://...&#10;vmess://...&#10;trojan://..."></textarea>
       <div class="form-row">
         <div>
@@ -236,7 +244,6 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
       </div>
       <div class="btn-row">
         <button class="btn btn-primary" onclick="addManual()">➕ افزودن</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('manual').value=''">🧹 پاک</button>
       </div>
     </div>
   </div>
@@ -265,10 +272,9 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
       <div class="btn-row">
         <button class="btn btn-primary" onclick="bulkRenameSelected()">✏️ تغییر نام گروهی</button>
         <button class="btn btn-success" onclick="assignSelectedToGroup()">📁 انتقال به گروه</button>
-        <button class="btn btn-info" onclick="autoRename()">🌍 تغییر نام خودکار</button>
+        <button class="btn btn-info" onclick="autoRename()">🌍 نام‌گذاری خودکار</button>
         <button class="btn btn-warn" onclick="dedupe()">♻️ حذف تکراری</button>
         <button class="btn btn-danger" onclick="deleteSelected()">🗑 حذف انتخاب شده</button>
-        <button class="btn btn-ghost" onclick="clearAll()">🧨 پاک همه</button>
       </div>
     </div>
     <div id="list"></div>
@@ -277,53 +283,56 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
   <!-- GROUPS -->
   <div id="t-groups" class="panel">
     <div class="card">
-      <h3>➕ ساخت گروه جدید</h3>
+      <h3>➕ گروه جدید</h3>
       <div class="form-row">
-        <div><label>نام گروه</label><input type="text" id="newGroupName" placeholder="مثلاً: پرسرعت"></div>
+        <div><label>نام</label><input type="text" id="newGroupName" placeholder="پرسرعت"></div>
         <div><label>ایموجی</label><input type="text" id="newGroupIcon" placeholder="🚀" maxlength="4" value="📁"></div>
       </div>
       <button class="btn btn-success" onclick="createGroup()">➕ ساخت</button>
     </div>
-
     <div class="card">
       <h3>📁 گروه‌های موجود</h3>
       <div id="groupsList"><div class="empty"><div class="ic">📁</div>هنوز گروهی نساختی</div></div>
     </div>
   </div>
 
-  <!-- SUB LINKS -->
+  <!-- SUBS -->
   <div id="t-subs" class="panel">
     <div class="card">
       <h3>➕ ساخت لینک ساب جدید</h3>
       <div class="form-row">
         <div>
           <label>نام لینک</label>
-          <input type="text" id="subName" placeholder="مثلاً: پرسرعت">
+          <input type="text" id="subName" placeholder="پرسرعت">
         </div>
         <div>
-          <label>📁 انتخاب گروه</label>
-          <select id="subGroup"><option value="">بدون گروه (همه)</option></select>
+          <label>📁 گروه</label>
+          <select id="subGroup"><option value="">همه کانفینگ‌ها</option></select>
         </div>
       </div>
-      <div class="form-row">
+      <div class="form-row-3">
         <div>
-          <label>⏰ انقضا لینک (اختیاری)</label>
-          <input type="date" id="subExpire">
+          <label>📦 حجم کل (گیگ)</label>
+          <input type="number" id="subTotalGB" value="100" min="0" placeholder="100">
         </div>
         <div>
-          <label>🔑 توکن اختصاصی (اختیاری)</label>
-          <input type="text" id="subTokenCustom" placeholder="خودکار">
+          <label>📊 مصرف (گیگ)</label>
+          <input type="number" id="subUsedGB" value="0" min="0" step="0.1">
+        </div>
+        <div>
+          <label>⏰ انقضا (روز)</label>
+          <input type="number" id="subExpireDays" value="30" min="0">
         </div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-success" onclick="createSubLink()">🚀 ساخت لینک ساب</button>
+        <button class="btn btn-success" onclick="createSubLink()">🚀 ساخت و آپلود</button>
         <button class="btn btn-ghost" onclick="downloadLocal()">⬇️ دانلود محلی</button>
       </div>
       <div class="hint">
-        💡 برای اینکه لینک روی **دامنه‌ی خودت** کار کنه، اول از تب **☁️ کلادفلر** اطلاعات رو وارد کن.
+        💡 بعد از ساخت، لینک روی دامنه‌ی Worker شما قابل استفاده‌ست.<br>
+        حجم و انقضا هم توی کلاینت‌ها (v2rayNG, Shadowrocket, ...) نمایش داده میشه.
       </div>
     </div>
-
     <div class="card">
       <h3>🔗 لینک‌های من</h3>
       <div id="subsList"><div class="empty"><div class="ic">🔗</div>هنوز لینکی نساختی</div></div>
@@ -331,29 +340,71 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
   </div>
 
   <!-- CLOUDFLARE -->
-  <div id="t-cf" class="panel">
+  <div id="t-cloudflare" class="panel">
     <div class="card">
-      <h3>☁️ اتصال به Cloudflare Worker</h3>
+      <h3>☁️ اتصال خودکار به Cloudflare</h3>
       <p class="hint">
-        با تنظیم این بخش، لینک ساب روی **دامنه‌ی خودت** کار می‌کنه و همه کلاینت‌ها می‌تونن استفاده کنن.
+        با وارد کردن توکن API، پنل خودش Worker و KV می‌سازه و همه چیز رو تنظیم می‌کنه.
       </p>
-      <label style="margin-top:12px">🌐 آدرس Worker</label>
-      <input type="text" id="cfWorkerUrl" placeholder="https://noxborne.workers.dev">
-      <label style="margin-top:9px">🔑 ADMIN_KEY</label>
-      <input type="password" id="cfAdminKey" placeholder="کلید ادمین Worker">
-      <div class="btn-row">
-        <button class="btn btn-success" onclick="testCf()">🧪 تست اتصال</button>
-        <button class="btn btn-primary" onclick="saveCf()">💾 ذخیره</button>
-        <button class="btn btn-info" onclick="showWorkerCode()">📄 نمایش کد Worker</button>
+
+      <div class="step">
+        <div class="num">۱</div>
+        <div class="txt">یه توکن از <b>dash.cloudflare.com/profile/api-tokens</b> بساز با دسترسی <b>Workers Scripts:Edit</b>, <b>Workers KV Storage:Edit</b>, <b>Account Settings:Read</b></div>
       </div>
-      <div class="loader" id="cfLoad"><span class="spinner"></span> در حال تست...</div>
+      <div class="step">
+        <div class="num">۲</div>
+        <div class="txt">توکن رو پایین پیست کن و <b>ساخت خودکار</b> رو بزن</div>
+      </div>
+      <div class="step">
+        <div class="num">۳</div>
+        <div class="txt">بعد از ۱۰-۲۰ ثانیه، Worker ساخته میشه و آماده‌ست ✅</div>
+      </div>
+
+      <label style="margin-top:12px">🔑 Cloudflare API Token</label>
+      <input type="password" id="cfApiToken" placeholder="توکن API کلادفلر">
+      <div class="form-row" style="margin-top:9px">
+        <div>
+          <label>🆔 Account ID (اختیاری - خودکار کشف میشه)</label>
+          <input type="text" id="cfAccountId" placeholder="خودکار">
+        </div>
+        <div>
+          <label>🌐 نام Worker</label>
+          <input type="text" id="cfWorkerName" value="noxborne-sub">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-success" onclick="setupCloudflare()" id="cfSetupBtn">🚀 ساخت خودکار Worker</button>
+        <button class="btn btn-info" onclick="testCfConnection()">🧪 تست اتصال</button>
+      </div>
+      <div class="loader" id="cfLoad"><span class="spinner"></span> <span id="cfProgress">در حال پردازش...</span></div>
+    </div>
+
+    <div class="card" id="cfResultCard" style="display:none">
+      <h3>✅ Worker آماده‌ست</h3>
+      <div class="form-row">
+        <div>
+          <label>🌐 آدرس Worker</label>
+          <input type="text" id="cfWorkerUrl" readonly>
+        </div>
+        <div>
+          <label>🔑 ADMIN_KEY</label>
+          <input type="text" id="cfAdminKey" readonly>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="copyText(document.getElementById('cfWorkerUrl').value)">📋 کپی آدرس</button>
+        <button class="btn btn-ghost" onclick="window.open(document.getElementById('cfWorkerUrl').value, '_blank')">🌐 تست در مرورگر</button>
+      </div>
+      <div class="hint">
+        ⚠️ این اطلاعات ذخیره شدن. از تب 🔗 لینک‌های ساب می‌تونی لینک بسازی.
+      </div>
     </div>
   </div>
 
   <!-- SETTINGS -->
   <div id="t-settings" class="panel">
     <div class="card">
-      <h3>🔐 تغییر رمز عبور</h3>
+      <h3>🔐 تغییر رمز</h3>
       <div class="form-row">
         <div><label>رمز فعلی</label><input type="password" id="oldPass"></div>
         <div><label>رمز جدید</label><input type="password" id="newPass"></div>
@@ -392,7 +443,7 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
 <div class="modal" id="bulkModal">
   <div class="mbox">
     <h3 style="margin-bottom:12px">✏️ تغییر نام گروهی</h3>
-    <label>الگوی نام‌گذاری</label>
+    <label>الگو</label>
     <select id="bulkPattern" style="margin-bottom:10px" onchange="updateBulkPreview()">
       <option value="flag-country-num">{پرچم} {کشور} {شماره}</option>
       <option value="flag-country">{پرچم} {کشور}</option>
@@ -401,7 +452,7 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
       <option value="custom">دلخواه...</option>
     </select>
     <div id="customPatternWrap" style="display:none">
-      <label>الگوی دلخواه (از {پرچم} {کشور} {شماره} {نوع} استفاده کن)</label>
+      <label>الگوی دلخواه</label>
       <input type="text" id="customPattern" value="{پرچم} {کشور} {شماره}">
     </div>
     <label style="margin-top:10px">پیش‌نمایش</label>
@@ -413,26 +464,13 @@ label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-w
   </div>
 </div>
 
-<div class="modal" id="workerModal">
-  <div class="mbox" style="max-width:700px">
-    <h3 style="margin-bottom:12px">📄 کد Cloudflare Worker</h3>
-    <p class="hint" style="margin-bottom:10px">
-      این کد رو توی <b>dash.cloudflare.com → Workers</b> پیست کن و Deploy بزن.
-    </p>
-    <textarea id="workerCode" style="min-height:400px;font-size:11px" readonly></textarea>
-    <div class="btn-row" style="justify-content:flex-end;margin-top:12px">
-      <button class="btn btn-success" onclick="copyWorkerCode()">📋 کپی کد</button>
-      <button class="btn btn-ghost" onclick="closeModal('workerModal')">بستن</button>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============ CONSTANTS ============ */
+/* ========== CONSTANTS ========== */
 const DEFAULT_PASS = 'mahan183836';
-const KEY = 'noxborne_v3';
+const KEY = 'noxborne_v4';
+const GB = 1024 * 1024 * 1024;
 const COUNTRIES = {
   IR:{fa:'ایران',en:'Iran',flag:'🇮🇷'},US:{fa:'آمریکا',en:'United States',flag:'🇺🇸'},
   DE:{fa:'آلمان',en:'Germany',flag:'🇩🇪'},NL:{fa:'هلند',en:'Netherlands',flag:'🇳🇱'},
@@ -463,18 +501,18 @@ const COUNTRIES = {
   GE:{fa:'گرجستان',en:'Georgia',flag:'🇬🇪'},AZ:{fa:'آذربایجان',en:'Azerbaijan',flag:'🇦🇿'}
 };
 
-/* ============ STATE ============ */
+/* ========== STATE ========== */
 let state = {
-  configs: [],           // {raw, name, country, type, server, groupId, expireAt}
-  groups: [],            // {id, name, icon, createdAt}
-  subs: [],              // {id, name, groupId, token, url, expireAt, createdAt, hits}
-  cf: {workerUrl:'', adminKey:''},
+  configs: [],
+  groups: [],
+  subs: [],
+  cf: {apiToken:'', accountId:'', workerName:'noxborne-sub', workerUrl:'', adminKey:'', kvId:'', scriptId:''},
   pass: null,
   selected: new Set()
 };
 let toastT, bulkSelectedIds = [];
 
-/* ============ INIT ============ */
+/* ========== INIT ========== */
 (function init(){
   try{
     const s = localStorage.getItem(KEY);
@@ -485,7 +523,7 @@ let toastT, bulkSelectedIds = [];
 })();
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 
-/* ============ LOGIN ============ */
+/* ========== LOGIN ========== */
 function doLogin(){
   const v = document.getElementById('passInput').value;
   if(v === state.pass){
@@ -503,13 +541,18 @@ function doLogout(){ sessionStorage.removeItem('nox_logged'); location.reload();
 function showApp(){
   document.getElementById('login').style.display='none';
   document.getElementById('app').style.display='block';
-  // Load CF settings
-  if(state.cf.workerUrl) document.getElementById('cfWorkerUrl').value = state.cf.workerUrl;
-  if(state.cf.adminKey) document.getElementById('cfAdminKey').value = state.cf.adminKey;
+  if(state.cf.apiToken) document.getElementById('cfApiToken').value = state.cf.apiToken;
+  if(state.cf.accountId) document.getElementById('cfAccountId').value = state.cf.accountId;
+  if(state.cf.workerName) document.getElementById('cfWorkerName').value = state.cf.workerName;
+  if(state.cf.workerUrl){
+    document.getElementById('cfResultCard').style.display = 'block';
+    document.getElementById('cfWorkerUrl').value = state.cf.workerUrl;
+    document.getElementById('cfAdminKey').value = state.cf.adminKey;
+  }
   renderAll();
 }
 
-/* ============ TABS ============ */
+/* ========== TABS ========== */
 document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', ()=>{
   document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
@@ -521,7 +564,7 @@ document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', ()=>{
   if(t.dataset.tab === 't-subs') renderSubs();
 }));
 
-/* ============ TOAST / MODAL ============ */
+/* ========== TOAST / MODAL ========== */
 function toast(m, ty='ok'){
   const t = document.getElementById('toast');
   t.textContent = m;
@@ -534,8 +577,9 @@ function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape') document.querySelectorAll('.modal').forEach(m => m.classList.remove('show'));
 });
+function copyText(t){ navigator.clipboard.writeText(t); toast('📋 کپی شد'); }
 
-/* ============ PARSE ============ */
+/* ========== PARSE ========== */
 function parseConfig(c){
   c = c.trim();
   const type = c.split('://')[0].toLowerCase();
@@ -574,7 +618,7 @@ function setConfigName(c, n){
   return base + '#' + encodeURIComponent(n);
 }
 
-/* ============ COUNTRY ============ */
+/* ========== COUNTRY ========== */
 function detectCountry(name){
   if(!name) return null;
   for(const [k,v] of Object.entries(COUNTRIES)) if(name.includes(v.flag)) return k;
@@ -591,7 +635,7 @@ function detectCountry(name){
   return null;
 }
 
-/* ============ ADD CONFIGS ============ */
+/* ========== ADD CONFIGS ========== */
 function parseAndAdd(content, groupId='', expireAt=null){
   const re = /(?:vless|vmess|trojan|ss|ssr|hysteria2?|hy2|tuic|wireguard|warp):\/\/[^\s<>"'&`]+/gi;
   const matches = content.match(re) || [];
@@ -613,58 +657,45 @@ function parseAndAdd(content, groupId='', expireAt=null){
   return added;
 }
 
-/* ============ TELEGRAM (LAST N MESSAGES) ============ */
+/* ========== TELEGRAM ========== */
 async function fetchTelegram(){
   const raw = document.getElementById('tgChannels').value.trim();
   const limit = parseInt(document.getElementById('msgCount').value) || 70;
   const groupId = document.getElementById('tgGroup').value;
   if(!raw){ toast('نام کانال رو وارد کن','err'); return; }
-
   const channels = raw.split('\n').map(c => c.trim()).filter(Boolean)
     .map(c => c.replace('@','').replace('https://t.me/','').replace('t.me/','').replace('/',''));
 
   document.getElementById('tgLoad').classList.add('show');
   let total = 0;
-
   for(const ch of channels){
-    document.getElementById('tgProgress').textContent = `(${ch})`;
+    document.getElementById('tgProgress').textContent = `دریافت از ${ch}...`;
     const html = await fetchChannelMessages(ch, limit);
     if(html){
       const n = parseAndAdd(html, groupId, null);
       total += n;
     }
   }
-
   document.getElementById('tgLoad').classList.remove('show');
-  document.getElementById('tgProgress').textContent = '';
   if(total > 0){
     toast(`✅ ${total} کانفینگ اضافه شد`);
     document.querySelector('[data-tab="t-list"]').click();
-  } else {
-    toast('⚠️ کانفینگی پیدا نشد','warn');
-  }
+  } else toast('⚠️ کانفینگی پیدا نشد','warn');
 }
 
 async function fetchChannelMessages(ch, limit){
-  // Telegram web preview shows latest ~20 messages by default.
-  // For more, we use ?before= pagination trick via multiple requests.
-  // Simpler approach: use the ?before= parameter with decreasing IDs.
   const proxies = [
     u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
     u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
     u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`
   ];
-
   let allHtml = '';
   let beforeId = null;
   const perPage = 20;
   const maxPages = Math.ceil(limit / perPage);
 
   for(let page = 0; page < maxPages; page++){
-    const url = beforeId
-      ? `https://t.me/s/${ch}?before=${beforeId}`
-      : `https://t.me/s/${ch}`;
-
+    const url = beforeId ? `https://t.me/s/${ch}?before=${beforeId}` : `https://t.me/s/${ch}`;
     let html = '';
     for(const p of proxies){
       try{
@@ -675,26 +706,20 @@ async function fetchChannelMessages(ch, limit){
         }
       }catch(e){}
     }
-
     if(!html) break;
     allHtml += html;
-
-    // Find the smallest message ID in this page for next pagination
     const idMatches = [...html.matchAll(/data-post="[^/]+\/(\d+)"/g)];
     if(idMatches.length === 0) break;
     const ids = idMatches.map(m => parseInt(m[1]));
     const minId = Math.min(...ids);
     if(minId === beforeId) break;
     beforeId = minId;
-
-    // Small delay to avoid rate limits
     if(page < maxPages - 1) await new Promise(r => setTimeout(r, 300));
   }
-
   return allHtml;
 }
 
-/* ============ FETCH URL ============ */
+/* ========== FETCH URL / FILE ========== */
 function fetchUrl(){
   const u = document.getElementById('fetchUrl').value.trim();
   if(!u){ toast('لینک رو وارد کن','err'); return; }
@@ -724,7 +749,6 @@ function importFile(e){
   e.target.value = '';
 }
 
-/* ============ MANUAL ADD ============ */
 function addManual(){
   const txt = document.getElementById('manual').value;
   const groupId = document.getElementById('manualGroup').value;
@@ -737,55 +761,33 @@ function addManual(){
   document.querySelector('[data-tab="t-list"]').click();
 }
 
-function createGroupFromTg(){
-  const name = prompt('اسم گروه جدید:');
-  if(!name) return;
-  createGroup(name, '📥');
-  // Auto-select in dropdown
-  setTimeout(() => {
-    const sel = document.getElementById('tgGroup');
-    if(sel && sel.options.length > 0){
-      sel.value = state.groups[state.groups.length-1].id;
-    }
-  }, 100);
-}
-
-/* ============ GROUPS ============ */
+/* ========== GROUPS ========== */
 function createGroup(name, icon){
   name = name || document.getElementById('newGroupName')?.value.trim();
   icon = icon || document.getElementById('newGroupIcon')?.value.trim() || '📁';
   if(!name){ toast('اسم گروه رو وارد کن','err'); return; }
-  const g = {
-    id: 'g_' + Date.now() + '_' + Math.random().toString(36).slice(2,6),
-    name, icon, createdAt: Date.now()
-  };
+  const g = {id: 'g_' + Date.now(), name, icon, createdAt: Date.now()};
   state.groups.push(g);
-  save();
-  renderAll();
+  save(); renderAll();
   toast(`📁 گروه «${name}» ساخته شد`);
   if(document.getElementById('newGroupName')) document.getElementById('newGroupName').value = '';
   return g;
 }
-
 function deleteGroup(id){
-  if(!confirm('گروه و همه‌ی کانفینگ‌هاش پاک بشن؟')) return;
+  if(!confirm('گروه و همه کانفینگ‌هاش پاک بشن؟')) return;
   state.groups = state.groups.filter(g => g.id !== id);
   state.configs = state.configs.filter(c => c.groupId !== id);
   state.subs = state.subs.filter(s => s.groupId !== id);
   save(); renderAll();
-  toast('🗑 گروه حذف شد');
+  toast('🗑 حذف شد');
 }
-
 function renameGroup(id){
   const g = state.groups.find(x => x.id === id);
   if(!g) return;
   const n = prompt('اسم جدید:', g.name);
   if(!n) return;
-  g.name = n;
-  save(); renderAll();
-  toast('✅ تغییر کرد');
+  g.name = n; save(); renderAll(); toast('✅');
 }
-
 function renderGroups(){
   const div = document.getElementById('groupsList');
   if(!div) return;
@@ -799,45 +801,39 @@ function renderGroups(){
     return `<div class="group-card">
       <div class="ghead">
         <div class="gname">${g.icon} ${g.name}</div>
-        <div class="gcount">📦 ${count} کانفینگ • 🔗 ${subCount} ساب</div>
+        <div class="gcount">📦 ${count} • 🔗 ${subCount}</div>
       </div>
       <div class="gacts">
-        <button class="btn btn-xs btn-primary" onclick="renameGroup('${g.id}')">✏️ تغییر نام</button>
-        <button class="btn btn-xs btn-info" onclick="makeSubFromGroup('${g.id}')">🔗 ساخت ساب</button>
-        <button class="btn btn-xs btn-warn" onclick="bulkRenameGroup('${g.id}')">🌍 نام‌گذاری گروهی</button>
-        <button class="btn btn-xs btn-ghost" onclick="viewGroupConfigs('${g.id}')">📋 مشاهده</button>
-        <button class="btn btn-xs btn-danger" onclick="deleteGroup('${g.id}')">🗑 حذف</button>
+        <button class="btn btn-xs btn-primary" onclick="renameGroup('${g.id}')">✏️ نام</button>
+        <button class="btn btn-xs btn-info" onclick="makeSubFromGroup('${g.id}')">🔗 ساب</button>
+        <button class="btn btn-xs btn-warn" onclick="bulkRenameGroup('${g.id}')">🌍 نام‌گذاری</button>
+        <button class="btn btn-xs btn-ghost" onclick="viewGroupConfigs('${g.id}')">📋</button>
+        <button class="btn btn-xs btn-danger" onclick="deleteGroup('${g.id}')">🗑</button>
       </div>
     </div>`;
   }).join('');
 }
-
-function makeSubFromGroup(groupId){
+function makeSubFromGroup(gid){
   document.querySelector('[data-tab="t-subs"]').click();
   setTimeout(() => {
-    document.getElementById('subGroup').value = groupId;
-    const g = state.groups.find(x => x.id === groupId);
+    document.getElementById('subGroup').value = gid;
+    const g = state.groups.find(x => x.id === gid);
     if(g) document.getElementById('subName').value = g.name;
   }, 100);
 }
-
-function bulkRenameGroup(groupId){
-  const ids = state.configs.filter(c => c.groupId === groupId).map(c => state.configs.indexOf(c));
+function bulkRenameGroup(gid){
+  const ids = state.configs.filter(c => c.groupId === gid).map(c => state.configs.indexOf(c));
   if(ids.length === 0){ toast('گروه خالیه','warn'); return; }
   bulkSelectedIds = ids;
   updateBulkPreview();
   showModal('bulkModal');
 }
-
-function viewGroupConfigs(groupId){
+function viewGroupConfigs(gid){
   document.querySelector('[data-tab="t-list"]').click();
-  setTimeout(() => {
-    document.getElementById('fGroup').value = groupId;
-    renderList();
-  }, 100);
+  setTimeout(() => { document.getElementById('fGroup').value = gid; renderList(); }, 100);
 }
 
-/* ============ RENDER LIST ============ */
+/* ========== RENDER ========== */
 function renderAll(){
   renderHome();
   renderList();
@@ -847,36 +843,31 @@ function renderAll(){
 }
 
 function renderGroupSelectors(){
-  const selectors = ['tgGroup', 'manualGroup', 'subGroup', 'fGroup'];
-  selectors.forEach(id => {
+  ['tgGroup', 'manualGroup', 'subGroup', 'fGroup'].forEach(id => {
     const sel = document.getElementById(id);
     if(!sel) return;
-    const current = sel.value;
+    const cur = sel.value;
     let html = id === 'fGroup' ? '<option value="">همه گروه‌ها</option>' :
                id === 'subGroup' ? '<option value="">همه کانفینگ‌ها</option>' :
                '<option value="">بدون گروه</option>';
-    state.groups.forEach(g => {
-      html += `<option value="${g.id}">${g.icon} ${g.name}</option>`;
-    });
+    state.groups.forEach(g => { html += `<option value="${g.id}">${g.icon} ${g.name}</option>`; });
     sel.innerHTML = html;
-    if(current) sel.value = current;
+    if(cur) sel.value = cur;
   });
 }
 
 function renderHome(){
   document.getElementById('sTotal').textContent = state.configs.length;
-  const cs = new Set(state.configs.map(c => c.country).filter(Boolean));
-  document.getElementById('sCountry').textContent = cs.size;
+  document.getElementById('sCountry').textContent = new Set(state.configs.map(c=>c.country).filter(Boolean)).size;
   document.getElementById('sGroups').textContent = state.groups.length;
   document.getElementById('sSubs').textContent = state.subs.length;
-  const div = document.getElementById('homeGroups');
-  if(state.groups.length === 0){
-    div.innerHTML = '<div class="hint">هنوز گروهی نساختی. از تب 📁 گروه‌ها بساز.</div>';
+  const div = document.getElementById('cfStatus');
+  if(state.cf.workerUrl){
+    div.innerHTML = `<div class="hint">✅ متصل <span class="status-dot on"></span><br>
+      🌐 ${state.cf.workerUrl}<br>
+      🔗 ${state.subs.length} لینک فعال</div>`;
   } else {
-    div.innerHTML = state.groups.slice(0, 5).map(g => {
-      const count = state.configs.filter(c => c.groupId === g.id).length;
-      return `<div class="hint">${g.icon} <b>${g.name}</b> — ${count} کانفینگ</div>`;
-    }).join('');
+    div.innerHTML = '<div class="hint">⚠️ تنظیم نشده. از تب ☁️ کلادفلر اقدام کن.</div>';
   }
 }
 
@@ -894,8 +885,7 @@ function renderList(){
   });
   if(items.length === 0){
     div.innerHTML = '<div class="empty"><div class="ic">📭</div>کانفینگی نیست</div>';
-    updateSelectedCount();
-    return;
+    updateSelectedCount(); return;
   }
   div.innerHTML = items.map(c => {
     const i = c._i;
@@ -932,10 +922,9 @@ function renderList(){
   updateSelectedCount();
 }
 
-/* ============ SELECTION ============ */
+/* ========== SELECTION ========== */
 function toggleSelect(i, checked){
-  if(checked) state.selected.add(i);
-  else state.selected.delete(i);
+  if(checked) state.selected.add(i); else state.selected.delete(i);
   updateSelectedCount();
 }
 function toggleSelectAll(checked){
@@ -955,11 +944,11 @@ function toggleSelectAll(checked){
 }
 function updateSelectedCount(){
   const el = document.getElementById('selectedCount');
-  if(el) el.textContent = state.selected.size > 0 ? `(${state.selected.size} انتخاب شده)` : '';
+  if(el) el.textContent = state.selected.size > 0 ? `(${state.selected.size} انتخاب)` : '';
 }
 
-/* ============ CONFIG ACTIONS ============ */
-function removeConfig(i){ state.configs.splice(i,1); state.selected.clear(); save(); renderAll(); toast('🗑 حذف شد'); }
+/* ========== CONFIG ACTIONS ========== */
+function removeConfig(i){ state.configs.splice(i,1); state.selected.clear(); save(); renderAll(); toast('🗑'); }
 function changeName(i,v){
   if(!state.configs[i]) return;
   let n = v.trim();
@@ -987,9 +976,8 @@ function changeGroup(i, gid){
   if(!state.configs[i]) return;
   state.configs[i].groupId = gid;
   save(); renderList(); renderGroups();
-  toast('📁 منتقل شد');
 }
-function copyConfig(i){ navigator.clipboard.writeText(state.configs[i].raw); toast('📋 کپی شد'); }
+function copyConfig(i){ navigator.clipboard.writeText(state.configs[i].raw); toast('📋'); }
 function showConfigQR(i){
   const div = document.getElementById('qrcode');
   div.innerHTML = '';
@@ -998,18 +986,17 @@ function showConfigQR(i){
 }
 function deleteSelected(){
   if(state.selected.size === 0){ toast('چیزی انتخاب نشده','warn'); return; }
-  if(!confirm(`${state.selected.size} کانفینگ پاک بشن؟`)) return;
+  if(!confirm(`${state.selected.size} پاک بشن؟`)) return;
   const idxs = [...state.selected].sort((a,b)=>b-a);
   idxs.forEach(i => state.configs.splice(i,1));
   state.selected.clear();
   save(); renderAll();
   toast(`🗑 ${idxs.length} حذف شد`);
 }
-
 function assignSelectedToGroup(){
   if(state.selected.size === 0){ toast('چیزی انتخاب نشده','warn'); return; }
-  const opts = state.groups.map(g => `${g.icon} ${g.name}`).join('\n');
-  const choice = prompt('کدوم گروه؟ (شماره رو بزن)\n\n' + state.groups.map((g,i) => `${i+1}. ${g.icon} ${g.name}`).join('\n') + '\n0. بدون گروه');
+  if(state.groups.length === 0){ toast('اول گروه بساز','warn'); return; }
+  const choice = prompt('کدوم گروه؟\n' + state.groups.map((g,i) => `${i+1}. ${g.icon} ${g.name}`).join('\n') + '\n0. بدون گروه');
   if(choice === null) return;
   const n = parseInt(choice);
   let gid = '';
@@ -1019,22 +1006,21 @@ function assignSelectedToGroup(){
   toast('📁 منتقل شد');
 }
 
-/* ============ BULK RENAME ============ */
+/* ========== BULK RENAME ========== */
 function bulkRenameSelected(){
   if(state.selected.size === 0){ toast('چیزی انتخاب نشده','warn'); return; }
   bulkSelectedIds = [...state.selected];
   updateBulkPreview();
   showModal('bulkModal');
 }
-
 function updateBulkPreview(){
-  const patternSel = document.getElementById('bulkPattern').value;
-  document.getElementById('customPatternWrap').style.display = patternSel === 'custom' ? 'block' : 'none';
+  const ps = document.getElementById('bulkPattern').value;
+  document.getElementById('customPatternWrap').style.display = ps === 'custom' ? 'block' : 'none';
   let pattern = '';
-  if(patternSel === 'flag-country-num') pattern = '{پرچم} {کشور} {شماره}';
-  else if(patternSel === 'flag-country') pattern = '{پرچم} {کشور}';
-  else if(patternSel === 'country-num') pattern = '{کشور} {شماره}';
-  else if(patternSel === 'flag-num') pattern = '{پرچم} {شماره}';
+  if(ps === 'flag-country-num') pattern = '{پرچم} {کشور} {شماره}';
+  else if(ps === 'flag-country') pattern = '{پرچم} {کشور}';
+  else if(ps === 'country-num') pattern = '{کشور} {شماره}';
+  else if(ps === 'flag-num') pattern = '{پرچم} {شماره}';
   else pattern = document.getElementById('customPattern').value || '{پرچم} {کشور} {شماره}';
 
   const preview = document.getElementById('bulkPreview');
@@ -1043,21 +1029,18 @@ function updateBulkPreview(){
     if(!c) return '';
     const cc = c.country && COUNTRIES[c.country] ? COUNTRIES[c.country] : {flag:'🏴', fa:'نامشخص'};
     return pattern
-      .replace(/{پرچم}/g, cc.flag)
-      .replace(/{کشور}/g, cc.fa)
-      .replace(/{شماره}/g, '01')
-      .replace(/{نوع}/g, c.type.toUpperCase());
+      .replace(/{پرچم}/g, cc.flag).replace(/{کشور}/g, cc.fa)
+      .replace(/{شماره}/g, '01').replace(/{نوع}/g, c.type.toUpperCase());
   }).filter(Boolean);
   preview.innerHTML = examples.map(e => `• ${e}`).join('<br>') || 'پیش‌نمایشی نیست';
 }
-
 function applyBulkRename(){
-  const patternSel = document.getElementById('bulkPattern').value;
+  const ps = document.getElementById('bulkPattern').value;
   let pattern = '';
-  if(patternSel === 'flag-country-num') pattern = '{پرچم} {کشور} {شماره}';
-  else if(patternSel === 'flag-country') pattern = '{پرچم} {کشور}';
-  else if(patternSel === 'country-num') pattern = '{کشور} {شماره}';
-  else if(patternSel === 'flag-num') pattern = '{پرچم} {شماره}';
+  if(ps === 'flag-country-num') pattern = '{پرچم} {کشور} {شماره}';
+  else if(ps === 'flag-country') pattern = '{پرچم} {کشور}';
+  else if(ps === 'country-num') pattern = '{کشور} {شماره}';
+  else if(ps === 'flag-num') pattern = '{پرچم} {شماره}';
   else pattern = document.getElementById('customPattern').value || '{پرچم} {کشور} {شماره}';
 
   const counts = {};
@@ -1068,29 +1051,25 @@ function applyBulkRename(){
     const cc = c.country && COUNTRIES[c.country] ? COUNTRIES[c.country] : {flag:'🏴', fa:'Unknown'};
     const key = c.country || 'XX';
     counts[key] = (counts[key] || 0) + 1;
-    const newName = pattern
-      .replace(/{پرچم}/g, cc.flag)
-      .replace(/{کشور}/g, cc.fa)
+    const nn = pattern
+      .replace(/{پرچم}/g, cc.flag).replace(/{کشور}/g, cc.fa)
       .replace(/{شماره}/g, String(counts[key]).padStart(2, '0'))
       .replace(/{نوع}/g, c.type.toUpperCase());
-    c.name = newName;
-    c.raw = setConfigName(c.raw, newName);
+    c.name = nn;
+    c.raw = setConfigName(c.raw, nn);
   });
   save(); renderAll();
   closeModal('bulkModal');
-  toast(`✅ ${bulkSelectedIds.length} کانفینگ تغییر نام یافت`);
+  toast(`✅ ${bulkSelectedIds.length} تغییر یافت`);
 }
-
 function autoRename(){
   if(state.configs.length === 0){ toast('لیست خالیه','warn'); return; }
   const counts = {};
   state.configs.forEach(c => {
     if(!c.country) c.country = detectCountry(c.name) || detectCountry(c.server) || '';
-    let f = '🏴', cn = 'Unknown', code = c.country || 'XX';
+    let f='🏴',cn='Unknown',code=c.country||'XX';
     if(c.country && COUNTRIES[c.country]){
-      f = COUNTRIES[c.country].flag;
-      cn = COUNTRIES[c.country].fa;
-      code = c.country;
+      f=COUNTRIES[c.country].flag; cn=COUNTRIES[c.country].fa; code=c.country;
     }
     counts[code] = (counts[code]||0)+1;
     const n = `${f} ${cn} ${String(counts[code]).padStart(2,'0')}`;
@@ -1098,201 +1077,182 @@ function autoRename(){
     c.raw = setConfigName(c.raw, n);
   });
   save(); renderAll();
-  toast('🌍 همه نام‌گذاری شدند');
+  toast('🌍 نام‌گذاری شد');
 }
 function dedupe(){
-  const before = state.configs.length;
+  const b = state.configs.length;
   const seen = new Set();
   state.configs = state.configs.filter(c => {
     if(seen.has(c.raw)) return false;
     seen.add(c.raw); return true;
   });
   save(); renderAll();
-  toast(before - state.configs.length > 0 ? `♻️ ${before-state.configs.length} تکراری حذف شد` : 'تکراری نیست');
-}
-function clearAll(){
-  if(!confirm('همه کانفینگ‌ها پاک بشن؟')) return;
-  state.configs = []; state.selected.clear();
-  save(); renderAll();
-  toast('🗑 پاک شد');
+  toast(b-state.configs.length > 0 ? `♻️ ${b-state.configs.length} حذف شد` : 'تکراری نیست');
 }
 
-/* ============ SUB LINKS ============ */
-function createSubLink(){
-  const name = document.getElementById('subName').value.trim() || 'ساب';
-  const groupId = document.getElementById('subGroup').value;
-  const exp = document.getElementById('subExpire').value;
-  const customToken = document.getElementById('subTokenCustom').value.trim();
-
-  const list = groupId
-    ? state.configs.filter(c => c.groupId === groupId)
-    : state.configs;
-
-  if(list.length === 0){ toast('هیچ کانفینگی وجود نداره','warn'); return; }
-
-  const token = customToken || (name.replace(/[^a-zA-Z0-9]/g,'').slice(0,8) || 'sub') + '_' + Math.random().toString(36).slice(2,8);
-
-  const text = list.map(c => c.raw).join('\n');
-  const content = btoa(unescape(encodeURIComponent(text)));
-
-  const sub = {
-    id: 's_' + Date.now(),
-    name,
-    groupId,
-    token,
-    content,
-    expireAt: exp ? new Date(exp).getTime() : null,
-    createdAt: Date.now(),
-    url: '',
-    hits: 0
-  };
-
-  // If Cloudflare configured, sync
-  if(state.cf.workerUrl && state.cf.adminKey){
-    syncSubToCf(sub).then(url => {
-      if(url){
-        sub.url = url;
-        state.subs.push(sub);
-        save(); renderAll();
-        toast('✅ لینک ساب روی دامنه ساخته شد');
-        prompt('لینک ساب شما:\n(برای QR دکمه QR رو بزن)', sub.url);
-      }
-    });
-  } else {
-    // Local only
-    sub.url = 'local://' + token;
-    state.subs.push(sub);
-    save(); renderAll();
-    toast('⚠️ فقط محلی ذخیره شد (کلادفلر رو تنظیم کن)','warn');
+/* ========== CLOUDFLARE AUTO SETUP ========== */
+async function cfApi(path, opts = {}){
+  const token = document.getElementById('cfApiToken').value.trim() || state.cf.apiToken;
+  const res = await fetch(`https://api.cloudflare.com/client/v4${path}`, {
+    ...opts,
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+      ...(opts.headers || {})
+    }
+  });
+  const data = await res.json();
+  if(!data.success){
+    const msg = data.errors?.[0]?.message || 'خطای کلادفلر';
+    throw new Error(msg);
   }
+  return data.result;
 }
 
-async function syncSubToCf(sub){
-  const base = state.cf.workerUrl.replace(/\/+$/, '');
-  try{
-    const res = await fetch(base + '/api/sync', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        token: sub.token,
-        content: sub.content,
-        key: state.cf.adminKey,
-        expireAt: sub.expireAt
-      })
-    });
-    const data = await res.json();
-    if(data.ok) return data.url;
-    toast('❌ ' + (data.error || 'خطا در آپلود'),'err');
-    return null;
-  }catch(e){
-    toast('❌ اتصال به Worker ناموفق','err');
-    return null;
-  }
-}
+function cfProgress(msg){ document.getElementById('cfProgress').textContent = msg; }
 
-function renderSubs(){
-  const div = document.getElementById('subsList');
-  if(!div) return;
-  if(state.subs.length === 0){
-    div.innerHTML = '<div class="empty"><div class="ic">🔗</div>هنوز لینکی نساختی</div>';
-    return;
-  }
-  div.innerHTML = state.subs.slice().reverse().map(s => {
-    const g = s.groupId ? state.groups.find(x => x.id === s.groupId) : null;
-    const grpBadge = g ? `<span class="badge-grp">${g.icon} ${g.name}</span>` : '<span class="badge-grp">همه</span>';
-    const expTxt = s.expireAt ? new Date(s.expireAt).toLocaleDateString('fa-IR') : 'بدون انقضا';
-    return `<div class="sub-item">
-      <div class="shead">
-        <div class="sname">🔗 ${s.name}</div>
-        <div>${grpBadge}</div>
-      </div>
-      <div class="hint">⏰ انقضا: ${expTxt} • 👁 ${s.hits || 0} بازدید</div>
-      <div class="sub-url" style="margin-top:8px">${s.url || 'آپلود نشده'}</div>
-      <div class="btn-row">
-        <button class="btn btn-xs btn-success" onclick="copyText('${s.url}')">📋 کپی</button>
-        <button class="btn btn-xs btn-primary" onclick="showQR('${s.url}')">📱 QR</button>
-        <button class="btn btn-xs btn-info" onclick="updateSub('${s.id}')">🔄 آپدیت</button>
-        <button class="btn btn-xs btn-danger" onclick="deleteSub('${s.id}')">🗑</button>
-      </div>
-    </div>`;
-  }).join('');
-}
-
-async function updateSub(id){
-  const s = state.subs.find(x => x.id === id);
-  if(!s) return;
-  const list = s.groupId
-    ? state.configs.filter(c => c.groupId === s.groupId)
-    : state.configs;
-  const text = list.map(c => c.raw).join('\n');
-  s.content = btoa(unescape(encodeURIComponent(text)));
-
-  if(state.cf.workerUrl && state.cf.adminKey){
-    const url = await syncSubToCf(s);
-    if(url){ toast('✅ آپدیت شد'); }
-  } else {
-    toast('⚠️ کلادفلر تنظیم نشده','warn');
-  }
-  save(); renderSubs();
-}
-
-function deleteSub(id){
-  if(!confirm('لینک حذف بشه؟')) return;
-  state.subs = state.subs.filter(s => s.id !== id);
-  save(); renderSubs();
-  toast('🗑 حذف شد');
-}
-
-function copyText(t){ navigator.clipboard.writeText(t); toast('📋 کپی شد'); }
-function showQR(url){
-  if(!url || url.startsWith('local://')){ toast('لینک معتبر نیست','warn'); return; }
-  const div = document.getElementById('qrcode');
-  div.innerHTML = '';
-  new QRCode(div, {text: url, width: 220, height: 220});
-  showModal('qrModal');
-}
-function downloadLocal(){
-  const groupId = document.getElementById('subGroup').value;
-  const list = groupId ? state.configs.filter(c => c.groupId === groupId) : state.configs;
-  if(list.length === 0){ toast('لیست خالیه','warn'); return; }
-  const text = list.map(c => c.raw).join('\n');
-  const content = btoa(unescape(encodeURIComponent(text)));
-  const blob = new Blob([content], {type:'text/plain'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'sub.txt';
-  a.click();
-  URL.revokeObjectURL(a.href);
-  toast('⬇️ دانلود شد');
-}
-
-/* ============ CLOUDFLARE ============ */
-function saveCf(){
-  state.cf.workerUrl = document.getElementById('cfWorkerUrl').value.trim();
-  state.cf.adminKey = document.getElementById('cfAdminKey').value.trim();
-  save();
-  toast('💾 ذخیره شد');
-}
-async function testCf(){
-  const url = document.getElementById('cfWorkerUrl').value.trim();
-  const key = document.getElementById('cfAdminKey').value.trim();
-  if(!url || !key){ toast('آدرس و کلید رو وارد کن','err'); return; }
+async function testCfConnection(){
+  const token = document.getElementById('cfApiToken').value.trim();
+  if(!token){ toast('توکن رو وارد کن','err'); return; }
   document.getElementById('cfLoad').classList.add('show');
+  cfProgress('در حال تست...');
   try{
-    const res = await fetch(url.replace(/\/+$/,'') + '/', { method: 'GET' });
-    const t = await res.text();
-    if(t.includes('Noxborne')){ toast('✅ اتصال برقراره'); }
-    else { toast('⚠️ پاسخ غیرمنتظره','warn'); }
+    const accounts = await cfApi('/accounts');
+    if(accounts.length === 0){ toast('اکانتی پیدا نشد','err'); return; }
+    toast(`✅ متصل — ${accounts.length} اکانت`);
+    // Auto fill account ID
+    if(accounts.length === 1 && !document.getElementById('cfAccountId').value){
+      document.getElementById('cfAccountId').value = accounts[0].id;
+    }
   }catch(e){
-    toast('❌ اتصال ناموفق','err');
+    toast('❌ ' + e.message, 'err');
   }
   document.getElementById('cfLoad').classList.remove('show');
 }
-function showWorkerCode(){
-  const code = `// Cloudflare Worker - Noxborne Sub Server
-// Bind KV namespace as: NOX_KV
-// Bind secret as: ADMIN_KEY
 
+async function setupCloudflare(){
+  const token = document.getElementById('cfApiToken').value.trim();
+  let accountId = document.getElementById('cfAccountId').value.trim();
+  const workerName = document.getElementById('cfWorkerName').value.trim() || 'noxborne-sub';
+
+  if(!token){ toast('توکن رو وارد کن','err'); return; }
+
+  document.getElementById('cfLoad').classList.add('show');
+  document.getElementById('cfSetupBtn').disabled = true;
+
+  try{
+    // 1. Get account ID
+    cfProgress('مرحله ۱: دریافت Account ID...');
+    if(!accountId){
+      const accounts = await cfApi('/accounts');
+      if(accounts.length === 0) throw new Error('اکانتی پیدا نشد');
+      accountId = accounts[0].id;
+      document.getElementById('cfAccountId').value = accountId;
+    }
+
+    // 2. Create KV Namespace
+    cfProgress('مرحله ۲: ساخت KV Namespace...');
+    let kvId = state.cf.kvId;
+    if(!kvId){
+      try{
+        const kv = await cfApi(`/accounts/${accountId}/storage/kv/namespaces`, {
+          method: 'POST',
+          body: JSON.stringify({ title: 'NOX_KV_' + workerName })
+        });
+        kvId = kv.id;
+      }catch(e){
+        // Maybe exists, try to find it
+        const list = await cfApi(`/accounts/${accountId}/storage/kv/namespaces`);
+        const found = list.find(x => x.title === 'NOX_KV_' + workerName);
+        if(found) kvId = found.id;
+        else throw e;
+      }
+    }
+
+    // 3. Generate admin key
+    const adminKey = state.cf.adminKey || ('nox_' + Math.random().toString(36).slice(2, 12));
+
+    // 4. Create Worker Script
+    cfProgress('مرحله ۳: آپلود Worker...');
+    const workerCode = generateWorkerCode();
+    
+    // Metadata with bindings
+    const metadata = {
+      main_module: 'worker.js',
+      bindings: [
+        { type: 'kv_namespace', name: 'NOX_KV', namespace_id: kvId },
+        { type: 'plain_text', name: 'ADMIN_KEY', text: adminKey }
+      ],
+      compatibility_date: '2024-01-01'
+    };
+
+    const form = new FormData();
+    form.append('metadata', new Blob([JSON.stringify(metadata)], {type: 'application/json'}));
+    form.append('worker.js', new Blob([workerCode], {type: 'application/javascript'}), 'worker.js');
+
+    const uploadRes = await fetch(
+      `https://api.cloudflare.com/client/v4/accounts/${accountId}/workers/scripts/${workerName}`,
+      {
+        method: 'PUT',
+        headers: { 'Authorization': `Bearer ${token}` },
+        body: form
+      }
+    );
+    const uploadData = await uploadRes.json();
+    if(!uploadData.success){
+      throw new Error(uploadData.errors?.[0]?.message || 'خطا در آپلود Worker');
+    }
+
+    // 5. Enable workers.dev subdomain
+    cfProgress('مرحله ۴: فعال‌سازی workers.dev...');
+    try{
+      await cfApi(`/accounts/${accountId}/workers/scripts/${workerName}/subdomain`, {
+        method: 'POST',
+        body: JSON.stringify({ enabled: true, previews_enabled: true })
+      });
+    }catch(e){ /* ignore */ }
+
+    // 6. Get subdomain
+    cfProgress('مرحله ۵: دریافت آدرس...');
+    const subdomain = await cfApi(`/accounts/${accountId}/workers/subdomain`);
+    const workerUrl = `https://${workerName}.${subdomain.subdomain}.workers.dev`;
+
+    // 7. Save state
+    state.cf = {
+      apiToken: token,
+      accountId,
+      workerName,
+      workerUrl,
+      adminKey,
+      kvId,
+      scriptId: workerName
+    };
+    save();
+
+    document.getElementById('cfResultCard').style.display = 'block';
+    document.getElementById('cfWorkerUrl').value = workerUrl;
+    document.getElementById('cfAdminKey').value = adminKey;
+
+    toast('✅ Worker با موفقیت ساخته شد!');
+    renderHome();
+
+    // Wait a bit for propagation
+    cfProgress('در انتظار فعال‌سازی...');
+    await new Promise(r => setTimeout(r, 3000));
+    cfProgress('آماده!');
+
+  }catch(e){
+    console.error(e);
+    toast('❌ ' + e.message, 'err');
+    cfProgress('خطا: ' + e.message);
+  }
+
+  document.getElementById('cfLoad').classList.remove('show');
+  document.getElementById('cfSetupBtn').disabled = false;
+}
+
+function generateWorkerCode(){
+  return `// Noxborne Sub Worker
 const CORS = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
@@ -1321,29 +1281,53 @@ export default {
       const stats = JSON.parse((await env.NOX_KV.get('stats:' + token)) || '{"hits":0}');
       stats.hits++; stats.lastHit = Date.now();
       await env.NOX_KV.put('stats:' + token, JSON.stringify(stats));
+
+      // Traffic info
+      const total = (data.totalGB || 100) * 1073741824;
+      const used = (data.usedGB || 0) * 1073741824;
       const expire = data.expireAt ? Math.floor(data.expireAt / 1000) : 0;
+
       return new Response(data.content || '', {
         headers: {
           ...CORS,
           'Content-Type': 'text/plain; charset=utf-8',
           'Cache-Control': 'no-store',
           'Profile-Update-Interval': '6',
-          'Profile-Title': 'Noxborne',
-          'Subscription-Userinfo': 'upload=0; download=0; total=0; expire=' + expire,
+          'Profile-Title': data.title || 'Noxborne',
+          'Profile-Web-Page-Url': 'https://t.me/Noxborne',
+          'Subscription-Userinfo': 'upload=0; download=' + used + '; total=' + total + '; expire=' + expire,
         },
       });
     }
 
     if (path === '/api/sync' && req.method === 'POST') {
       try {
-        const { token, content, key, expireAt } = await req.json();
+        const body = await req.json();
+        const { token, content, key, totalGB, usedGB, expireAt, title } = body;
         if (!token || !content) return json({ error: 'bad_request' }, 400);
         if (key !== env.ADMIN_KEY) return json({ error: 'forbidden' }, 403);
         await env.NOX_KV.put('sub:' + token, JSON.stringify({
-          content, expireAt: expireAt || null, updatedAt: Date.now(),
+          content,
+          totalGB: totalGB || 100,
+          usedGB: usedGB || 0,
+          expireAt: expireAt || null,
+          title: title || 'Noxborne',
+          updatedAt: Date.now(),
         }));
         return json({ ok: true, url: url.origin + '/sub/' + token });
       } catch (e) { return json({ error: e.message }, 500); }
+    }
+
+    if (path === '/api/update-usage' && req.method === 'POST') {
+      const body = await req.json();
+      const { token, usedGB, key } = body;
+      if (key !== env.ADMIN_KEY) return json({ error: 'forbidden' }, 403);
+      const raw = await env.NOX_KV.get('sub:' + token);
+      if (!raw) return json({ error: 'not_found' }, 404);
+      const data = JSON.parse(raw);
+      data.usedGB = usedGB;
+      await env.NOX_KV.put('sub:' + token, JSON.stringify(data));
+      return json({ ok: true });
     }
 
     if (path === '/api/stats') {
@@ -1360,25 +1344,196 @@ export default {
     return new Response('Not found', { status: 404, headers: CORS });
   },
 };`;
-  document.getElementById('workerCode').value = code;
-  showModal('workerModal');
-}
-function copyWorkerCode(){
-  const t = document.getElementById('workerCode').value;
-  navigator.clipboard.writeText(t);
-  toast('📋 کپی شد');
 }
 
-/* ============ SETTINGS ============ */
+/* ========== SUB LINKS ========== */
+function createSubLink(){
+  const name = document.getElementById('subName').value.trim() || 'ساب';
+  const groupId = document.getElementById('subGroup').value;
+  const totalGB = parseFloat(document.getElementById('subTotalGB').value) || 100;
+  const usedGB = parseFloat(document.getElementById('subUsedGB').value) || 0;
+  const expireDays = parseInt(document.getElementById('subExpireDays').value) || 30;
+
+  if(!state.cf.workerUrl){ toast('اول از تب ☁️ کلادفلر Worker بساز','err'); return; }
+
+  const list = groupId
+    ? state.configs.filter(c => c.groupId === groupId)
+    : state.configs;
+
+  if(list.length === 0){ toast('کانفینگی وجود نداره','warn'); return; }
+
+  const token = (name.replace(/[^a-zA-Z0-9]/g,'').slice(0,10) || 'sub') + '_' + Math.random().toString(36).slice(2,8);
+  const text = list.map(c => c.raw).join('\n');
+  const content = btoa(unescape(encodeURIComponent(text)));
+  const expireAt = expireDays > 0 ? Date.now() + expireDays * 86400000 : null;
+
+  const sub = {
+    id: 's_' + Date.now(),
+    name, groupId, token, content,
+    totalGB, usedGB, expireAt,
+    createdAt: Date.now(),
+    url: '',
+    hits: 0
+  };
+
+  syncSubToCf(sub).then(url => {
+    if(url){
+      sub.url = url;
+      state.subs.push(sub);
+      save(); renderAll();
+      toast('✅ لینک ساب ساخته شد');
+      setTimeout(() => {
+        if(confirm('لینک ساب شما:\n' + url + '\n\nQR کد رو ببینم؟')) showQR(url);
+      }, 300);
+    }
+  });
+}
+
+async function syncSubToCf(sub){
+  const base = state.cf.workerUrl.replace(/\/+$/, '');
+  try{
+    const res = await fetch(base + '/api/sync', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        token: sub.token,
+        content: sub.content,
+        key: state.cf.adminKey,
+        totalGB: sub.totalGB,
+        usedGB: sub.usedGB,
+        expireAt: sub.expireAt,
+        title: sub.name
+      })
+    });
+    const data = await res.json();
+    if(data.ok) return data.url;
+    toast('❌ ' + (data.error || 'خطا'),'err');
+    return null;
+  }catch(e){
+    toast('❌ ' + e.message,'err');
+    return null;
+  }
+}
+
+function renderSubs(){
+  const div = document.getElementById('subsList');
+  if(!div) return;
+  if(state.subs.length === 0){
+    div.innerHTML = '<div class="empty"><div class="ic">🔗</div>هنوز لینکی نساختی</div>';
+    return;
+  }
+  div.innerHTML = state.subs.slice().reverse().map(s => {
+    const g = s.groupId ? state.groups.find(x => x.id === s.groupId) : null;
+    const grpBadge = g ? `<span class="badge-grp">${g.icon} ${g.name}</span>` : '<span class="badge-grp">همه</span>';
+    const expTxt = s.expireAt ? new Date(s.expireAt).toLocaleDateString('fa-IR') : 'بدون انقضا';
+    const usedPct = s.totalGB > 0 ? Math.min(100, Math.round((s.usedGB / s.totalGB) * 100)) : 0;
+    const usedTxt = `${(s.usedGB||0).toFixed(2)} / ${s.totalGB} GB`;
+    const barClass = usedPct > 80 ? 'usage-fill warn' : 'usage-fill';
+    return `<div class="sub-item">
+      <div class="shead">
+        <div class="sname">🔗 ${s.name}</div>
+        <div>${grpBadge}</div>
+      </div>
+      <div class="hint">⏰ انقضا: ${expTxt} • 👁 ${s.hits||0} بازدید</div>
+      <div class="hint" style="margin-top:6px">📊 مصرف: ${usedTxt} (${usedPct}%)</div>
+      <div class="usage-bar"><div class="${barClass}" style="width:${usedPct}%"></div></div>
+      <div class="sub-url" style="margin-top:8px">${s.url || 'آپلود نشده'}</div>
+      <div class="btn-row">
+        <button class="btn btn-xs btn-success" onclick="copyText('${s.url}')">📋 کپی</button>
+        <button class="btn btn-xs btn-primary" onclick="showQR('${s.url}')">📱 QR</button>
+        <button class="btn btn-xs btn-info" onclick="updateSub('${s.id}')">🔄 آپدیت</button>
+        <button class="btn btn-xs btn-warn" onclick="updateUsage('${s.id}')">📊 مصرف</button>
+        <button class="btn btn-xs btn-ghost" onclick="checkHits('${s.id}')">👁 آمار</button>
+        <button class="btn btn-xs btn-danger" onclick="deleteSub('${s.id}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function updateSub(id){
+  const s = state.subs.find(x => x.id === id);
+  if(!s) return;
+  const list = s.groupId
+    ? state.configs.filter(c => c.groupId === s.groupId)
+    : state.configs;
+  const text = list.map(c => c.raw).join('\n');
+  s.content = btoa(unescape(encodeURIComponent(text)));
+  const url = await syncSubToCf(s);
+  if(url) toast('✅ آپدیت شد');
+  save(); renderSubs();
+}
+
+async function updateUsage(id){
+  const s = state.subs.find(x => x.id === id);
+  if(!s) return;
+  const v = prompt('مصرف جدید (گیگ):', s.usedGB || 0);
+  if(v === null) return;
+  s.usedGB = parseFloat(v) || 0;
+  // Update Worker
+  try{
+    await fetch(state.cf.workerUrl.replace(/\/+$/,'') + '/api/update-usage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token: s.token, usedGB: s.usedGB, key: state.cf.adminKey })
+    });
+  }catch(e){}
+  save(); renderSubs();
+  toast('📊 مصرف آپدیت شد');
+}
+
+async function checkHits(id){
+  const s = state.subs.find(x => x.id === id);
+  if(!s) return;
+  try{
+    const res = await fetch(state.cf.workerUrl.replace(/\/+$/,'') + 
+      `/api/stats?token=${s.token}&key=${state.cf.adminKey}`);
+    const data = await res.json();
+    s.hits = data.hits || 0;
+    save(); renderSubs();
+    alert(`👁 بازدید: ${s.hits}\nآخرین: ${data.lastHit ? new Date(data.lastHit).toLocaleString('fa-IR') : '-'}`);
+  }catch(e){
+    toast('❌ خطا در دریافت آمار','err');
+  }
+}
+
+function deleteSub(id){
+  if(!confirm('لینک حذف بشه؟')) return;
+  state.subs = state.subs.filter(s => s.id !== id);
+  save(); renderSubs();
+  toast('🗑');
+}
+function showQR(url){
+  if(!url || !url.startsWith('http')){ toast('لینک معتبر نیست','warn'); return; }
+  const div = document.getElementById('qrcode');
+  div.innerHTML = '';
+  new QRCode(div, {text: url, width: 220, height: 220});
+  showModal('qrModal');
+}
+function downloadLocal(){
+  const gid = document.getElementById('subGroup').value;
+  const list = gid ? state.configs.filter(c => c.groupId === gid) : state.configs;
+  if(list.length === 0){ toast('لیست خالیه','warn'); return; }
+  const text = list.map(c => c.raw).join('\n');
+  const content = btoa(unescape(encodeURIComponent(text)));
+  const blob = new Blob([content], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'sub.txt';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('⬇️ دانلود شد');
+}
+
+/* ========== SETTINGS ========== */
 function changePass(){
   const o = document.getElementById('oldPass').value;
   const n = document.getElementById('newPass').value;
   if(o !== state.pass){ toast('❌ رمز فعلی اشتباه','err'); return; }
-  if(!n || n.length < 6){ toast('رمز جدید حداقل ۶ حرف','err'); return; }
+  if(!n || n.length < 6){ toast('حداقل ۶ حرف','err'); return; }
   state.pass = n; save();
   document.getElementById('oldPass').value = '';
   document.getElementById('newPass').value = '';
-  toast('🔑 رمز تغییر کرد');
+  toast('🔑 تغییر کرد');
 }
 function exportData(){
   const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
