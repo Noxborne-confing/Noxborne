@@ -3,666 +3,335 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>Noxborne PRO - پنل مدیریت کانفینگ</title>
-<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<title>Noxborne Panel</title>
 <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
-<script src="https://unpkg.com/html5-qrcode"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
 :root{
-  --bg:#0a0a0f;--card:#13131d;--card2:#1c1c28;--border:#2a2a3a;
-  --accent:#7c3aed;--accent2:#06b6d4;--text:#e5e7eb;--muted:#7a7a8c;
-  --success:#10b981;--danger:#ef4444;--warn:#f59e0b;--info:#3b82f6;
+  --bg:#07070d;--card:#11111c;--card2:#191926;--border:#242436;
+  --accent:#8b5cf6;--accent2:#06b6d4;--text:#e5e7eb;--muted:#6b7280;
+  --success:#10b981;--danger:#ef4444;--warn:#f59e0b;
 }
-[data-theme="light"]{
-  --bg:#f1f5f9;--card:#ffffff;--card2:#f8fafc;--border:#e2e8f0;
-  --text:#1e293b;--muted:#64748b;
-}
-[data-theme="blue"]{--accent:#2563eb;--accent2:#06b6d4}
-[data-theme="green"]{--accent:#059669;--accent2:#10b981}
-[data-theme="red"]{--accent:#dc2626;--accent2:#f97316}
-[data-theme="pink"]{--accent:#db2777;--accent2:#8b5cf6}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Vazirmatn',system-ui,sans-serif}
-body{
-  background:var(--bg);color:var(--text);min-height:100vh;direction:rtl;
-  background-image:
-    radial-gradient(circle at 15% 15%,rgba(124,58,237,.15),transparent 45%),
-    radial-gradient(circle at 85% 85%,rgba(6,182,212,.1),transparent 45%);
-  background-attachment:fixed;padding:15px;transition:.3s;
-}
-.container{max-width:1200px;margin:0 auto}
-
-/* ==== Login ==== */
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,-apple-system,'Segoe UI',Tahoma,sans-serif}
+body{background:var(--bg);color:var(--text);min-height:100vh;direction:rtl;
+  background-image:radial-gradient(circle at 20% 20%,rgba(139,92,246,.13),transparent 45%),
+  radial-gradient(circle at 80% 80%,rgba(6,182,212,.09),transparent 45%);
+  background-attachment:fixed;padding:14px;font-size:14px;line-height:1.5}
+.container{max-width:1100px;margin:0 auto}
 #login{display:flex;align-items:center;justify-content:center;min-height:95vh}
-.login-box{
-  background:var(--card);border:1px solid var(--border);border-radius:20px;
-  padding:40px 30px;width:100%;max-width:420px;text-align:center;
-  box-shadow:0 20px 60px rgba(124,58,237,.2);
-}
-.login-box .logo{font-size:64px;margin-bottom:12px;animation:float 3s infinite}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.login-box h1{
-  font-size:24px;margin-bottom:6px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
-}
-.login-box p{color:var(--muted);font-size:13px;margin-bottom:25px}
-.input-wrap{position:relative}
-.input-wrap input{
-  width:100%;padding:14px 45px 14px 16px;background:var(--card2);
-  border:1px solid var(--border);border-radius:12px;color:var(--text);
-  font-size:15px;text-align:center;letter-spacing:2px;transition:.2s;
-}
-.input-wrap input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(124,58,237,.2)}
-.input-wrap .eye{
-  position:absolute;left:12px;top:50%;transform:translateY(-50%);
-  cursor:pointer;font-size:18px;user-select:none;
-}
-.login-box button{
-  width:100%;margin-top:15px;padding:14px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:700;cursor:pointer;
-  transition:.2s;
-}
-.login-box button:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(124,58,237,.4)}
-.error{color:var(--danger);font-size:13px;margin-top:12px;display:none}
-.remember{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;color:var(--muted);justify-content:center}
-
-/* ==== Header ==== */
+.lbox{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:42px 30px;
+  width:100%;max-width:400px;text-align:center;box-shadow:0 25px 70px rgba(139,92,246,.2)}
+.lbox .logo{font-size:60px;margin-bottom:14px;filter:drop-shadow(0 0 20px rgba(139,92,246,.5))}
+.lbox h1{font-size:23px;margin-bottom:6px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lbox .sub{color:var(--muted);font-size:12px;margin-bottom:28px}
+.lbox input{width:100%;padding:14px 16px;background:var(--card2);border:1px solid var(--border);
+  border-radius:12px;color:var(--text);font-size:15px;text-align:center;letter-spacing:3px;transition:.2s}
+.lbox input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,92,246,.18)}
+.lbox button{width:100%;margin-top:14px;padding:14px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+  border:none;border-radius:12px;color:#fff;font-size:15px;font-weight:800;cursor:pointer;transition:.2s}
+.lbox button:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(139,92,246,.4)}
+.lbox .err{color:var(--danger);font-size:12px;margin-top:12px;display:none}
 #app{display:none}
-.header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:14px 20px;background:var(--card);border:1px solid var(--border);
-  border-radius:16px;margin-bottom:15px;position:sticky;top:10px;z-index:100;
-  backdrop-filter:blur(10px);
-}
-.header .title{display:flex;align-items:center;gap:10px;font-weight:800;font-size:16px}
-.header .title span{font-size:22px}
-.header-actions{display:flex;gap:8px;align-items:center}
-.icon-btn{
-  background:var(--card2);border:1px solid var(--border);color:var(--text);
-  width:36px;height:36px;border-radius:10px;cursor:pointer;font-size:16px;
-  transition:.2s;display:flex;align-items:center;justify-content:center;
-}
-.icon-btn:hover{border-color:var(--accent);transform:translateY(-1px)}
-.logout{
-  background:transparent;border:1px solid var(--border);color:var(--muted);
-  padding:8px 14px;border-radius:10px;cursor:pointer;font-size:12px;transition:.2s;
-}
-.logout:hover{border-color:var(--danger);color:var(--danger)}
-
-/* ==== Tabs ==== */
-.tabs{display:flex;gap:6px;margin-bottom:15px;overflow-x:auto;padding-bottom:4px}
-.tabs::-webkit-scrollbar{height:4px}
-.tabs::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
-.tab{
-  flex:0 0 auto;padding:10px 14px;background:var(--card);border:1px solid var(--border);
-  border-radius:10px;cursor:pointer;text-align:center;font-size:12px;font-weight:600;
-  color:var(--muted);transition:.2s;white-space:nowrap;
-}
+.header{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;
+  background:var(--card);border:1px solid var(--border);border-radius:16px;margin-bottom:14px;
+  position:sticky;top:8px;z-index:100;backdrop-filter:blur(12px)}
+.header .title{font-weight:900;font-size:15px;display:flex;align-items:center;gap:9px}
+.header .title span:first-child{font-size:20px}
+.icobtn{background:var(--card2);border:1px solid var(--border);color:var(--text);width:36px;height:36px;
+  border-radius:10px;cursor:pointer;font-size:15px;transition:.2s;display:inline-flex;align-items:center;justify-content:center}
+.icobtn:hover{border-color:var(--accent);transform:translateY(-1px)}
+.tabs{display:flex;gap:6px;margin-bottom:14px;overflow-x:auto;padding-bottom:4px}
+.tabs::-webkit-scrollbar{height:3px}
+.tabs::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.tab{flex:0 0 auto;padding:10px 14px;background:var(--card);border:1px solid var(--border);
+  border-radius:10px;cursor:pointer;font-size:12px;font-weight:700;color:var(--muted);transition:.2s;white-space:nowrap}
 .tab.active{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;border-color:transparent}
 .tab:hover:not(.active){border-color:var(--accent);color:var(--text)}
-
-.panel{display:none;animation:fadeIn .3s}
+.panel{display:none;animation:fi .3s}
 .panel.active{display:block}
-@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
-/* ==== Cards ==== */
-.card{
-  background:var(--card);border:1px solid var(--border);border-radius:14px;
-  padding:18px;margin-bottom:12px;
-}
-.card h3{font-size:14px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.hint{color:var(--muted);font-size:12px;margin-top:8px;line-height:1.7}
-.hint code{background:var(--card2);padding:2px 6px;border-radius:4px;color:var(--accent2);font-family:monospace}
-
-/* ==== Inputs ==== */
-input[type=text],input[type=number],input[type=date],textarea,select{
-  width:100%;padding:10px 12px;background:var(--card2);border:1px solid var(--border);
-  border-radius:10px;color:var(--text);font-size:13px;font-family:inherit;transition:.2s;
-}
+@keyframes fi{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px}
+.card h3{font-size:13px;margin-bottom:11px;display:flex;align-items:center;gap:7px;font-weight:800}
+.hint{color:var(--muted);font-size:11.5px;margin-top:8px;line-height:1.8}
+.hint code{background:var(--card2);padding:2px 6px;border-radius:5px;color:var(--accent2);font-family:monospace;font-size:11px}
+input,textarea,select{width:100%;padding:10px 12px;background:var(--card2);border:1px solid var(--border);
+  border-radius:10px;color:var(--text);font-size:13px;font-family:inherit;transition:.2s}
 input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent)}
-textarea{min-height:120px;resize:vertical;font-family:monospace;font-size:12px;line-height:1.6}
-select{cursor:pointer}
-label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-weight:600}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
-.form-row.full{grid-template-columns:1fr}
-@media(max-width:600px){.form-row{grid-template-columns:1fr}}
-
-/* ==== Buttons ==== */
-.btn{
-  padding:10px 16px;border:none;border-radius:10px;cursor:pointer;
-  font-size:13px;font-weight:700;transition:.2s;font-family:inherit;
-  display:inline-flex;align-items:center;gap:6px;justify-content:center;
-}
+textarea{min-height:110px;resize:vertical;font-family:monospace;font-size:12px;line-height:1.6}
+label{display:block;font-size:11.5px;color:var(--muted);margin-bottom:5px;font-weight:700}
+.btn{padding:9px 15px;border:none;border-radius:10px;cursor:pointer;font-size:12.5px;font-weight:800;
+  transition:.2s;font-family:inherit;display:inline-flex;align-items:center;gap:6px;justify-content:center}
 .btn:hover{transform:translateY(-1px)}
-.btn:active{transform:translateY(0)}
 .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
 .btn-success{background:var(--success);color:#fff}
 .btn-danger{background:var(--danger);color:#fff}
 .btn-warn{background:var(--warn);color:#fff}
-.btn-info{background:var(--info);color:#fff}
 .btn-ghost{background:var(--card2);color:var(--text);border:1px solid var(--border)}
 .btn-sm{padding:6px 10px;font-size:11px}
 .btn-xs{padding:4px 8px;font-size:10px}
-.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
-
-.loader{display:none;text-align:center;padding:15px;color:var(--muted);font-size:13px}
-.loader.show{display:block}
-.spinner{
-  display:inline-block;width:16px;height:16px;border:2px solid var(--border);
-  border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;
-  vertical-align:middle;margin-left:8px;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* ==== Stats ==== */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:15px}
-.stat{
-  background:var(--card);border:1px solid var(--border);border-radius:12px;
-  padding:14px;text-align:center;transition:.2s;
-}
+.btn-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
+@media(max-width:600px){.form-row{grid-template-columns:1fr}}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:9px;margin-bottom:12px}
+.stat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px;text-align:center;transition:.2s}
 .stat:hover{transform:translateY(-2px);border-color:var(--accent)}
-.stat .num{font-size:22px;font-weight:800;color:var(--accent2)}
-.stat .lbl{font-size:11px;color:var(--muted);margin-top:3px}
-.stat .icon{font-size:20px;margin-bottom:4px}
-
-/* ==== Config items ==== */
-.config-item{
-  background:var(--card2);border:1px solid var(--border);border-radius:12px;
-  padding:12px;margin-bottom:8px;transition:.2s;
-}
-.config-item:hover{border-color:var(--accent)}
-.config-item.dragging{opacity:.5}
-.config-item .top{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
-.config-item .flag{font-size:20px;cursor:grab}
-.config-item .type{
-  font-size:10px;padding:3px 8px;background:rgba(124,58,237,.2);color:var(--accent2);
-  border-radius:6px;font-weight:700;text-transform:uppercase;
-}
-.config-item .tag{
-  font-size:10px;padding:3px 8px;background:rgba(245,158,11,.2);color:var(--warn);
-  border-radius:6px;font-weight:600;
-}
-.config-item .quality{
-  font-size:10px;padding:3px 8px;border-radius:6px;font-weight:700;
-}
-.config-item .quality.good{background:rgba(16,185,129,.2);color:var(--success)}
-.config-item .quality.med{background:rgba(245,158,11,.2);color:var(--warn)}
-.config-item .quality.bad{background:rgba(239,68,68,.2);color:var(--danger)}
-.config-item .server{
-  font-size:11px;color:var(--muted);font-family:monospace;flex:1;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;direction:ltr;
-}
-.config-item .row{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
-.config-item .row > *{flex:1;min-width:110px}
-.config-item input,.config-item select{padding:7px 9px;font-size:12px}
-.config-item .actions{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
-.del-btn{
-  background:transparent;border:1px solid var(--border);color:var(--danger);
-  padding:5px 8px;border-radius:6px;cursor:pointer;font-size:11px;transition:.2s;
-}
-.del-btn:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
-
-.empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:14px}
-.empty .icon{font-size:50px;margin-bottom:12px;opacity:.4}
-
-/* ==== Toast ==== */
-.toast{
-  position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);
-  background:var(--success);color:#fff;padding:12px 22px;border-radius:12px;
-  font-weight:700;font-size:13px;box-shadow:0 10px 30px rgba(16,185,129,.4);
-  transition:.3s;z-index:9999;opacity:0;max-width:90%;
-}
+.stat .num{font-size:21px;font-weight:900;color:var(--accent2)}
+.stat .lbl{font-size:10.5px;color:var(--muted);margin-top:2px}
+.loader{display:none;text-align:center;padding:14px;color:var(--muted);font-size:12px}
+.loader.show{display:block}
+.spinner{display:inline-block;width:15px;height:15px;border:2px solid var(--border);border-top-color:var(--accent);
+  border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-left:8px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.citem{background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:11px;margin-bottom:7px;transition:.2s}
+.citem:hover{border-color:var(--accent)}
+.citem .top{display:flex;align-items:center;gap:7px;margin-bottom:9px;flex-wrap:wrap}
+.citem .flag{font-size:19px}
+.citem .type{font-size:10px;padding:2px 7px;background:rgba(139,92,246,.2);color:var(--accent2);border-radius:5px;
+  font-weight:800;text-transform:uppercase}
+.citem .server{font-size:10.5px;color:var(--muted);font-family:monospace;flex:1;overflow:hidden;
+  text-overflow:ellipsis;white-space:nowrap;direction:ltr}
+.citem .row{display:flex;gap:6px;flex-wrap:wrap}
+.citem .row > *{flex:1;min-width:110px}
+.citem input,.citem select{padding:7px 9px;font-size:12px}
+.citem .acts{display:flex;gap:4px;flex-wrap:wrap;margin-top:7px}
+.delbtn{background:transparent;border:1px solid var(--border);color:var(--danger);padding:5px 8px;
+  border-radius:6px;cursor:pointer;font-size:11px;transition:.2s}
+.delbtn:hover{background:var(--danger);color:#fff;border-color:var(--danger)}
+.empty{text-align:center;padding:36px 20px;color:var(--muted);font-size:13px}
+.empty .ic{font-size:44px;margin-bottom:10px;opacity:.35}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);
+  background:var(--success);color:#fff;padding:12px 22px;border-radius:12px;font-weight:800;
+  font-size:13px;box-shadow:0 12px 32px rgba(16,185,129,.4);transition:.3s;z-index:9999;opacity:0;max-width:90%}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-.toast.err{background:var(--danger);box-shadow:0 10px 30px rgba(239,68,68,.4)}
-.toast.warn{background:var(--warn);box-shadow:0 10px 30px rgba(245,158,11,.4)}
-
-/* ==== Modal ==== */
-.modal{
-  display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);
-  z-index:1000;align-items:center;justify-content:center;padding:20px;
-  backdrop-filter:blur(4px);
-}
+.toast.err{background:var(--danger);box-shadow:0 12px 32px rgba(239,68,68,.4)}
+.toast.warn{background:var(--warn);box-shadow:0 12px 32px rgba(245,158,11,.4)}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:1000;
+  align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}
 .modal.show{display:flex}
-.modal-content{
-  background:var(--card);border:1px solid var(--border);border-radius:16px;
-  padding:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;
-}
-.modal-content h3{margin-bottom:14px;font-size:15px}
-
-/* ==== Sub box ==== */
-.sub-box{
-  background:linear-gradient(135deg,rgba(124,58,237,.15),rgba(6,182,212,.1));
-  border:1px solid var(--accent);border-radius:14px;padding:16px;margin-top:12px;
-}
-.sub-box .url{
-  background:var(--bg);padding:12px;border-radius:10px;font-family:monospace;
-  font-size:12px;direction:ltr;word-break:break-all;color:var(--accent2);
-  border:1px dashed var(--border);margin-top:10px;line-height:1.6;
-}
-
-/* ==== Chart ==== */
-.chart-wrap{background:var(--card2);border-radius:12px;padding:12px;margin-top:10px;height:250px;position:relative}
-
-/* ==== Log ==== */
-.log-item{
-  font-size:11px;padding:8px 10px;background:var(--card2);border-radius:8px;
-  margin-bottom:6px;display:flex;justify-content:space-between;gap:8px;
-  border-right:3px solid var(--accent);
-}
-.log-item .time{color:var(--muted);font-family:monospace}
-
-/* ==== Search bar ==== */
-.search-bar{
-  display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;
-}
-.search-bar input,.search-bar select{flex:1;min-width:120px}
-
-/* ==== Drag handle ==== */
-.drag-handle{cursor:grab;color:var(--muted);font-size:16px}
-
-@media(max-width:600px){
-  body{padding:10px}
-  .header{padding:12px;font-size:13px}
-  .header .title{font-size:13px}
-  .login-box{padding:30px 20px}
-  .tab{font-size:11px;padding:9px 11px}
-}
+.mbox{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:20px;
+  width:100%;max-width:500px;max-height:90vh;overflow-y:auto}
+.sub-box{background:linear-gradient(135deg,rgba(139,92,246,.15),rgba(6,182,212,.1));
+  border:1px solid var(--accent);border-radius:14px;padding:14px;margin-top:11px}
+.sub-url{background:var(--bg);padding:11px;border-radius:9px;font-family:monospace;font-size:11.5px;
+  direction:ltr;word-break:break-all;color:var(--accent2);border:1px dashed var(--border);margin-top:8px;line-height:1.6}
+.searchbar{display:flex;gap:7px;margin-bottom:11px;flex-wrap:wrap}
+.searchbar input,.searchbar select{flex:1;min-width:110px}
 </style>
 </head>
 <body>
 
-<!-- ============ LOGIN ============ -->
+<!-- ============= LOGIN ============= -->
 <div id="login">
-  <div class="login-box">
+  <div class="lbox">
     <div class="logo">🚀</div>
-    <h1>Noxborne PRO</h1>
-    <p>پنل حرفه‌ای مدیریت کانفینگ</p>
-    <div class="input-wrap">
-      <input type="password" id="passInput" placeholder="رمز ورود..." autocomplete="off">
-      <span class="eye" onclick="togglePass()">👁</span>
-    </div>
-    <button onclick="doLogin()">ورود 🔓</button>
-    <div class="remember">
-      <input type="checkbox" id="rememberMe" style="width:auto"> مرا به خاطر بسپار
-    </div>
-    <div class="error" id="loginError">❌ رمز اشتباه است</div>
-    <div class="hint" style="margin-top:14px;font-size:11px">
-      ادمین: <code>mahan183836</code>
-    </div>
+    <h1>Noxborne Panel</h1>
+    <div class="sub">پنل شخصی مدیریت کانفینگ</div>
+    <input type="password" id="passInput" placeholder="••••••••" autocomplete="off">
+    <button onclick="doLogin()">ورود</button>
+    <div class="err" id="loginError">❌ رمز اشتباه</div>
   </div>
 </div>
 
-<!-- ============ APP ============ -->
+<!-- ============= APP ============= -->
 <div id="app" class="container">
   <div class="header">
-    <div class="title"><span>🚀</span> Noxborne PRO</div>
-    <div class="header-actions">
-      <button class="icon-btn" onclick="toggleTheme()" title="تغییر تم">🎨</button>
-      <button class="icon-btn" onclick="showShortcuts()" title="میانبرها">⌨️</button>
-      <button class="logout" onclick="doLogout()">خروج</button>
+    <div class="title"><span>🚀</span> <span>Noxborne Panel</span></div>
+    <div style="display:flex;gap:6px">
+      <button class="icobtn" onclick="showModal('shortcutsModal')" title="میانبر">⌨️</button>
+      <button class="icobtn" onclick="doLogout()" title="خروج">🚪</button>
     </div>
   </div>
 
   <div class="tabs">
-    <div class="tab active" data-tab="tab-dash">📊 داشبورد</div>
-    <div class="tab" data-tab="tab-tg">📥 دریافت</div>
-    <div class="tab" data-tab="tab-list">📋 کانفینگ‌ها</div>
-    <div class="tab" data-tab="tab-test">⚡️ تست</div>
-    <div class="tab" data-tab="tab-sub">🔗 لینک ساب</div>
-    <div class="tab" data-tab="tab-sales">💰 فروش</div>
-    <div class="tab" data-tab="tab-users">👥 کاربران</div>
-    <div class="tab" data-tab="tab-settings">⚙️ تنظیمات</div>
+    <div class="tab active" data-tab="t-home">🏠 خانه</div>
+    <div class="tab" data-tab="t-add">➕ افزودن</div>
+    <div class="tab" data-tab="t-list">📋 کانفینگ‌ها</div>
+    <div class="tab" data-tab="t-sub">🔗 لینک ساب</div>
+    <div class="tab" data-tab="t-settings">⚙️ تنظیمات</div>
   </div>
 
-  <!-- ==== TAB: Dashboard ==== -->
-  <div id="tab-dash" class="panel active">
+  <!-- HOME -->
+  <div id="t-home" class="panel active">
     <div class="stats">
-      <div class="stat"><div class="icon">📦</div><div class="num" id="statTotal">0</div><div class="lbl">کل کانفینگ‌ها</div></div>
-      <div class="stat"><div class="icon">🌍</div><div class="num" id="statCountries">0</div><div class="lbl">کشورها</div></div>
-      <div class="stat"><div class="icon">✅</div><div class="num" id="statAlive">0</div><div class="lbl">سالم</div></div>
-      <div class="stat"><div class="icon">💰</div><div class="num" id="statRevenue">0</div><div class="lbl">درآمد (⭐)</div></div>
+      <div class="stat"><div class="num" id="sTotal">0</div><div class="lbl">کل کانفینگ</div></div>
+      <div class="stat"><div class="num" id="sCountry">0</div><div class="lbl">کشور</div></div>
+      <div class="stat"><div class="num" id="sSub">0</div><div class="lbl">لینک ساب</div></div>
+      <div class="stat"><div class="num" id="sGist">-</div><div class="lbl">وضعیت Gist</div></div>
     </div>
     <div class="card">
-      <h3>📈 نمودار کشورها</h3>
-      <div class="chart-wrap"><canvas id="countryChart"></canvas></div>
+      <h3>📊 پرتکرارترین کشورها</h3>
+      <div id="topCountries" class="hint">هنوز کانفینگی نداری</div>
     </div>
     <div class="card">
-      <h3>📊 پرطرفدارترین کشورها</h3>
-      <div id="topCountries"></div>
+      <h3>🚀 شروع سریع</h3>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="document.querySelector('[data-tab=\'t-add\']').click()">➕ افزودن کانفینگ</button>
+        <button class="btn btn-success" onclick="document.querySelector('[data-tab=\'t-sub\']').click()">🔗 ساخت لینک ساب</button>
+      </div>
     </div>
   </div>
 
-  <!-- ==== TAB: Telegram ==== -->
-  <div id="tab-tg" class="panel">
+  <!-- ADD -->
+  <div id="t-add" class="panel">
     <div class="card">
-      <h3>📥 دریافت از تلگرام</h3>
-      <label>نام کانال‌ها (هر خط یکی)</label>
-      <textarea id="tgChannels" placeholder="Noxborne&#10;channel2&#10;channel3" style="min-height:80px">Noxborne</textarea>
-      <div class="form-row" style="margin-top:10px">
-        <div>
-          <label>⏰ Auto-Refresh (دقیقه)</label>
-          <input type="number" id="autoRefresh" value="0" min="0" placeholder="0 = غیرفعال">
-        </div>
-        <div>
-          <label>🔢 حداکثر پست</label>
-          <input type="number" id="maxPosts" value="20" min="5">
-        </div>
-      </div>
+      <h3>📥 دریافت از کانال تلگرام</h3>
+      <label>نام کانال (هر خط یکی)</label>
+      <textarea id="tgChannels" style="min-height:70px" placeholder="Noxborne&#10;channel2">Noxborne</textarea>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="fetchFromTelegram()">🚀 دریافت از کانال‌ها</button>
-        <button class="btn btn-info" onclick="fetchFromUrl()">🔗 دریافت از URL</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('fileInput').click()">📁 Import فایل</button>
-        <button class="btn btn-warn" onclick="scanQR()">📷 اسکن QR</button>
-        <input type="file" id="fileInput" accept=".txt,.json" style="display:none" onchange="importFile(event)">
+        <button class="btn btn-primary" onclick="fetchTelegram()">🚀 دریافت</button>
       </div>
-      <div class="loader" id="tgLoader"><span class="spinner"></span> در حال دریافت...</div>
+      <div class="loader" id="tgLoad"><span class="spinner"></span> در حال دریافت...</div>
     </div>
-
+    <div class="card">
+      <h3>🔗 دریافت از URL ساب</h3>
+      <label>لینک ساب یا فایل</label>
+      <input type="text" id="fetchUrl" placeholder="https://example.com/sub.txt">
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="fetchUrl()">📥 دریافت از URL</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('fileIn').click()">📁 Import فایل</button>
+        <input type="file" id="fileIn" accept=".txt,.json" style="display:none" onchange="importFile(event)">
+      </div>
+    </div>
     <div class="card">
       <h3>✍️ افزودن دستی</h3>
-      <textarea id="manualInput" placeholder="vless://...&#10;vmess://...&#10;trojan://..."></textarea>
+      <textarea id="manual" placeholder="vless://...&#10;vmess://...&#10;trojan://..."></textarea>
       <div class="btn-row">
         <button class="btn btn-primary" onclick="addManual()">➕ افزودن</button>
-        <button class="btn btn-ghost" onclick="document.getElementById('manualInput').value=''">🧹 پاک کردن</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('manual').value=''">🧹 پاک</button>
       </div>
     </div>
   </div>
 
-  <!-- ==== TAB: List ==== -->
-  <div id="tab-list" class="panel">
+  <!-- LIST -->
+  <div id="t-list" class="panel">
     <div class="card">
-      <div class="search-bar">
-        <input type="text" id="searchInput" placeholder="🔍 جستجو در نام / سرور..." oninput="renderConfigs()">
-        <select id="filterCountry" onchange="renderConfigs()"><option value="">همه کشورها</option></select>
-        <select id="filterType" onchange="renderConfigs()">
+      <div class="searchbar">
+        <input type="text" id="searchIn" placeholder="🔍 جستجو..." oninput="renderList()">
+        <select id="fCountry" onchange="renderList()"><option value="">همه کشورها</option></select>
+        <select id="fType" onchange="renderList()">
           <option value="">همه انواع</option>
           <option value="vless">VLESS</option>
           <option value="vmess">VMess</option>
           <option value="trojan">Trojan</option>
-          <option value="ss">Shadowsocks</option>
-        </select>
-        <select id="sortBy" onchange="renderConfigs()">
-          <option value="none">مرتب‌سازی</option>
-          <option value="country">بر اساس کشور</option>
-          <option value="type">بر اساس نوع</option>
-          <option value="latency">بر اساس پینگ</option>
+          <option value="ss">SS</option>
         </select>
       </div>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="autoRenameAll()">🌍 تغییر خودکار نام</button>
-        <button class="btn btn-warn" onclick="cleanBroken()">🧹 حذف خراب‌ها</button>
-        <button class="btn btn-info" onclick="dedupeConfigs()">♻️ حذف تکراری</button>
-        <button class="btn btn-ghost" onclick="clearAll()">🗑 پاک کردن همه</button>
+        <button class="btn btn-primary" onclick="autoRename()">🌍 تغییر نام خودکار</button>
+        <button class="btn btn-warn" onclick="dedupe()">♻️ حذف تکراری</button>
+        <button class="btn btn-danger" onclick="clearAll()">🗑 پاک همه</button>
       </div>
     </div>
-    <div id="configsList"></div>
+    <div id="list"></div>
   </div>
 
-  <!-- ==== TAB: Test ==== -->
-  <div id="tab-test" class="panel">
+  <!-- SUB -->
+  <div id="t-sub" class="panel">
     <div class="card">
-      <h3>⚡️ تست کانفینگ‌ها</h3>
+      <h3>🔗 ساخت لینک ساب (GitHub Gist)</h3>
       <p class="hint">
-        توجه: تست واقعی سرعت و پینگ در مرورگر محدود است. این تست به صورت تخمینی از طریق HTTPS request انجام میشه.
+        این روش لینک ساب <b>واقعی و قابل استفاده در همه کلاینت‌ها</b> می‌سازه.<br>
+        توکن GitHub رو یه بار وارد کن، از این به بعد لینک ثابت می‌مونه.
       </p>
-      <div class="form-row" style="margin-top:10px">
+      <div class="form-row" style="margin-top:12px">
         <div>
-          <label>حداکثر تست همزمان</label>
-          <input type="number" id="testConcurrency" value="5" min="1" max="20">
+          <label>GitHub Token (scope: gist)</label>
+          <input type="password" id="gistToken" placeholder="ghp_...">
         </div>
         <div>
-          <label>تایم اوت (ثانیه)</label>
-          <input type="number" id="testTimeout" value="5" min="1" max="30">
-        </div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-success" onclick="startSpeedTest()">🚀 شروع تست</button>
-        <button class="btn btn-ghost" onclick="stopTest()">⏹ توقف</button>
-      </div>
-      <div class="loader" id="testLoader"><span class="spinner"></span> در حال تست... <span id="testProgress"></span></div>
-    </div>
-    <div class="card">
-      <h3>📊 نتایج تست</h3>
-      <div id="testResults"><div class="empty"><div class="icon">🧪</div>هنوز تستی انجام نشده</div></div>
-    </div>
-  </div>
-
-  <!-- ==== TAB: Sub ==== -->
-  <div id="tab-sub" class="panel">
-    <div class="card">
-      <h3>🔗 ساخت لینک ساب</h3>
-      <div class="form-row">
-        <div>
-          <label>دامنه</label>
-          <input type="text" id="domainInput" placeholder="example.com">
-        </div>
-        <div>
-          <label>نام فایل</label>
+          <label>فایل خروجی</label>
           <input type="text" id="fileName" value="sub.txt">
         </div>
       </div>
-      <div class="form-row">
-        <div>
-          <label>🔐 توکن اختصاصی (اختیاری)</label>
-          <input type="text" id="subToken" placeholder="abc123">
-        </div>
-        <div>
-          <label>⏰ تاریخ انقضا (اختیاری)</label>
-          <input type="date" id="subExpiry">
-        </div>
-      </div>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="generateSub()">🎯 ساخت لینک ساب</button>
-        <button class="btn btn-success" onclick="downloadSub('v2ray')">⬇️ دانلود V2Ray</button>
-        <button class="btn btn-info" onclick="downloadSub('clash')">⬇️ دانلود Clash</button>
-        <button class="btn btn-warn" onclick="downloadSub('singbox')">⬇️ دانلود Sing-box</button>
+        <button class="btn btn-success" onclick="publishSub()">📤 ساخت/به‌روزرسانی لینک ساب</button>
       </div>
-      <div id="subResult" style="display:none">
+      <div class="loader" id="pubLoad"><span class="spinner"></span> در حال انتشار...</div>
+      <div class="hint">
+        💡 توکن رو از <code>github.com/settings/tokens</code> بساز و فقط دسترسی <code>gist</code> بده.
+      </div>
+    </div>
+
+    <div id="subResult" style="display:none">
+      <div class="card">
+        <h3>✅ لینک ساب شما آماده‌ست</h3>
         <div class="sub-box">
-          <div style="font-size:12px;color:var(--muted);margin-bottom:6px">🔗 لینک ساب:</div>
-          <div class="url" id="subUrl">-</div>
+          <div style="font-size:11.5px;color:var(--muted);margin-bottom:5px">🔗 لینک ساب نهایی:</div>
+          <div class="sub-url" id="subUrl">-</div>
           <div class="btn-row">
-            <button class="btn btn-success btn-sm" onclick="copySubUrl()">📋 کپی</button>
+            <button class="btn btn-success btn-sm" onclick="copySub()">📋 کپی</button>
             <button class="btn btn-primary btn-sm" onclick="showSubQR()">📱 QR کد</button>
+            <button class="btn btn-ghost btn-sm" onclick="window.open(document.getElementById('subUrl').textContent)">🌐 باز کردن</button>
           </div>
         </div>
+        <div class="hint" style="margin-top:12px">
+          ⚠️ <b>مهم:</b> هر بار کانفینگ اضافه/کم کنی، دوباره روی «ساخت/به‌روزرسانی» بزن تا لینک آپدیت بشه (لینک ثابت می‌مونه).
+        </div>
       </div>
-    </div>
 
-    <div class="card">
-      <h3>☁️ آپلود خودکار</h3>
-      <div class="form-row">
-        <div>
-          <label>GitHub Token</label>
-          <input type="text" id="githubToken" placeholder="ghp_...">
+      <div class="card">
+        <h3>📱 اضافه کردن در کلاینت‌ها</h3>
+        <div class="hint" style="line-height:2">
+          <b>v2rayNG:</b> منو → Subscription → + → لینک رو پیست کن<br>
+          <b>Shadowrocket:</b> + → Subscribe → لینک<br>
+          <b>Streisand:</b> Subscriptions → + → لینک<br>
+          <b>NapsternetV:</b> Subscription → +
         </div>
-        <div>
-          <label>مخزن (user/repo)</label>
-          <input type="text" id="githubRepo" placeholder="user/repo">
-        </div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="uploadToGithub()">📤 آپلود به GitHub</button>
-      </div>
-      <div class="hint">
-        💡 یه توکن با دسترسی <code>repo</code> از GitHub Settings بساز و اینجا وارد کن.
       </div>
     </div>
   </div>
 
-  <!-- ==== TAB: Sales ==== -->
-  <div id="tab-sales" class="panel">
-    <div class="stats">
-      <div class="stat"><div class="icon">🧾</div><div class="num" id="statOrders">0</div><div class="lbl">سفارش‌ها</div></div>
-      <div class="stat"><div class="icon">💰</div><div class="num" id="statRevenue2">0</div><div class="lbl">درآمد کل (⭐)</div></div>
-      <div class="stat"><div class="icon">📦</div><div class="num" id="statStock">0</div><div class="lbl">موجودی (گیگ)</div></div>
-      <div class="stat"><div class="icon">🎟</div><div class="num" id="statCoupons">0</div><div class="lbl">کد تخفیف</div></div>
-    </div>
-
+  <!-- SETTINGS -->
+  <div id="t-settings" class="panel">
     <div class="card">
-      <h3>➕ ثبت سفارش جدید</h3>
+      <h3>🔐 تغییر رمز عبور پنل</h3>
       <div class="form-row">
-        <div><label>نام مشتری</label><input type="text" id="orderName" placeholder="نام"></div>
-        <div><label>آیدی تلگرام</label><input type="text" id="orderId" placeholder="@user"></div>
-      </div>
-      <div class="form-row">
-        <div><label>حجم (گیگ)</label><input type="number" id="orderGB" value="5" min="1"></div>
-        <div><label>کد تخفیف</label><input type="text" id="orderCoupon" placeholder="اختیاری"></div>
+        <div><label>رمز فعلی</label><input type="password" id="oldPass"></div>
+        <div><label>رمز جدید</label><input type="password" id="newPass"></div>
       </div>
       <div class="btn-row">
-        <button class="btn btn-success" onclick="addOrder()">✅ ثبت سفارش</button>
+        <button class="btn btn-primary" onclick="changePass()">🔑 تغییر رمز</button>
       </div>
-      <div class="hint">💰 قیمت هر گیگ: <b>۵ استارز</b></div>
+      <div class="hint">💡 رمز فقط توی مرورگر خودت ذخیره میشه و هیچ‌جا ارسال نمیشه.</div>
     </div>
-
-    <div class="card">
-      <h3>🎟 کدهای تخفیف</h3>
-      <div class="form-row">
-        <div><label>کد</label><input type="text" id="couponCode" placeholder="OFF10"></div>
-        <div><label>درصد تخفیف</label><input type="number" id="couponPercent" value="10" min="1" max="100"></div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-primary" onclick="addCoupon()">➕ افزودن کد</button>
-      </div>
-      <div id="couponsList" style="margin-top:12px"></div>
-    </div>
-
-    <div class="card">
-      <h3>📋 لیست سفارش‌ها</h3>
-      <div id="ordersList"><div class="empty"><div class="icon">🧾</div>هنوز سفارشی ثبت نشده</div></div>
-    </div>
-  </div>
-
-  <!-- ==== TAB: Users ==== -->
-  <div id="tab-users" class="panel">
-    <div class="card">
-      <h3>👥 مدیریت کاربران</h3>
-      <div class="form-row">
-        <div><label>نام کاربری</label><input type="text" id="newUser" placeholder="username"></div>
-        <div><label>رمز عبور</label><input type="text" id="newPass" placeholder="password"></div>
-      </div>
-      <div class="form-row">
-        <div>
-          <label>سطح دسترسی</label>
-          <select id="newRole">
-            <option value="user">کاربر عادی</option>
-            <option value="admin">ادمین</option>
-          </select>
-        </div>
-      </div>
-      <div class="btn-row">
-        <button class="btn btn-success" onclick="addUser()">➕ افزودن کاربر</button>
-      </div>
-    </div>
-    <div class="card">
-      <h3>📋 لیست کاربران</h3>
-      <div id="usersList"></div>
-    </div>
-
-    <div class="card">
-      <h3>📊 لاگ فعالیت‌ها</h3>
-      <div id="activityLog"></div>
-    </div>
-  </div>
-
-  <!-- ==== TAB: Settings ==== -->
-  <div id="tab-settings" class="panel">
-    <div class="card">
-      <h3>🎨 ظاهر</h3>
-      <label>تم رنگی</label>
-      <select id="themeSelect" onchange="setTheme(this.value)">
-        <option value="dark">🌙 تاریک (بنفش)</option>
-        <option value="light">☀️ روشن</option>
-        <option value="blue">💙 آبی</option>
-        <option value="green">💚 سبز</option>
-        <option value="red">❤️ قرمز</option>
-        <option value="pink">💗 صورتی</option>
-      </select>
-    </div>
-
-    <div class="card">
-      <h3>🌐 زبان</h3>
-      <select id="langSelect" onchange="setLang(this.value)">
-        <option value="fa">🇮🇷 فارسی</option>
-        <option value="en">🇺🇸 English</option>
-      </select>
-    </div>
-
     <div class="card">
       <h3>💾 پشتیبان‌گیری</h3>
       <div class="btn-row">
-        <button class="btn btn-primary" onclick="exportAll()">📤 Export JSON</button>
-        <button class="btn btn-info" onclick="document.getElementById('importJson').click()">📥 Import JSON</button>
-        <input type="file" id="importJson" accept=".json" style="display:none" onchange="importAll(event)">
+        <button class="btn btn-primary" onclick="exportData()">📤 Export JSON</button>
+        <button class="btn btn-ghost" onclick="document.getElementById('jsonIn').click()">📥 Import JSON</button>
+        <input type="file" id="jsonIn" accept=".json" style="display:none" onchange="importJson(event)">
       </div>
     </div>
-
-    <div class="card">
-      <h3>🔄 تاریخچه (Undo/Redo)</h3>
-      <div class="btn-row">
-        <button class="btn btn-ghost" onclick="undo()">↩️ Undo</button>
-        <button class="btn btn-ghost" onclick="redo()">↪️ Redo</button>
-        <button class="btn btn-warn" onclick="takeSnapshot()">📸 Snapshot</button>
-      </div>
-      <div id="snapshotsList" style="margin-top:12px"></div>
-    </div>
-
     <div class="card">
       <h3>📞 پشتیبانی</h3>
-      <div class="hint">
-        آیدی پشتیبانی: <b>@mndgking</b><br>
-        کانال: <b>@Noxborne</b>
-      </div>
       <div class="btn-row">
-        <a href="https://t.me/mndgking" target="_blank" class="btn btn-primary" style="text-decoration:none">💬 چت با پشتیبانی</a>
-        <a href="https://t.me/Noxborne" target="_blank" class="btn btn-info" style="text-decoration:none">📢 کانال</a>
+        <a href="https://t.me/mndgking" target="_blank" class="btn btn-primary" style="text-decoration:none">💬 @mndgking</a>
+        <a href="https://t.me/Noxborne" target="_blank" class="btn btn-ghost" style="text-decoration:none">📢 کانال</a>
       </div>
-    </div>
-
-    <div class="card">
-      <h3>📊 لاگ خطاها</h3>
-      <div id="errorLog"></div>
     </div>
   </div>
 </div>
 
-<!-- QR Modal -->
+<!-- MODALS -->
 <div class="modal" id="qrModal">
-  <div class="modal-content" style="text-align:center">
-    <h3>📱 QR کد</h3>
-    <div id="qrcode" style="background:#fff;padding:15px;border-radius:12px;display:inline-block;margin:10px 0"></div>
-    <div class="btn-row" style="justify-content:center">
+  <div class="mbox" style="text-align:center">
+    <h3 style="margin-bottom:12px">📱 QR کد</h3>
+    <div id="qrcode" style="background:#fff;padding:14px;border-radius:12px;display:inline-block"></div>
+    <div class="btn-row" style="justify-content:center;margin-top:14px">
       <button class="btn btn-ghost" onclick="closeModal('qrModal')">بستن</button>
     </div>
   </div>
 </div>
 
-<!-- QR Scanner Modal -->
-<div class="modal" id="scanModal">
-  <div class="modal-content">
-    <h3>📷 اسکن QR کد</h3>
-    <div id="qr-reader" style="width:100%"></div>
-    <div class="btn-row" style="justify-content:center">
-      <button class="btn btn-ghost" onclick="stopScan()">بستن</button>
-    </div>
-  </div>
-</div>
-
-<!-- Shortcuts Modal -->
 <div class="modal" id="shortcutsModal">
-  <div class="modal-content">
-    <h3>⌨️ میانبرهای کیبورد</h3>
-    <div class="hint" style="line-height:2">
+  <div class="mbox">
+    <h3 style="margin-bottom:12px">⌨️ میانبرهای کیبورد</h3>
+    <div class="hint" style="line-height:2.2">
       <b>Ctrl + S</b> → ذخیره<br>
       <b>Ctrl + F</b> → جستجو<br>
-      <b>Ctrl + Z</b> → Undo<br>
-      <b>Ctrl + Y</b> → Redo<br>
-      <b>Ctrl + U</b> → آپلود به GitHub<br>
-      <b>Esc</b> → بستن Modal
+      <b>Esc</b> → بستن
     </div>
-    <div class="btn-row" style="justify-content:center">
+    <div class="btn-row" style="justify-content:center;margin-top:12px">
       <button class="btn btn-ghost" onclick="closeModal('shortcutsModal')">بستن</button>
     </div>
   </div>
@@ -671,1147 +340,522 @@ label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;font-wei
 <div class="toast" id="toast"></div>
 
 <script>
-/* ================== CONFIG ================== */
-const ADMIN_PASSWORD = "mahan183836";
-const PRICE_PER_GB = 5;
-const STORAGE_KEY = 'nox_pro_v1';
-
-/* ================== COUNTRIES ================== */
+/* ========== CONSTANTS ========== */
+const DEFAULT_PASS = 'mahan183836';
+const KEY = 'noxborne_v2';
 const COUNTRIES = {
-  IR:{fa:"ایران",en:"Iran",flag:"🇮🇷"},US:{fa:"آمریکا",en:"United States",flag:"🇺🇸"},
-  DE:{fa:"آلمان",en:"Germany",flag:"🇩🇪"},NL:{fa:"هلند",en:"Netherlands",flag:"🇳🇱"},
-  FR:{fa:"فرانسه",en:"France",flag:"🇫🇷"},GB:{fa:"انگلیس",en:"United Kingdom",flag:"🇬🇧"},
-  TR:{fa:"ترکیه",en:"Turkey",flag:"🇹🇷"},RU:{fa:"روسیه",en:"Russia",flag:"🇷🇺"},
-  CA:{fa:"کانادا",en:"Canada",flag:"🇨🇦"},FI:{fa:"فنلاند",en:"Finland",flag:"🇫🇮"},
-  SE:{fa:"سوئد",en:"Sweden",flag:"🇸🇪"},AT:{fa:"اتریش",en:"Austria",flag:"🇦🇹"},
-  CH:{fa:"سوئیس",en:"Switzerland",flag:"🇨🇭"},PL:{fa:"لهستان",en:"Poland",flag:"🇵🇱"},
-  AE:{fa:"امارات",en:"UAE",flag:"🇦🇪"},JP:{fa:"ژاپن",en:"Japan",flag:"🇯🇵"},
-  KR:{fa:"کره",en:"Korea",flag:"🇰🇷"},SG:{fa:"سنگاپور",en:"Singapore",flag:"🇸🇬"},
-  IN:{fa:"هند",en:"India",flag:"🇮🇳"},CN:{fa:"چین",en:"China",flag:"🇨🇳"},
-  HK:{fa:"هنگ‌کنگ",en:"Hong Kong",flag:"🇭🇰"},AU:{fa:"استرالیا",en:"Australia",flag:"🇦🇺"},
-  BR:{fa:"برزیل",en:"Brazil",flag:"🇧🇷"},IT:{fa:"ایتالیا",en:"Italy",flag:"🇮🇹"},
-  ES:{fa:"اسپانیا",en:"Spain",flag:"🇪🇸"},NO:{fa:"نروژ",en:"Norway",flag:"🇳🇴"},
-  DK:{fa:"دانمارک",en:"Denmark",flag:"🇩🇰"},IE:{fa:"ایرلند",en:"Ireland",flag:"🇮🇪"},
-  CZ:{fa:"چک",en:"Czech",flag:"🇨🇿"},RO:{fa:"رومانی",en:"Romania",flag:"🇷🇴"},
-  UA:{fa:"اوکراین",en:"Ukraine",flag:"🇺🇦"},LT:{fa:"لیتوانی",en:"Lithuania",flag:"🇱🇹"},
-  LV:{fa:"لتونی",en:"Latvia",flag:"🇱🇻"},EE:{fa:"استونی",en:"Estonia",flag:"🇪🇪"},
-  BG:{fa:"بلغارستان",en:"Bulgaria",flag:"🇧🇬"},HU:{fa:"مجارستان",en:"Hungary",flag:"🇭🇺"},
-  GR:{fa:"یونان",en:"Greece",flag:"🇬🇷"},PT:{fa:"پرتغال",en:"Portugal",flag:"🇵🇹"},
-  BE:{fa:"بلژیک",en:"Belgium",flag:"🇧🇪"},IL:{fa:"اسرائیل",en:"Israel",flag:"🇮🇱"},
-  SA:{fa:"عربستان",en:"Saudi Arabia",flag:"🇸🇦"},QA:{fa:"قطر",en:"Qatar",flag:"🇶🇦"},
-  OM:{fa:"عمان",en:"Oman",flag:"🇴🇲"},KW:{fa:"کویت",en:"Kuwait",flag:"🇰🇼"},
-  BH:{fa:"بحرین",en:"Bahrain",flag:"🇧🇭"},MY:{fa:"مالزی",en:"Malaysia",flag:"🇲🇾"},
-  TH:{fa:"تایلند",en:"Thailand",flag:"🇹🇭"},VN:{fa:"ویتنام",en:"Vietnam",flag:"🇻🇳"},
-  ID:{fa:"اندونزی",en:"Indonesia",flag:"🇮🇩"},PH:{fa:"فیلیپین",en:"Philippines",flag:"🇵🇭"},
-  NZ:{fa:"نیوزیلند",en:"New Zealand",flag:"🇳🇿"},ZA:{fa:"آفریقای جنوبی",en:"South Africa",flag:"🇿🇦"},
-  MX:{fa:"مکزیک",en:"Mexico",flag:"🇲🇽"},AR:{fa:"آرژانتین",en:"Argentina",flag:"🇦🇷"},
-  KZ:{fa:"قزاقستان",en:"Kazakhstan",flag:"🇰🇿"},AM:{fa:"ارمنستان",en:"Armenia",flag:"🇦🇲"},
-  GE:{fa:"گرجستان",en:"Georgia",flag:"🇬🇪"},AZ:{fa:"آذربایجان",en:"Azerbaijan",flag:"🇦🇿"},
+  IR:{fa:'ایران',en:'Iran',flag:'🇮🇷'},US:{fa:'آمریکا',en:'United States',flag:'🇺🇸'},
+  DE:{fa:'آلمان',en:'Germany',flag:'🇩🇪'},NL:{fa:'هلند',en:'Netherlands',flag:'🇳🇱'},
+  FR:{fa:'فرانسه',en:'France',flag:'🇫🇷'},GB:{fa:'انگلیس',en:'United Kingdom',flag:'🇬🇧'},
+  TR:{fa:'ترکیه',en:'Turkey',flag:'🇹🇷'},RU:{fa:'روسیه',en:'Russia',flag:'🇷🇺'},
+  CA:{fa:'کانادا',en:'Canada',flag:'🇨🇦'},FI:{fa:'فنلاند',en:'Finland',flag:'🇫🇮'},
+  SE:{fa:'سوئد',en:'Sweden',flag:'🇸🇪'},AT:{fa:'اتریش',en:'Austria',flag:'🇦🇹'},
+  CH:{fa:'سوئیس',en:'Switzerland',flag:'🇨🇭'},PL:{fa:'لهستان',en:'Poland',flag:'🇵🇱'},
+  AE:{fa:'امارات',en:'UAE',flag:'🇦🇪'},JP:{fa:'ژاپن',en:'Japan',flag:'🇯🇵'},
+  KR:{fa:'کره',en:'Korea',flag:'🇰🇷'},SG:{fa:'سنگاپور',en:'Singapore',flag:'🇸🇬'},
+  IN:{fa:'هند',en:'India',flag:'🇮🇳'},CN:{fa:'چین',en:'China',flag:'🇨🇳'},
+  HK:{fa:'هنگ‌کنگ',en:'Hong Kong',flag:'🇭🇰'},AU:{fa:'استرالیا',en:'Australia',flag:'🇦🇺'},
+  BR:{fa:'برزیل',en:'Brazil',flag:'🇧🇷'},IT:{fa:'ایتالیا',en:'Italy',flag:'🇮🇹'},
+  ES:{fa:'اسپانیا',en:'Spain',flag:'🇪🇸'},NO:{fa:'نروژ',en:'Norway',flag:'🇳🇴'},
+  DK:{fa:'دانمارک',en:'Denmark',flag:'🇩🇰'},IE:{fa:'ایرلند',en:'Ireland',flag:'🇮🇪'},
+  CZ:{fa:'چک',en:'Czech',flag:'🇨🇿'},RO:{fa:'رومانی',en:'Romania',flag:'🇷🇴'},
+  UA:{fa:'اوکراین',en:'Ukraine',flag:'🇺🇦'},LT:{fa:'لیتوانی',en:'Lithuania',flag:'🇱🇹'},
+  LV:{fa:'لتونی',en:'Latvia',flag:'🇱🇻'},EE:{fa:'استونی',en:'Estonia',flag:'🇪🇪'},
+  BG:{fa:'بلغارستان',en:'Bulgaria',flag:'🇧🇬'},HU:{fa:'مجارستان',en:'Hungary',flag:'🇭🇺'},
+  GR:{fa:'یونان',en:'Greece',flag:'🇬🇷'},PT:{fa:'پرتغال',en:'Portugal',flag:'🇵🇹'},
+  BE:{fa:'بلژیک',en:'Belgium',flag:'🇧🇪'},IL:{fa:'اسرائیل',en:'Israel',flag:'🇮🇱'},
+  SA:{fa:'عربستان',en:'Saudi Arabia',flag:'🇸🇦'},QA:{fa:'قطر',en:'Qatar',flag:'🇶🇦'},
+  OM:{fa:'عمان',en:'Oman',flag:'🇴🇲'},KW:{fa:'کویت',en:'Kuwait',flag:'🇰🇼'},
+  BH:{fa:'بحرین',en:'Bahrain',flag:'🇧🇭'},MY:{fa:'مالزی',en:'Malaysia',flag:'🇲🇾'},
+  TH:{fa:'تایلند',en:'Thailand',flag:'🇹🇭'},VN:{fa:'ویتنام',en:'Vietnam',flag:'🇻🇳'},
+  ID:{fa:'اندونزی',en:'Indonesia',flag:'🇮🇩'},PH:{fa:'فیلیپین',en:'Philippines',flag:'🇵🇭'},
+  KZ:{fa:'قزاقستان',en:'Kazakhstan',flag:'🇰🇿'},AM:{fa:'ارمنستان',en:'Armenia',flag:'🇦🇲'},
+  GE:{fa:'گرجستان',en:'Georgia',flag:'🇬🇪'},AZ:{fa:'آذربایجان',en:'Azerbaijan',flag:'🇦🇿'},
+  QA2:{fa:'قطر',en:'Qatar',flag:'🇶🇦'}
 };
 
-/* ================== STATE ================== */
+/* ========== STATE ========== */
 let state = {
-  configs: [],
-  users: [{username:'admin', password:ADMIN_PASSWORD, role:'admin'}],
-  orders: [],
-  coupons: [],
-  snapshots: [],
-  logs: [],
-  errors: [],
-  settings: {theme:'dark', lang:'fa'},
-  history: {undo:[], redo:[]}
+  configs:[],
+  pass:null,
+  gistToken:'',
+  gistId:null,
+  gistUrl:'',
+  fileName:'sub.txt'
 };
-let testRunning = false;
-let autoRefreshTimer = null;
-let sessionTimer = null;
-let currentUser = null;
-let qrScanner = null;
+let toastT;
 
-/* ================== LOAD/SAVE ================== */
-function loadState(){
+/* ========== INIT ========== */
+(function init(){
   try{
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if(saved){
-      const parsed = JSON.parse(saved);
-      state = {...state, ...parsed};
-      state.settings = {...state.settings, ...(parsed.settings||{})};
-    }
-  }catch(e){ logError('Load', e.message); }
-}
-function saveState(){
-  try{
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }catch(e){ logError('Save', e.message); }
-}
-function pushHistory(){
-  state.history.undo.push(JSON.stringify({configs:state.configs, orders:state.orders, coupons:state.coupons}));
-  if(state.history.undo.length > 30) state.history.undo.shift();
-  state.history.redo = [];
-}
-function undo(){
-  if(state.history.undo.length === 0){ toast('چیزی برای Undo نیست', 'warn'); return; }
-  const current = JSON.stringify({configs:state.configs, orders:state.orders, coupons:state.coupons});
-  state.history.redo.push(current);
-  const prev = JSON.parse(state.history.undo.pop());
-  state.configs = prev.configs;
-  state.orders = prev.orders;
-  state.coupons = prev.coupons;
-  saveState(); renderAll(); toast('↩️ Undo شد');
-}
-function redo(){
-  if(state.history.redo.length === 0){ toast('چیزی برای Redo نیست', 'warn'); return; }
-  const current = JSON.stringify({configs:state.configs, orders:state.orders, coupons:state.coupons});
-  state.history.undo.push(current);
-  const next = JSON.parse(state.history.redo.pop());
-  state.configs = next.configs;
-  state.orders = next.orders;
-  state.coupons = next.coupons;
-  saveState(); renderAll(); toast('↪️ Redo شد');
-}
+    const s = localStorage.getItem(KEY);
+    if(s){ const p = JSON.parse(s); state = {...state, ...p}; }
+  }catch(e){}
+  if(!state.pass){ state.pass = DEFAULT_PASS; save(); }
+  if(sessionStorage.getItem('nox_logged') === '1'){
+    showApp();
+  }
+})();
 
-/* ================== LOGGING ================== */
-function logActivity(action, detail=''){
-  state.logs.unshift({action, detail, time:new Date().toLocaleString('fa-IR')});
-  if(state.logs.length > 200) state.logs.pop();
-  saveState();
-}
-function logError(source, message){
-  state.errors.unshift({source, message, time:new Date().toLocaleString('fa-IR')});
-  if(state.errors.length > 100) state.errors.pop();
-  saveState();
-}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
 
-/* ================== AUTH ================== */
-let loginAttempts = 0;
-
-function togglePass(){
-  const inp = document.getElementById('passInput');
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-}
+/* ========== LOGIN ========== */
 function doLogin(){
   const v = document.getElementById('passInput').value;
-  const user = state.users.find(u => (u.password === v) || (u.username === v && u.password === v));
-  // Simple: password match against any user
-  const matched = state.users.find(u => u.password === v) || (v === ADMIN_PASSWORD ? state.users[0] : null);
-
-  if(matched){
-    loginAttempts = 0;
-    currentUser = matched;
-    if(document.getElementById('rememberMe').checked){
-      localStorage.setItem('nox_remember', v);
-    }
-    sessionStorage.setItem('nox_session', '1');
-    logActivity('ورود', `کاربر ${matched.username}`);
+  if(v === state.pass){
+    sessionStorage.setItem('nox_logged','1');
+    document.getElementById('loginError').style.display='none';
     showApp();
-    startSessionTimer();
   } else {
-    loginAttempts++;
-    document.getElementById('loginError').style.display = 'block';
-    document.getElementById('loginError').textContent = `❌ رمز اشتباه (${loginAttempts}/3)`;
-    document.getElementById('passInput').value = '';
-    if(loginAttempts >= 3){
-      toast('🚫 ۳۰ ثانیه صبر کنید', 'err');
-      document.getElementById('passInput').disabled = true;
-      setTimeout(()=>{
-        document.getElementById('passInput').disabled = false;
-        loginAttempts = 0;
-        document.getElementById('loginError').style.display = 'none';
-      }, 30000);
-    }
+    document.getElementById('loginError').style.display='block';
+    document.getElementById('passInput').value='';
   }
 }
 document.getElementById('passInput').addEventListener('keypress', e => { if(e.key === 'Enter') doLogin(); });
 
 function doLogout(){
-  logActivity('خروج', currentUser ? currentUser.username : '');
-  sessionStorage.removeItem('nox_session');
-  localStorage.removeItem('nox_remember');
-  clearInterval(sessionTimer);
+  sessionStorage.removeItem('nox_logged');
   location.reload();
 }
-function startSessionTimer(){
-  clearInterval(sessionTimer);
-  sessionTimer = setInterval(()=>{
-    // 10 min idle check
-  }, 1000);
-  ['click','keydown','mousemove'].forEach(e=>document.addEventListener(e, resetIdle, {once:false}));
-}
-let idleTime = 0;
-function resetIdle(){ idleTime = 0; }
-setInterval(()=>{
-  if(currentUser){
-    idleTime++;
-    if(idleTime > 600){ // 10 min
-      toast('⏰ به دلیل بی‌کاری خارج شدید', 'warn');
-      setTimeout(doLogout, 1500);
-    }
-  }
-}, 1000);
-
 function showApp(){
-  document.getElementById('login').style.display = 'none';
-  document.getElementById('app').style.display = 'block';
-  applyTheme(state.settings.theme);
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='block';
+  if(state.gistToken) document.getElementById('gistToken').value = state.gistToken;
+  document.getElementById('fileName').value = state.fileName;
+  if(state.gistUrl){ document.getElementById('subUrl').textContent = state.gistUrl; document.getElementById('subResult').style.display='block'; }
   renderAll();
 }
 
-/* Auto-login */
-window.addEventListener('load', ()=>{
-  loadState();
-  const remembered = localStorage.getItem('nox_remember');
-  if(remembered && sessionStorage.getItem('nox_session')){
-    const matched = state.users.find(u => u.password === remembered);
-    if(matched){
-      currentUser = matched;
-      showApp();
-      startSessionTimer();
-    }
-  } else {
-    // Apply saved theme even on login screen
-    applyTheme(state.settings.theme);
-  }
-});
+/* ========== TABS ========== */
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', ()=>{
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+  t.classList.add('active');
+  document.getElementById(t.dataset.tab).classList.add('active');
+  if(t.dataset.tab === 't-home') renderHome();
+  if(t.dataset.tab === 't-list') renderList();
+}));
 
-/* ================== THEME ================== */
-function applyTheme(theme){
-  document.body.setAttribute('data-theme', theme);
-}
-function setTheme(theme){
-  state.settings.theme = theme;
-  applyTheme(theme);
-  saveState();
-  toast('🎨 تم تغییر کرد');
-}
-function toggleTheme(){
-  const themes = ['dark','light','blue','green','red','pink'];
-  const idx = themes.indexOf(state.settings.theme);
-  const next = themes[(idx+1) % themes.length];
-  document.getElementById('themeSelect').value = next;
-  setTheme(next);
-}
-
-/* ================== TABS ================== */
-document.querySelectorAll('.tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(tab.dataset.tab).classList.add('active');
-    if(tab.dataset.tab === 'tab-dash') renderDashboard();
-    if(tab.dataset.tab === 'tab-users'){ renderUsers(); renderLogs(); }
-    if(tab.dataset.tab === 'tab-sales') renderSales();
-    if(tab.dataset.tab === 'tab-settings') renderSnapshots();
-  });
-});
-
-/* ================== TOAST ================== */
-let toastTimer;
-function toast(msg, type='success'){
+/* ========== TOAST ========== */
+function toast(m, ty='ok'){
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.className = 'toast show' + (type === 'err' ? ' err' : type === 'warn' ? ' warn' : '');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>t.classList.remove('show'), 2500);
+  t.textContent = m;
+  t.className = 'toast show' + (ty==='err'?' err':ty==='warn'?' warn':'');
+  clearTimeout(toastT);
+  toastT = setTimeout(()=>t.classList.remove('show'), 2600);
 }
-
-/* ================== MODAL ================== */
 function showModal(id){ document.getElementById(id).classList.add('show'); }
 function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape') document.querySelectorAll('.modal').forEach(m => m.classList.remove('show'));
+  if(e.ctrlKey && e.key === 's'){ e.preventDefault(); save(); toast('💾 ذخیره شد'); }
+  if(e.ctrlKey && e.key === 'f'){ e.preventDefault(); document.getElementById('searchIn')?.focus(); }
 });
 
-/* ================== PARSE CONFIG ================== */
-function parseConfig(config){
-  config = config.trim();
-  const type = config.split('://')[0].toLowerCase();
-  let name = '', server = '', port = '';
-
+/* ========== PARSE ========== */
+function parseConfig(c){
+  c = c.trim();
+  const type = c.split('://')[0].toLowerCase();
+  let name = '', server = '';
   if(type === 'vmess'){
     try{
-      const raw = config.split('://')[1];
-      const data = JSON.parse(atob(raw));
-      name = data.ps || '';
-      server = data.add || '';
-      port = data.port || '';
+      const raw = c.split('://')[1];
+      const d = JSON.parse(atob(raw));
+      name = d.ps || ''; server = d.add || '';
     }catch(e){}
   } else {
-    const hashIdx = config.indexOf('#');
-    if(hashIdx > -1) name = decodeURIComponent(config.substring(hashIdx + 1));
-    const after = config.split('://')[1] || '';
-    const atIdx = after.indexOf('@');
-    if(atIdx > -1){
-      const rest = after.substring(atIdx + 1);
+    const h = c.indexOf('#');
+    if(h > -1) name = decodeURIComponent(c.substring(h+1));
+    const after = c.split('://')[1] || '';
+    const at = after.indexOf('@');
+    if(at > -1){
+      const rest = after.substring(at+1);
       const end = rest.search(/[:?#\/]/);
-      const hostPort = end > -1 ? rest.substring(0, end) : rest;
-      server = hostPort;
-    } else {
-      const end = after.search(/[?#\/]/);
-      server = end > -1 ? after.substring(0, end) : after;
+      server = end > -1 ? rest.substring(0,end) : rest;
     }
   }
-  return { type, name: name.trim(), server };
+  return {type, name: name.trim(), server};
 }
-function setConfigName(config, newName){
-  const type = config.split('://')[0].toLowerCase();
+function setConfigName(c, n){
+  const type = c.split('://')[0].toLowerCase();
   if(type === 'vmess'){
     try{
-      const raw = config.split('://')[1];
-      const data = JSON.parse(atob(raw));
-      data.ps = newName;
-      return 'vmess://' + btoa(JSON.stringify(data));
-    }catch(e){ return config; }
+      const raw = c.split('://')[1];
+      const d = JSON.parse(atob(raw));
+      d.ps = n;
+      return 'vmess://' + btoa(JSON.stringify(d));
+    }catch(e){ return c; }
   }
-  const hashIdx = config.indexOf('#');
-  const base = hashIdx > -1 ? config.substring(0, hashIdx) : config;
-  return base + '#' + encodeURIComponent(newName);
+  const h = c.indexOf('#');
+  const base = h > -1 ? c.substring(0,h) : c;
+  return base + '#' + encodeURIComponent(n);
 }
 
-/* ================== COUNTRY DETECT ================== */
+/* ========== COUNTRY ========== */
 function detectCountry(name){
   if(!name) return null;
-  for(const [code, info] of Object.entries(COUNTRIES)){
-    if(name.includes(info.flag)) return code;
+  for(const [k,v] of Object.entries(COUNTRIES)) if(name.includes(v.flag)) return k;
+  for(const [k,v] of Object.entries(COUNTRIES)) if(name.includes(v.fa)) return k;
+  for(const [k,v] of Object.entries(COUNTRIES)){
+    const en = v.en.toLowerCase();
+    const re = new RegExp('(^|[^a-z])' + en.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '([^a-z]|$)','i');
+    if(re.test(name)) return k;
   }
-  for(const [code, info] of Object.entries(COUNTRIES)){
-    if(name.includes(info.fa)) return code;
-  }
-  for(const [code, info] of Object.entries(COUNTRIES)){
-    const en = info.en.toLowerCase();
-    const re = new RegExp('(^|[^a-z])' + en.replace(/[.*+?^${}()|[\]\\]/g,'\\$&') + '([^a-z]|$)', 'i');
-    if(re.test(name)) return code;
-  }
-  for(const code of Object.keys(COUNTRIES)){
-    const re = new RegExp('(^|[^a-z])' + code.toLowerCase() + '([^a-z]|$)', 'i');
-    if(re.test(name)) return code;
+  for(const k of Object.keys(COUNTRIES)){
+    const re = new RegExp('(^|[^a-z])' + k.toLowerCase() + '([^a-z]|$)','i');
+    if(re.test(name)) return k;
   }
   return null;
 }
 
-/* ================== TELEGRAM FETCH ================== */
-async function fetchFromTelegram(){
-  const channelsRaw = document.getElementById('tgChannels').value.trim();
-  if(!channelsRaw){ toast('نام کانال رو وارد کن', 'err'); return; }
-  const channels = channelsRaw.split('\n').map(c => c.trim()).filter(Boolean)
-    .map(c => c.replace('@','').replace('https://t.me/','').replace('t.me/','').replace('/',''));
-
-  document.getElementById('tgLoader').classList.add('show');
-  pushHistory();
-
-  let totalAdded = 0;
-  for(const channel of channels){
-    const count = await fetchChannel(channel);
-    totalAdded += count;
+/* ========== ADD CONFIGS ========== */
+function parseAndAdd(content){
+  const re = /(?:vless|vmess|trojan|ss|ssr|hysteria2?|hy2|tuic|wireguard|warp):\/\/[^\s<>"'&`]+/gi;
+  const matches = content.match(re) || [];
+  const existing = new Set(state.configs.map(c => c.raw));
+  let added = 0;
+  for(const m of matches){
+    const raw = m.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'").trim();
+    if(existing.has(raw)) continue;
+    const p = parseConfig(raw);
+    if(!p.type) continue;
+    const cc = detectCountry(p.name);
+    state.configs.push({raw, name:p.name||'Config', country:cc||'', type:p.type, server:p.server, tags:[]});
+    existing.add(raw); added++;
   }
-
-  document.getElementById('tgLoader').classList.remove('show');
-  if(totalAdded > 0){
-    saveState(); renderAll();
-    toast(`✅ ${totalAdded} کانفینگ اضافه شد`);
-    logActivity('دریافت تلگرام', `${totalAdded} کانفینگ از ${channels.length} کانال`);
-    document.querySelector('[data-tab="tab-list"]').click();
-  } else {
-    toast('⚠️ کانفینگی پیدا نشد', 'warn');
-  }
-
-  // Setup auto refresh
-  const refresh = parseInt(document.getElementById('autoRefresh').value);
-  if(refresh > 0){
-    if(autoRefreshTimer) clearInterval(autoRefreshTimer);
-    autoRefreshTimer = setInterval(fetchFromTelegram, refresh * 60000);
-    toast(`⏰ Auto-Refresh هر ${refresh} دقیقه فعال شد`);
-  }
+  if(added > 0){ save(); renderAll(); }
+  return added;
 }
-async function fetchChannel(channel){
-  const targetUrl = `https://t.me/s/${channel}`;
+
+function addManual(){
+  const txt = document.getElementById('manual').value;
+  const n = parseAndAdd(txt);
+  if(n === 0){ toast('❌ کانفینگی پیدا نشد','err'); return; }
+  document.getElementById('manual').value = '';
+  toast(`✅ ${n} کانفینگ اضافه شد`);
+  document.querySelector('[data-tab="t-list"]').click();
+}
+
+function fetchUrl(){
+  const u = document.getElementById('fetchUrl').value.trim();
+  if(!u){ toast('لینک رو وارد کن','err'); return; }
+  fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`)
+    .then(r => r.text())
+    .then(txt => {
+      let content = txt;
+      try{ const d = atob(txt.trim()); if(d.includes('://')) content = d; }catch(e){}
+      const n = parseAndAdd(content);
+      toast(n > 0 ? `✅ ${n} اضافه شد` : '⚠️ چیزی پیدا نشد', n > 0 ? 'ok' : 'warn');
+      if(n > 0) document.querySelector('[data-tab="t-list"]').click();
+    })
+    .catch(e => toast('❌ خطا در دریافت','err'));
+}
+
+function importFile(e){
+  const f = e.target.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    let content = ev.target.result;
+    try{ const d = atob(content.trim()); if(d.includes('://')) content = d; }catch(e){}
+    const n = parseAndAdd(content);
+    toast(n > 0 ? `✅ ${n} اضافه شد` : '⚠️ چیزی پیدا نشد', n > 0 ? 'ok' : 'warn');
+  };
+  r.readAsText(f);
+  e.target.value = '';
+}
+
+async function fetchTelegram(){
+  const raw = document.getElementById('tgChannels').value.trim();
+  if(!raw){ toast('نام کانال رو وارد کن','err'); return; }
+  const channels = raw.split('\n').map(c => c.trim()).filter(Boolean)
+    .map(c => c.replace('@','').replace('https://t.me/','').replace('t.me/','').replace('/',''));
+  document.getElementById('tgLoad').classList.add('show');
+  let total = 0;
+  for(const ch of channels){
+    const html = await fetchChannel(ch);
+    if(html){
+      const n = parseAndAdd(html);
+      total += n;
+    }
+  }
+  document.getElementById('tgLoad').classList.remove('show');
+  if(total > 0){ toast(`✅ ${total} کانفینگ اضافه شد`); document.querySelector('[data-tab="t-list"]').click(); }
+  else toast('⚠️ کانفینگی پیدا نشد','warn');
+}
+
+async function fetchChannel(ch){
+  const url = `https://t.me/s/${ch}`;
   const proxies = [
     u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`,
     u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
     u => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(u)}`
   ];
-  let html = '';
   for(const p of proxies){
     try{
-      const res = await fetch(p(targetUrl));
-      if(res.ok){
-        const txt = await res.text();
-        if(txt.includes('tgme_widget_message') || txt.includes('tgme_channel')){ html = txt; break; }
+      const r = await fetch(p(url));
+      if(r.ok){
+        const t = await r.text();
+        if(t.includes('tgme_widget_message')) return t;
       }
     }catch(e){}
   }
-  if(!html) return 0;
-  const regex = /(?:vless|vmess|trojan|ss|ssr|hysteria2?|hy2|tuic|wireguard|warp):\/\/[^\s<>"'&`]+/gi;
-  const matches = html.match(regex) || [];
-  const existing = new Set(state.configs.map(c=>c.raw));
-  let added = 0;
-  for(let m of matches){
-    let config = m.replace(/&amp;/g,'&').replace(/&quot;/g,'"').replace(/&#39;/g,"'");
-    if(existing.has(config)) continue;
-    const parsed = parseConfig(config);
-    if(!parsed.type) continue;
-    const countryCode = detectCountry(parsed.name);
-    state.configs.push({
-      raw: config, name: parsed.name || 'Config',
-      country: countryCode || '', type: parsed.type,
-      server: parsed.server, latency: null, alive: null, tags: []
-    });
-    existing.add(config); added++;
-  }
-  return added;
+  return '';
 }
 
-/* ================== FETCH FROM URL ================== */
-async function fetchFromUrl(){
-  const url = prompt('لینک ساب یا URL فایل را وارد کن:');
-  if(!url) return;
-  document.getElementById('tgLoader').classList.add('show');
-  try{
-    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);
-    const text = await res.text();
-    let content = text;
-    // Try base64 decode
-    try{
-      const decoded = atob(text.trim());
-      if(decoded.includes('://')) content = decoded;
-    }catch(e){}
-    parseAndAddContent(content);
-    toast('✅ دریافت شد');
-  }catch(e){
-    logError('FetchURL', e.message);
-    toast('❌ خطا در دریافت', 'err');
-  }
-  document.getElementById('tgLoader').classList.remove('show');
-}
+/* ========== RENDER ========== */
+function renderAll(){ renderHome(); renderList(); renderCountries(); }
 
-/* ================== IMPORT FILE ================== */
-function importFile(event){
-  const file = event.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    let content = e.target.result;
-    try{
-      const decoded = atob(content.trim());
-      if(decoded.includes('://')) content = decoded;
-    }catch(e){}
-    parseAndAddContent(content);
-    toast('📁 فایل import شد');
-  };
-  reader.readAsText(file);
-  event.target.value = '';
-}
-function parseAndAddContent(content){
-  pushHistory();
-  const regex = /(?:vless|vmess|trojan|ss|ssr|hysteria2?|hy2|tuic|wireguard|warp):\/\/[^\s<>"'&`]+/gi;
-  const matches = content.match(regex) || [];
-  const existing = new Set(state.configs.map(c=>c.raw));
-  let added = 0;
-  for(let m of matches){
-    const config = m.trim();
-    if(existing.has(config)) continue;
-    const parsed = parseConfig(config);
-    const countryCode = detectCountry(parsed.name);
-    state.configs.push({
-      raw: config, name: parsed.name || 'Config',
-      country: countryCode || '', type: parsed.type,
-      server: parsed.server, latency: null, alive: null, tags: []
-    });
-    existing.add(config); added++;
-  }
-  saveState(); renderAll();
-  if(added > 0) logActivity('افزودن', `${added} کانفینگ`);
-  return added;
-}
-
-/* ================== QR SCAN ================== */
-async function scanQR(){
-  showModal('scanModal');
-  try{
-    qrScanner = new Html5Qrcode("qr-reader");
-    await qrScanner.start(
-      { facingMode: "environment" },
-      { fps: 10, qrbox: 250 },
-      text => {
-        parseAndAddContent(text);
-        toast('✅ اسکن شد');
-        stopScan();
-      },
-      err => {}
-    );
-  }catch(e){
-    logError('QRScan', e.message);
-    toast('❌ دوربین در دسترس نیست', 'err');
-    closeModal('scanModal');
-  }
-}
-async function stopScan(){
-  if(qrScanner){
-    try{ await qrScanner.stop(); }catch(e){}
-    qrScanner = null;
-  }
-  closeModal('scanModal');
-}
-
-/* ================== MANUAL ADD ================== */
-function addManual(){
-  const txt = document.getElementById('manualInput').value;
-  const added = parseAndAddContent(txt);
-  if(added === 0){ toast('❌ کانفینگی پیدا نشد', 'err'); return; }
-  document.getElementById('manualInput').value = '';
-  toast(`✅ ${added} کانفینگ اضافه شد`);
-  document.querySelector('[data-tab="tab-list"]').click();
-}
-
-/* ================== RENDER ================== */
-function renderAll(){
-  renderConfigs();
-  renderDashboard();
-  renderUsers();
-  renderLogs();
-  renderSales();
-  renderSnapshots();
-  renderFilterCountries();
-}
-
-function renderConfigs(){
-  const list = document.getElementById('configsList');
-  if(!list) return;
-  const search = (document.getElementById('searchInput')?.value || '').toLowerCase();
-  const filterC = document.getElementById('filterCountry')?.value || '';
-  const filterT = document.getElementById('filterType')?.value || '';
-  const sortBy = document.getElementById('sortBy')?.value || 'none';
-
-  let filtered = state.configs.filter((c,i) => {
-    if(search && !(c.name.toLowerCase().includes(search) || c.server.toLowerCase().includes(search))) return false;
-    if(filterC && c.country !== filterC) return false;
-    if(filterT && c.type !== filterT) return false;
-    return true;
-  });
-  filtered = filtered.map((c,i) => ({...c, _idx: state.configs.indexOf(c)}));
-
-  if(sortBy === 'country') filtered.sort((a,b)=>(a.country||'zz').localeCompare(b.country||'zz'));
-  else if(sortBy === 'type') filtered.sort((a,b)=>a.type.localeCompare(b.type));
-  else if(sortBy === 'latency'){
-    filtered.sort((a,b)=>{
-      const la = a.latency == null ? 99999 : a.latency;
-      const lb = b.latency == null ? 99999 : b.latency;
-      return la - lb;
-    });
-  }
-
-  if(filtered.length === 0){
-    list.innerHTML = `<div class="empty"><div class="icon">📭</div>کانفینگی پیدا نشد</div>`;
-    return;
-  }
-
-  let html = '';
-  filtered.forEach(c => {
-    const i = c._idx;
-    const flag = c.country && COUNTRIES[c.country] ? COUNTRIES[c.country].flag : '🏴';
-    let options = `<option value="">— نامشخص —</option>`;
-    for(const [code, info] of Object.entries(COUNTRIES)){
-      options += `<option value="${code}" ${c.country === code ? 'selected' : ''}>${info.flag} ${info.fa}</option>`;
-    }
-    const q = c.latency == null ? '' : (c.latency < 300 ? 'good' : c.latency < 800 ? 'med' : 'bad');
-    const qText = c.latency == null ? '' : (c.latency < 300 ? '🟢' : c.latency < 800 ? '🟡' : '🔴');
-    const tags = (c.tags||[]).map(t=>`<span class="tag">${t}</span>`).join('');
-
-    html += `
-    <div class="config-item" draggable="true" data-idx="${i}">
-      <div class="top">
-        <span class="drag-handle">⋮⋮</span>
-        <span class="flag">${flag}</span>
-        <span class="type">${c.type}</span>
-        ${qText ? `<span class="quality ${q}">${qText} ${c.latency}ms</span>` : ''}
-        ${tags}
-        <span class="server">${c.server || '—'}</span>
-        <button class="del-btn" onclick="removeConfig(${i})">🗑</button>
-      </div>
-      <div class="row">
-        <select onchange="changeCountry(${i}, this.value)">${options}</select>
-        <input type="text" value="${(c.name || '').replace(/"/g,'&quot;')}" onchange="changeName(${i}, this.value)" placeholder="نام">
-      </div>
-      <div class="actions">
-        <button class="btn btn-xs btn-ghost" onclick="editTags(${i})">🏷 Tag</button>
-        <button class="btn btn-xs btn-info" onclick="testSingle(${i})">⚡️ تست</button>
-        <button class="btn btn-xs btn-primary" onclick="showConfigQR(${i})">📱 QR</button>
-        <button class="btn btn-xs btn-ghost" onclick="copyConfig(${i})">📋 کپی</button>
-        <button class="btn btn-xs btn-warn" onclick="moveConfig(${i},-1)">▲</button>
-        <button class="btn btn-xs btn-warn" onclick="moveConfig(${i},1)">▼</button>
-      </div>
-    </div>`;
-  });
-  list.innerHTML = html;
-  enableDragDrop();
-}
-
-function renderFilterCountries(){
-  const sel = document.getElementById('filterCountry');
-  if(!sel) return;
-  const used = new Set(state.configs.map(c=>c.country).filter(Boolean));
-  let html = `<option value="">همه کشورها</option>`;
-  for(const code of used){
-    if(COUNTRIES[code]) html += `<option value="${code}">${COUNTRIES[code].flag} ${COUNTRIES[code].fa}</option>`;
-  }
-  sel.innerHTML = html;
-}
-
-function renderDashboard(){
-  const total = state.configs.length;
-  const countries = new Set(state.configs.map(c=>c.country).filter(Boolean));
-  const alive = state.configs.filter(c=>c.alive === true).length;
-  const revenue = state.orders.reduce((s,o)=>s+o.total, 0);
-
-  document.getElementById('statTotal').textContent = total;
-  document.getElementById('statCountries').textContent = countries.size;
-  document.getElementById('statAlive').textContent = alive;
-  document.getElementById('statRevenue').textContent = revenue;
-
-  // Top countries
+function renderHome(){
+  document.getElementById('sTotal').textContent = state.configs.length;
+  const cs = new Set(state.configs.map(c => c.country).filter(Boolean));
+  document.getElementById('sCountry').textContent = cs.size;
+  document.getElementById('sSub').textContent = state.gistUrl ? 1 : 0;
+  document.getElementById('sGist').textContent = state.gistId ? '✅' : '-';
   const counts = {};
   state.configs.forEach(c => { if(c.country) counts[c.country] = (counts[c.country]||0)+1; });
-  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,5);
-  const topDiv = document.getElementById('topCountries');
-  if(sorted.length === 0){ topDiv.innerHTML = '<div class="hint">هنوز کانفینگی نیست</div>'; }
-  else {
-    topDiv.innerHTML = sorted.map(([code, count]) => {
-      const info = COUNTRIES[code] || {flag:'🏴', fa:code};
-      const pct = Math.round(count/total*100);
-      return `<div style="margin-bottom:8px">
-        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px">
-          <span>${info.flag} ${info.fa}</span>
-          <span style="color:var(--muted)">${count} (${pct}%)</span>
-        </div>
-        <div style="height:6px;background:var(--card2);border-radius:3px;overflow:hidden">
-          <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
-        </div>
-      </div>`;
-    }).join('');
-  }
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const div = document.getElementById('topCountries');
+  if(sorted.length === 0){ div.innerHTML = 'هنوز کانفینگی نداری'; }
+  else div.innerHTML = sorted.map(([k,v]) => {
+    const i = COUNTRIES[k] || {flag:'🏴',fa:k};
+    const pct = Math.round(v/state.configs.length*100);
+    return `<div style="margin-bottom:8px">
+      <div style="display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px">
+        <span>${i.flag} ${i.fa}</span><span style="color:var(--muted)">${v} (${pct}%)</span>
+      </div>
+      <div style="height:5px;background:var(--card2);border-radius:3px;overflow:hidden">
+        <div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--accent),var(--accent2))"></div>
+      </div>
+    </div>`;
+  }).join('');
+}
 
-  // Chart
-  const ctx = document.getElementById('countryChart');
-  if(!ctx) return;
-  if(window.countryChartInst) window.countryChartInst.destroy();
-  const labels = sorted.map(([code]) => (COUNTRIES[code]?.fa || code));
-  const data = sorted.map(([,c]) => c);
-  if(labels.length === 0){ labels.push('خالی'); data.push(0); }
-  window.countryChartInst = new Chart(ctx, {
-    type:'doughnut',
-    data:{
-      labels,
-      datasets:[{
-        data,
-        backgroundColor:['#7c3aed','#06b6d4','#10b981','#f59e0b','#ef4444']
-      }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{ labels:{ color:getComputedStyle(document.body).getPropertyValue('--text') } } }
-    }
+function renderCountries(){
+  const sel = document.getElementById('fCountry');
+  if(!sel) return;
+  const used = [...new Set(state.configs.map(c => c.country).filter(Boolean))];
+  sel.innerHTML = '<option value="">همه کشورها</option>' +
+    used.map(c => `<option value="${c}">${COUNTRIES[c]?.flag||''} ${COUNTRIES[c]?.fa||c}</option>`).join('');
+}
+
+function renderList(){
+  const div = document.getElementById('list');
+  if(!div) return;
+  const q = (document.getElementById('searchIn')?.value||'').toLowerCase();
+  const fc = document.getElementById('fCountry')?.value||'';
+  const ft = document.getElementById('fType')?.value||'';
+  const items = state.configs.map((c,i)=>({...c,_i:i})).filter(c => {
+    if(q && !(c.name.toLowerCase().includes(q) || c.server.toLowerCase().includes(q))) return false;
+    if(fc && c.country !== fc) return false;
+    if(ft && c.type !== ft) return false;
+    return true;
   });
-}
-
-function renderUsers(){
-  const div = document.getElementById('usersList');
-  if(!div) return;
-  div.innerHTML = state.users.map((u,i) => `
-    <div class="log-item">
-      <span>${u.role === 'admin' ? '👑' : '👤'} ${u.username} <span style="color:var(--muted);font-size:10px">(${u.role})</span></span>
-      ${u.username !== 'admin' ? `<button class="btn btn-xs btn-danger" onclick="removeUser(${i})">حذف</button>` : ''}
-    </div>
-  `).join('');
-}
-
-function renderLogs(){
-  const div = document.getElementById('activityLog');
-  if(!div) return;
-  if(state.logs.length === 0){ div.innerHTML = '<div class="hint">فعالیتی ثبت نشده</div>'; return; }
-  div.innerHTML = state.logs.slice(0,30).map(l => `
-    <div class="log-item">
-      <span>${l.action} ${l.detail ? '— ' + l.detail : ''}</span>
-      <span class="time">${l.time}</span>
-    </div>
-  `).join('');
-  // Errors
-  const eDiv = document.getElementById('errorLog');
-  if(eDiv){
-    if(state.errors.length === 0){ eDiv.innerHTML = '<div class="hint">خطایی ثبت نشده ✅</div>'; }
-    else eDiv.innerHTML = state.errors.slice(0,20).map(e => `
-      <div class="log-item" style="border-color:var(--danger)">
-        <span>${e.source}: ${e.message}</span>
-        <span class="time">${e.time}</span>
-      </div>
-    `).join('');
+  if(items.length === 0){
+    div.innerHTML = '<div class="empty"><div class="ic">📭</div>کانفینگی نیست</div>';
+    return;
   }
-}
-
-function renderSales(){
-  document.getElementById('statOrders').textContent = state.orders.length;
-  document.getElementById('statRevenue2').textContent = state.orders.reduce((s,o)=>s+o.total,0);
-  const stock = 1000; // fake inventory
-  document.getElementById('statStock').textContent = stock;
-  document.getElementById('statCoupons').textContent = state.coupons.length;
-
-  const oDiv = document.getElementById('ordersList');
-  if(oDiv){
-    if(state.orders.length === 0){ oDiv.innerHTML = '<div class="empty"><div class="icon">🧾</div>هنوز سفارشی نیست</div>'; }
-    else oDiv.innerHTML = state.orders.slice().reverse().map((o,i) => `
-      <div class="log-item">
-        <span><b>${o.name}</b> (${o.id}) — ${o.gb} گیگ — ${o.total}⭐${o.coupon ? ` 🎟${o.coupon}` : ''}</span>
-        <span class="time">${o.time}</span>
+  div.innerHTML = items.map(c => {
+    const i = c._i;
+    const flag = c.country && COUNTRIES[c.country] ? COUNTRIES[c.country].flag : '🏴';
+    const opts = Object.entries(COUNTRIES).map(([k,v]) =>
+      `<option value="${k}" ${c.country===k?'selected':''}>${v.flag} ${v.fa}</option>`).join('');
+    const tags = (c.tags||[]).map(t=>`<span class="type" style="background:rgba(245,158,11,.2);color:var(--warn)">${t}</span>`).join('');
+    return `<div class="citem">
+      <div class="top">
+        <span class="flag">${flag}</span>
+        <span class="type">${c.type}</span>
+        ${tags}
+        <span class="server">${c.server||'—'}</span>
+        <button class="delbtn" onclick="removeConfig(${i})">🗑</button>
       </div>
-    `).join('');
-  }
-
-  const cDiv = document.getElementById('couponsList');
-  if(cDiv){
-    if(state.coupons.length === 0){ cDiv.innerHTML = '<div class="hint">کد تخفیفی نیست</div>'; }
-    else cDiv.innerHTML = state.coupons.map((c,i) => `
-      <div class="log-item">
-        <span>🎟 <b>${c.code}</b> — ${c.percent}% تخفیف</span>
-        <button class="btn btn-xs btn-danger" onclick="removeCoupon(${i})">حذف</button>
+      <div class="row">
+        <select onchange="changeCountry(${i},this.value)"><option value="">— نامشخص —</option>${opts}</select>
+        <input type="text" value="${(c.name||'').replace(/"/g,'&quot;')}" onchange="changeName(${i},this.value)" placeholder="نام">
       </div>
-    `).join('');
-  }
+      <div class="acts">
+        <button class="btn btn-xs btn-ghost" onclick="editTags(${i})">🏷 Tag</button>
+        <button class="btn btn-xs btn-primary" onclick="showConfigQR(${i})">📱 QR</button>
+        <button class="btn btn-xs btn-ghost" onclick="copyConfig(${i})">📋 کپی</button>
+      </div>
+    </div>`;
+  }).join('');
 }
 
-function renderSnapshots(){
-  const div = document.getElementById('snapshotsList');
-  if(!div) return;
-  if(state.snapshots.length === 0){ div.innerHTML = '<div class="hint">Snapshot نداری</div>'; return; }
-  div.innerHTML = state.snapshots.map((s,i) => `
-    <div class="log-item">
-      <span>📸 ${s.name}</span>
-      <button class="btn btn-xs btn-primary" onclick="restoreSnapshot(${i})">بازیابی</button>
-    </div>
-  `).join('');
-}
-
-/* ================== CONFIG ACTIONS ================== */
-function removeConfig(i){
-  pushHistory();
-  state.configs.splice(i,1);
-  saveState(); renderAll(); toast('🗑 حذف شد');
-}
-function changeName(i, val){
+/* ========== CONFIG ACTIONS ========== */
+function removeConfig(i){ state.configs.splice(i,1); save(); renderAll(); toast('🗑 حذف شد'); }
+function changeName(i,v){
   if(!state.configs[i]) return;
-  let newName = val.trim();
-  state.configs[i].name = newName;
+  let n = v.trim();
   if(state.configs[i].country && COUNTRIES[state.configs[i].country]){
-    const flag = COUNTRIES[state.configs[i].country].flag;
-    if(!newName.startsWith(flag)) newName = `${flag} ${newName.replace(/^[\p{Emoji}\s]+/u,'')}`;
+    const f = COUNTRIES[state.configs[i].country].flag;
+    if(!n.startsWith(f)) n = `${f} ${n.replace(/^[\p{Emoji}\s]+/u,'')}`;
   }
-  state.configs[i].raw = setConfigName(state.configs[i].raw, newName);
-  saveState();
+  state.configs[i].name = n;
+  state.configs[i].raw = setConfigName(state.configs[i].raw, n);
+  save();
 }
-function changeCountry(i, code){
+function changeCountry(i,c){
   if(!state.configs[i]) return;
-  pushHistory();
-  state.configs[i].country = code;
-  if(code && COUNTRIES[code]){
-    const flag = COUNTRIES[code].flag;
-    const countryFa = COUNTRIES[code].fa;
-    let baseName = state.configs[i].name.replace(/^[\p{Emoji}\s]+/u,'').trim();
-    const newName = `${flag} ${countryFa} - ${baseName || 'Config'}`;
-    state.configs[i].name = newName;
-    state.configs[i].raw = setConfigName(state.configs[i].raw, newName);
+  state.configs[i].country = c;
+  if(c && COUNTRIES[c]){
+    const f = COUNTRIES[c].flag, fa = COUNTRIES[c].fa;
+    let base = state.configs[i].name.replace(/^[\p{Emoji}\s]+/u,'').trim();
+    const n = `${f} ${fa}${base?' - '+base:''}`;
+    state.configs[i].name = n;
+    state.configs[i].raw = setConfigName(state.configs[i].raw, n);
   }
-  saveState(); renderConfigs();
+  save(); renderList();
 }
-function moveConfig(i, dir){
-  const j = i + dir;
-  if(j < 0 || j >= state.configs.length) return;
-  pushHistory();
-  [state.configs[i], state.configs[j]] = [state.configs[j], state.configs[i]];
-  saveState(); renderConfigs();
-}
-function copyConfig(i){
-  navigator.clipboard.writeText(state.configs[i].raw);
-  toast('📋 کپی شد');
-}
+function copyConfig(i){ navigator.clipboard.writeText(state.configs[i].raw); toast('📋 کپی شد'); }
 function editTags(i){
-  const c = state.configs[i];
-  const current = (c.tags||[]).join(',');
-  const input = prompt('Tag ها رو با کاما جدا کن:', current);
-  if(input === null) return;
-  c.tags = input.split(',').map(t=>t.trim()).filter(Boolean);
-  saveState(); renderConfigs();
-  toast('🏷 Tag ذخیره شد');
+  const cur = (state.configs[i].tags||[]).join(',');
+  const v = prompt('Tag ها (با کاما جدا کن):', cur);
+  if(v === null) return;
+  state.configs[i].tags = v.split(',').map(x=>x.trim()).filter(Boolean);
+  save(); renderList(); toast('🏷 ذخیره شد');
 }
 function showConfigQR(i){
   const div = document.getElementById('qrcode');
   div.innerHTML = '';
-  new QRCode(div, { text: state.configs[i].raw, width: 220, height: 220 });
+  new QRCode(div, {text: state.configs[i].raw, width: 220, height: 220});
   showModal('qrModal');
 }
 
-/* ================== DRAG DROP ================== */
-function enableDragDrop(){
-  const items = document.querySelectorAll('.config-item');
-  let dragIdx = null;
-  items.forEach(el => {
-    el.addEventListener('dragstart', e => {
-      dragIdx = parseInt(el.dataset.idx);
-      el.classList.add('dragging');
-    });
-    el.addEventListener('dragend', () => el.classList.remove('dragging'));
-    el.addEventListener('dragover', e => e.preventDefault());
-    el.addEventListener('drop', e => {
-      e.preventDefault();
-      const dropIdx = parseInt(el.dataset.idx);
-      if(dragIdx === null || dragIdx === dropIdx) return;
-      pushHistory();
-      const moved = state.configs.splice(dragIdx, 1)[0];
-      state.configs.splice(dropIdx, 0, moved);
-      saveState(); renderConfigs();
-    });
-  });
-}
-
-/* ================== AUTO RENAME ================== */
-function autoRenameAll(){
-  if(state.configs.length === 0){ toast('لیست خالیه', 'warn'); return; }
-  pushHistory();
+function autoRename(){
+  if(!state.configs.length){ toast('لیست خالیه','warn'); return; }
   const counts = {};
   state.configs.forEach(c => {
-    if(!c.country){
-      const det = detectCountry(c.name) || detectCountry(c.server);
-      c.country = det || '';
-    }
-  });
-  state.configs.forEach(c => {
-    let flag = '🏴', countryName = 'Unknown', code = c.country || 'XX';
+    if(!c.country) c.country = detectCountry(c.name) || detectCountry(c.server) || '';
+    let f = '🏴', cn = 'Unknown', code = c.country || 'XX';
     if(c.country && COUNTRIES[c.country]){
-      flag = COUNTRIES[c.country].flag;
-      countryName = COUNTRIES[c.country].fa;
+      f = COUNTRIES[c.country].flag;
+      cn = COUNTRIES[c.country].fa;
       code = c.country;
     }
-    counts[code] = (counts[code] || 0) + 1;
-    const num = String(counts[code]).padStart(2, '0');
-    const newName = `${flag} ${countryName} ${num}`;
-    c.name = newName;
-    c.raw = setConfigName(c.raw, newName);
+    counts[code] = (counts[code]||0)+1;
+    const n = `${f} ${cn} ${String(counts[code]).padStart(2,'0')}`;
+    c.name = n;
+    c.raw = setConfigName(c.raw, n);
   });
-  saveState(); renderAll();
-  logActivity('تغییر نام خودکار');
+  save(); renderAll();
   toast('🌍 همه نام‌گذاری شدند');
 }
-function cleanBroken(){
+function dedupe(){
   const before = state.configs.length;
-  pushHistory();
-  state.configs = state.configs.filter(c => c.alive !== false);
-  const removed = before - state.configs.length;
-  saveState(); renderAll();
-  toast(removed > 0 ? `🧹 ${removed} حذف شد` : 'همه سالمن');
-}
-function dedupeConfigs(){
-  const before = state.configs.length;
-  pushHistory();
   const seen = new Set();
   state.configs = state.configs.filter(c => {
     if(seen.has(c.raw)) return false;
     seen.add(c.raw); return true;
   });
-  const removed = before - state.configs.length;
-  saveState(); renderAll();
-  toast(removed > 0 ? `♻️ ${removed} تکراری حذف شد` : 'تکراری نیست');
+  save(); renderAll();
+  toast(before - state.configs.length > 0 ? `♻️ ${before-state.configs.length} تکراری حذف شد` : 'تکراری نیست');
 }
 function clearAll(){
   if(!confirm('همه کانفینگ‌ها پاک بشن؟')) return;
-  pushHistory();
-  state.configs = [];
-  saveState(); renderAll();
-  toast('🗑 همه پاک شد');
+  state.configs = []; save(); renderAll();
+  toast('🗑 پاک شد');
 }
 
-/* ================== SPEED TEST ================== */
-async function startSpeedTest(){
-  if(state.configs.length === 0){ toast('لیست خالیه', 'warn'); return; }
-  testRunning = true;
-  document.getElementById('testLoader').classList.add('show');
-  const concurrency = parseInt(document.getElementById('testConcurrency').value) || 5;
-  const timeout = (parseInt(document.getElementById('testTimeout').value) || 5) * 1000;
+/* ========== SUB (GIST) ========== */
+async function publishSub(){
+  const token = document.getElementById('gistToken').value.trim();
+  const fname = document.getElementById('fileName').value.trim() || 'sub.txt';
+  if(!token){ toast('توکن GitHub رو وارد کن','err'); return; }
+  if(!state.configs.length){ toast('اول کانفینگ اضافه کن','warn'); return; }
 
-  let done = 0;
-  const results = [];
+  state.gistToken = token;
+  state.fileName = fname;
+  save();
 
-  const queue = state.configs.map((c,i) => ({config:c, index:i}));
-
-  async function worker(){
-    while(queue.length > 0 && testRunning){
-      const item = queue.shift();
-      const result = await testConfig(item.config, timeout);
-      item.config.latency = result.latency;
-      item.config.alive = result.alive;
-      results.push({...result, config:item.config});
-      done++;
-      document.getElementById('testProgress').textContent = `(${done}/${state.configs.length})`;
-      renderTestResults(results);
-      renderConfigs();
-    }
-  }
-
-  const workers = [];
-  for(let i = 0; i < concurrency; i++) workers.push(worker());
-  await Promise.all(workers);
-
-  document.getElementById('testLoader').classList.remove('show');
-  saveState(); renderDashboard();
-  toast('✅ تست کامل شد');
-  logActivity('تست سرعت', `${state.configs.length} کانفینگ`);
-}
-function stopTest(){
-  testRunning = false;
-  document.getElementById('testLoader').classList.remove('show');
-  toast('⏹ متوقف شد', 'warn');
-}
-async function testConfig(config, timeout){
-  const t0 = performance.now();
-  try{
-    const url = `https://${config.server}`;
-    const controller = new AbortController();
-    const timer = setTimeout(()=>controller.abort(), timeout);
-    await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, {
-      signal: controller.signal, mode:'cors'
-    }).catch(()=>{});
-    clearTimeout(timer);
-    const latency = Math.round(performance.now() - t0);
-    return { latency, alive: true };
-  }catch(e){
-    return { latency: null, alive: false };
-  }
-}
-async function testSingle(i){
-  const c = state.configs[i];
-  toast('⚡️ در حال تست...', 'warn');
-  const r = await testConfig(c, 5000);
-  c.latency = r.latency;
-  c.alive = r.alive;
-  saveState(); renderConfigs(); renderDashboard();
-  toast(r.alive ? `✅ ${r.latency}ms` : '❌ پاسخ نداد');
-}
-function renderTestResults(results){
-  const div = document.getElementById('testResults');
-  if(!div) return;
-  div.innerHTML = results.map(r => {
-    const flag = r.config.country && COUNTRIES[r.config.country] ? COUNTRIES[r.config.country].flag : '🏴';
-    const q = r.latency == null ? 'bad' : (r.latency < 300 ? 'good' : r.latency < 800 ? 'med' : 'bad');
-    const qText = r.latency == null ? '❌' : (r.latency < 300 ? '🟢' : r.latency < 800 ? '🟡' : '🔴');
-    return `<div class="log-item">
-      <span>${flag} ${r.config.name} <span class="quality ${q}">${qText} ${r.latency||'—'}ms</span></span>
-    </div>`;
-  }).join('');
-}
-
-/* ================== SUB GENERATION ================== */
-function buildBase64Content(){
   const text = state.configs.map(c => c.raw).join('\n');
-  return btoa(unescape(encodeURIComponent(text)));
-}
-function buildClashContent(){
-  const proxies = state.configs.map(c => {
-    try{
-      const url = new URL(c.raw.replace(/^[a-z]+:\/\//i,'http://'));
-      return {
-        name: c.name || 'Config',
-        type: c.type,
-        server: url.hostname,
-        port: parseInt(url.port) || 443
-      };
-    }catch(e){ return null; }
-  }).filter(Boolean);
-  return JSON.stringify({proxies}, null, 2);
-}
-function buildSingboxContent(){
-  const outbounds = state.configs.map(c => {
-    try{
-      const url = new URL(c.raw.replace(/^[a-z]+:\/\//i,'http://'));
-      return {
-        type: c.type,
-        tag: c.name || 'Config',
-        server: url.hostname,
-        server_port: parseInt(url.port) || 443
-      };
-    }catch(e){ return null; }
-  }).filter(Boolean);
-  return JSON.stringify({outbounds}, null, 2);
-}
-function generateSub(){
-  if(state.configs.length === 0){ toast('اول کانفینگ اضافه کن', 'warn'); return; }
-  let domain = document.getElementById('domainInput').value.trim()
-    .replace(/^https?:\/\//,'').replace(/\/+$/,'');
-  const fileName = document.getElementById('fileName').value.trim() || 'sub.txt';
-  const token = document.getElementById('subToken').value.trim();
-  const expiry = document.getElementById('subExpiry').value;
+  const content = btoa(unescape(encodeURIComponent(text)));
 
-  let url = domain ? `https://${domain}/${fileName}` : 'دامنه رو وارد کن';
-  const params = [];
-  if(token) params.push(`token=${token}`);
-  if(expiry) params.push(`exp=${expiry}`);
-  if(params.length) url += '?' + params.join('&');
+  document.getElementById('pubLoad').classList.add('show');
 
-  document.getElementById('subUrl').textContent = url;
-  document.getElementById('subResult').style.display = 'block';
-  toast('✅ لینک ساخته شد');
+  try{
+    let url, method, body;
+    if(state.gistId){
+      url = `https://api.github.com/gists/${state.gistId}`;
+      method = 'PATCH';
+      body = { files: { [fname]: { content } } };
+    } else {
+      url = 'https://api.github.com/gists';
+      method = 'POST';
+      body = {
+        description: 'Noxborne Subscription',
+        public: false,
+        files: { [fname]: { content } }
+      };
+    }
+
+    const res = await fetch(url, {
+      method,
+      headers: {
+        'Authorization': `token ${token}`,
+        'Accept': 'application/vnd.github+json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+
+    document.getElementById('pubLoad').classList.remove('show');
+
+    if(!res.ok){
+      const err = await res.json().catch(()=>({}));
+      toast('❌ ' + (err.message || 'خطا در GitHub'),'err');
+      return;
+    }
+
+    const data = await res.json();
+    state.gistId = data.id;
+    const fileData = data.files[fname];
+    const rawUrl = fileData.raw_url.replace(/\/raw\/[^/]+\//, '/raw/');
+
+    state.gistUrl = rawUrl;
+    save();
+
+    document.getElementById('subUrl').textContent = rawUrl;
+    document.getElementById('subResult').style.display = 'block';
+    toast('✅ لینک ساب ساخته شد');
+    renderHome();
+
+    // Scroll to result
+    document.getElementById('subResult').scrollIntoView({behavior:'smooth'});
+
+  }catch(e){
+    document.getElementById('pubLoad').classList.remove('show');
+    toast('❌ خطا: ' + e.message,'err');
+  }
 }
-function copySubUrl(){
+function copySub(){
   const u = document.getElementById('subUrl').textContent;
-  if(!u.startsWith('http')){ toast('اول دامنه رو وارد کن', 'warn'); return; }
   navigator.clipboard.writeText(u);
   toast('📋 کپی شد');
 }
 function showSubQR(){
   const u = document.getElementById('subUrl').textContent;
-  if(!u.startsWith('http')){ toast('اول دامنه رو وارد کن', 'warn'); return; }
+  if(!u.startsWith('http')){ toast('اول لینک بساز','warn'); return; }
   const div = document.getElementById('qrcode');
   div.innerHTML = '';
-  new QRCode(div, { text: u, width: 220, height: 220 });
+  new QRCode(div, {text: u, width: 220, height: 220});
   showModal('qrModal');
 }
-function downloadSub(type){
-  if(state.configs.length === 0){ toast('لیست خالیه', 'warn'); return; }
-  let content, filename;
-  if(type === 'clash'){ content = buildClashContent(); filename = 'clash.json'; }
-  else if(type === 'singbox'){ content = buildSingboxContent(); filename = 'singbox.json'; }
-  else { content = buildBase64Content(); filename = 'sub.txt'; }
 
-  const blob = new Blob([content], {type:'text/plain'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(a.href);
-  toast(`⬇️ ${filename} دانلود شد`);
-}
-async function uploadToGithub(){
-  const token = document.getElementById('githubToken').value.trim();
-  const repo = document.getElementById('githubRepo').value.trim();
-  if(!token || !repo){ toast('توکن و مخزن رو وارد کن', 'err'); return; }
-  if(state.configs.length === 0){ toast('لیست خالیه', 'warn'); return; }
-
-  const content = buildBase64Content();
-  const fileName = document.getElementById('fileName').value.trim() || 'sub.txt';
-  const url = `https://api.github.com/repos/${repo}/contents/${fileName}`;
-
-  document.getElementById('tgLoader')?.classList.add('show');
-  try{
-    // Get existing sha if exists
-    let sha = null;
-    try{
-      const r = await fetch(url, { headers: { 'Authorization': `token ${token}` }});
-      if(r.ok){ const j = await r.json(); sha = j.sha; }
-    }catch(e){}
-
-    const body = {
-      message: `Update ${fileName} - ${new Date().toISOString()}`,
-      content: content
-    };
-    if(sha) body.sha = sha;
-
-    const res = await fetch(url, {
-      method:'PUT',
-      headers:{ 'Authorization': `token ${token}`, 'Content-Type':'application/json' },
-      body: JSON.stringify(body)
-    });
-    if(res.ok){
-      toast('✅ آپلود شد');
-      logActivity('آپلود GitHub', repo);
-    } else {
-      const err = await res.json();
-      toast('❌ ' + (err.message || 'خطا'), 'err');
-    }
-  }catch(e){
-    logError('GitHub', e.message);
-    toast('❌ خطا در آپلود', 'err');
-  }
-  document.getElementById('tgLoader')?.classList.remove('show');
-}
-
-/* ================== SALES ================== */
-function addOrder(){
-  const name = document.getElementById('orderName').value.trim();
-  const id = document.getElementById('orderId').value.trim();
-  const gb = parseInt(document.getElementById('orderGB').value) || 1;
-  const coupon = document.getElementById('orderCoupon').value.trim().toUpperCase();
-
-  if(!name){ toast('نام مشتری رو وارد کن', 'err'); return; }
-
-  let total = gb * PRICE_PER_GB;
-  let discount = 0;
-  if(coupon){
-    const c = state.coupons.find(x => x.code === coupon);
-    if(c){ discount = Math.round(total * c.percent / 100); total -= discount; }
-  }
-
-  pushHistory();
-  state.orders.push({ name, id, gb, total, coupon, time: new Date().toLocaleString('fa-IR') });
-  saveState(); renderSales(); renderDashboard();
-  toast(`✅ سفارش ثبت شد — ${total}⭐`);
-  logActivity('سفارش', `${name} - ${gb} گیگ - ${total}⭐`);
-
-  document.getElementById('orderName').value = '';
-  document.getElementById('orderId').value = '';
-  document.getElementById('orderCoupon').value = '';
-}
-function addCoupon(){
-  const code = document.getElementById('couponCode').value.trim().toUpperCase();
-  const percent = parseInt(document.getElementById('couponPercent').value) || 10;
-  if(!code){ toast('کد رو وارد کن', 'err'); return; }
-  pushHistory();
-  state.coupons.push({ code, percent });
-  saveState(); renderSales();
-  toast('🎟 کد اضافه شد');
-  document.getElementById('couponCode').value = '';
-}
-function removeCoupon(i){
-  state.coupons.splice(i,1);
-  saveState(); renderSales();
-}
-
-/* ================== USERS ================== */
-function addUser(){
-  const username = document.getElementById('newUser').value.trim();
-  const password = document.getElementById('newPass').value.trim();
-  const role = document.getElementById('newRole').value;
-  if(!username || !password){ toast('نام و رمز رو وارد کن', 'err'); return; }
-  if(state.users.find(u => u.username === username)){ toast('نام کاربری تکراری', 'err'); return; }
-  state.users.push({ username, password, role });
-  saveState(); renderUsers();
-  toast('✅ کاربر اضافه شد');
-  document.getElementById('newUser').value = '';
+/* ========== SETTINGS ========== */
+function changePass(){
+  const o = document.getElementById('oldPass').value;
+  const n = document.getElementById('newPass').value;
+  if(o !== state.pass){ toast('❌ رمز فعلی اشتباه','err'); return; }
+  if(!n || n.length < 6){ toast('رمز جدید حداقل ۶ حرف','err'); return; }
+  state.pass = n;
+  save();
+  document.getElementById('oldPass').value = '';
   document.getElementById('newPass').value = '';
+  toast('🔑 رمز تغییر کرد');
 }
-function removeUser(i){
-  state.users.splice(i,1);
-  saveState(); renderUsers();
-}
-
-/* ================== SNAPSHOTS ================== */
-function takeSnapshot(){
-  const name = prompt('اسم Snapshot:', `Snapshot ${state.snapshots.length + 1}`);
-  if(!name) return;
-  state.snapshots.push({
-    name, time: new Date().toLocaleString('fa-IR'),
-    data: JSON.stringify({configs:state.configs, orders:state.orders, coupons:state.coupons})
-  });
-  saveState(); renderSnapshots();
-  toast('📸 ذخیره شد');
-}
-function restoreSnapshot(i){
-  if(!confirm('بازیابی؟')) return;
-  const s = state.snapshots[i];
-  const d = JSON.parse(s.data);
-  pushHistory();
-  state.configs = d.configs; state.orders = d.orders; state.coupons = d.coupons;
-  saveState(); renderAll();
-  toast('✅ بازیابی شد');
-}
-
-/* ================== EXPORT/IMPORT ================== */
-function exportAll(){
-  const data = JSON.stringify(state, null, 2);
-  const blob = new Blob([data], {type:'application/json'});
+function exportData(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = `noxborne-backup-${Date.now()}.json`;
@@ -1819,40 +863,22 @@ function exportAll(){
   URL.revokeObjectURL(a.href);
   toast('📤 Export شد');
 }
-function importAll(event){
-  const file = event.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
+function importJson(e){
+  const f = e.target.files[0];
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = ev => {
     try{
-      const data = JSON.parse(e.target.result);
-      if(confirm('جایگزین بشه؟')){ state = {...state, ...data}; saveState(); location.reload(); }
-    }catch(err){ toast('فایل نامعتبر', 'err'); }
+      const d = JSON.parse(ev.target.result);
+      if(confirm('جایگزین بشه؟')){
+        state = {...state, ...d};
+        save(); location.reload();
+      }
+    }catch(err){ toast('فایل نامعتبر','err'); }
   };
-  reader.readAsText(file);
-  event.target.value = '';
+  r.readAsText(f);
+  e.target.value = '';
 }
-
-/* ================== THEME / LANG ================== */
-function setLang(lang){
-  state.settings.lang = lang;
-  saveState();
-  toast(lang === 'fa' ? '🇮🇷 فارسی' : '🇺🇸 English');
-}
-
-/* ================== SHORTCUTS ================== */
-function showShortcuts(){ showModal('shortcutsModal'); }
-document.addEventListener('keydown', e => {
-  if(!currentUser) return;
-  if(e.ctrlKey && e.key === 's'){ e.preventDefault(); saveState(); toast('💾 ذخیره شد'); }
-  if(e.ctrlKey && e.key === 'f'){ e.preventDefault(); document.getElementById('searchInput')?.focus(); }
-  if(e.ctrlKey && e.key === 'z'){ e.preventDefault(); undo(); }
-  if(e.ctrlKey && e.key === 'y'){ e.preventDefault(); redo(); }
-  if(e.ctrlKey && e.key === 'u'){ e.preventDefault(); uploadToGithub(); }
-});
-
-/* ================== INIT ================== */
-loadState();
 </script>
 </body>
 </html>
